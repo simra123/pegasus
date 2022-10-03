@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'Marcellus SC', sans-serif;
+    src: url('../fonts/MarcellusSC-Regular.eot');
+    src: url('../fonts/MarcellusSC-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/MarcellusSC-Regular.woff2') format('woff2'),
+    url('../fonts/MarcellusSC-Regular.woff') format('woff'),
+    url('../fonts/MarcellusSC-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Lt', sans-serif;
+    src: url('../fonts/Roboto-Light.eot');
+    src: url('../fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Roboto-Light.woff2') format('woff2'),
+    url('../fonts/Roboto-Light.woff') format('woff'),
+    url('../fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('../fonts/Roboto-Regular.eot');
+    src: url('../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Roboto-Regular.woff2') format('woff2'),
+    url('../fonts/Roboto-Regular.woff') format('woff'),
+    url('../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*==================  GLOBLE CSS START  ==================*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Marcellus SC', sans-serif;
+    transition: all .3s ease;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+html {
+    overflow-x: hidden;
+        background-color: #000000;
+        body {
+        overflow-x: hidden;
+        background-color: #000000;
+    }
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    filter: grayscale(1);
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
+}
+
+.sec {
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    width: 1160px;
+    margin: 0 auto;
+    padding: 0 15px;
+
+    @media (min-width: 1140px) and (max-width: 1700px) {
+        zoom: 85%;
+    }
+
+    .container {
+        @media (min-width: 1140px) and (max-width: 1700px) {
+            zoom: unset;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
+}
+
+.prod_list {
+    display: flex;
+    flex-flow: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    list-style: none;
+
+    li {
+        position: relative;
+        padding: 70px 20px;
+        width: 23.8%;
+        margin-bottom: 20px;
+        background-image: linear-gradient(#39393980, #00000080);
+        border-radius: 30px;
+        text-align: center;
+
+        .sale_label {
+            background: #f3ac3b;
+            border-radius: 5px;
+            padding: 5px 10px;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+        
+        .prod_img {
+            height: 220px;
+            width: 100%;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .prod_title {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .prod_price {
+            color: #fff;
+            font-size: 14px;
+        }
+    }
+}
+
+/*==================  GLOBLE CSS END  ==================*/

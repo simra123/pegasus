@@ -1,0 +1,31 @@
+@mixin input_style {
+  border-radius: 6px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  z-index: 1;
+  position: relative;
+}
+
+@mixin title_style {
+  position: relative;
+  color: #fff;
+  font-size: 56px;
+  line-height: 70px;
+  padding-bottom: 25px;
+  margin-bottom: 40px;
+}
+
+@mixin title_style_after {
+  height: 4px;
+  width: 220px;
+  background: #f3ac3b;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
