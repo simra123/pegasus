@@ -33,7 +33,7 @@ const Header = () => {
 								</div>
 								<div className="info_wrap">
 									<h4>24/7 Support</h4>
-									<Link to="tel:+1231234567789"> +123 123 456 7789 </Link>
+									<a href="tel:1231234567789"> +123 123 456 7789 </a>
 								</div>
 							</div>
 							<div className="icon_blk center">

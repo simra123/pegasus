@@ -1,14 +1,28 @@
 @mixin input_style {
   border-radius: 6px;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 17px 15px;
+  margin-bottom: 15px;
   background: transparent;
   color: #fff;
   border: none;
   outline: none;
   z-index: 1;
   position: relative;
+  resize: none;
+}
+
+@mixin btn_style {
+  display: inline-block;
+  color: #000;
+  background-color: #f3ac3b;
+  text-decoration: none;
+  margin-top: 0;
+  padding: 12px 50px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 18px;
+  line-height: 28px;
 }
 
 @mixin title_style {
