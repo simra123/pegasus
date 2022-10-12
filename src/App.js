@@ -1,17 +1,20 @@
 import './assets/scss/main.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './header-footer';
-import { Home, About, Shop, Faq, Contact } from './pages';
+import { Home, About, Shop, Singleproduct , Faq, Contact } from './pages';
 import { Loginform, Createnewpass, Forgotpassword, Registerform, Verifyemail, Sellerform } from './forms';
+import ScrollToTop from './pages/ScrollToTop';
 
 function App() {
   return (
     <>
+    <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/singleproduct" element={<Singleproduct />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Loginform />} />

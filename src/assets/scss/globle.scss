@@ -46,16 +46,16 @@
 }
 
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+//   -webkit-appearance: none;
+//   margin: 0;
+// }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
+// input[type=number] {
+//   -moz-appearance: textfield;
+// }
 
 input[type=submit] {
     cursor: pointer;
@@ -94,8 +94,10 @@ canvas {
     width: 1160px;
     margin: 0 auto;
     padding: 0 15px;
+    position: relative;
+    z-index: 1;
 
-    @media (min-width: 1140px) and (max-width: 1700px) {
+    @media (min-width: 1140px) and (max-width: 1600px) {
         zoom: 85%;
     }
 
@@ -117,6 +119,14 @@ canvas {
     justify-content: space-between;
     list-style: none;
 
+    @media (max-width: 1024px) {
+        justify-content: start;
+    }
+
+    @media (max-width: 767px) {
+        justify-content: center;
+    }
+
     li {
         position: relative;
         padding: 70px 20px 30px;
@@ -125,6 +135,29 @@ canvas {
         background-image: linear-gradient(#39393980, #00000080);
         border-radius: 30px;
         text-align: center;
+
+        @media (max-width: 1024px) {
+            width: 31.52%;
+            margin-right: 20px;
+
+            &:nth-child(3n) {
+                margin-right: 0;
+
+                @media (max-width: 767px) {
+                    margin-right: 20px;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            margin: 0 0 10px;
+            padding: 65px 15px 15px;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
 
         .sale_label {
             background: #f3ac3b;
@@ -140,6 +173,10 @@ canvas {
             width: 100%;
             margin-bottom: 15px;
             object-fit: contain;
+
+            @media (max-width: 767px) {
+                height: 100px;
+            }
         }
 
         .prod_title {

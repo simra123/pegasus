@@ -34,7 +34,7 @@ const About = () => {
         </section>
         <section className="sec about_pg_sec2">
           <div className="container">
-            <div className="inner_wrap">
+            <div className="inner_wrap inner_wrap1">
               <div className="col img_wrap">
                 <img src={ab1} alt="no" />
               </div>
@@ -54,8 +54,8 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="inner_wrap">
-            <div className="col content_wrap">
+            <div className="inner_wrap inner_wrap2">
+              <div className="col content_wrap">
                 <h2>Sed ut dui in nisl</h2>
                 <p>
                   Nullam vitae imperdiet metus, eget convallis nibh. Integer ac

@@ -56,13 +56,13 @@ const Footer = () => {
               <div className="info">
                 <span>
                   Phone
-                  <Link to="tel:888-888-8888">888-888-8888</Link>
+                  <a href="tel:888-888-8888">888-888-8888</a>
                 </span>
               </div>
               <div className="info">
                 <span>
                   Email
-                  <Link to="mailto:admin@gmail.com">admin@gmail.com</Link>
+                  <a href="mailto:admin@gmail.com">admin@gmail.com</a>
                 </span>
               </div>
             </div>
@@ -71,7 +71,7 @@ const Footer = () => {
             <div className="col col1">
               <p>
                 Copyrights 2022.{" "}
-                <Link to="https://uatlink.com/vape-site/"> Pegasus</Link>. All
+                <Link to="/"> Pegasus</Link>. All
                 Rights Reserved.
               </p>
             </div>

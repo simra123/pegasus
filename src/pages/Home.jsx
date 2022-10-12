@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navigation } from 'swiper';
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import 'swiper/css/navigation';
+import "swiper/css/navigation";
 import homebanner from "../assets/images/banner-img.png";
 import pckthree from "../assets/images/packthree.png";
 import prodimg from "../assets/images/pro-img1.png";
@@ -127,7 +127,7 @@ const Home = () => {
         <section className="sec sec3">
           <div className="container">
             <div className="inner_wrap">
-              <div className="col col1">
+              <div className="col">
                 <h2>HOT DEALS OF THE WEEK</h2>
                 <p>
                   ElectroMaecenas eget libero sit amet erat iaculis malesuada
@@ -404,87 +404,87 @@ const Home = () => {
                       slidesPerView={3}
                       navigation
                     >
-                        <SwiperSlide>
-                          <li className="prod_list">
-                            <img src={prodimg7} alt="no" />
-                            <div className="prod_info">
-                              <h4>Evan Williams Bourbon</h4>
-                              <div className="price_wrap">
-                                <span className="regular_price">
-                                  <span className="curreny">$</span>193.52
-                                </span>
-                                <span className="discount_price">
-                                  <span className="curreny">$</span>193.52
-                                </span>
-                              </div>
+                      <SwiperSlide>
+                        <li className="prod_list">
+                          <img src={prodimg7} alt="no" />
+                          <div className="prod_info">
+                            <h4>Evan Williams Bourbon</h4>
+                            <div className="price_wrap">
+                              <span className="regular_price">
+                                <span className="curreny">$</span>193.52
+                              </span>
+                              <span className="discount_price">
+                                <span className="curreny">$</span>193.52
+                              </span>
                             </div>
-                          </li>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <li className="prod_list">
-                            <img src={prodimg7} alt="no" />
-                            <div className="prod_info">
-                              <h4>Veuve Clicquot Brut Yellow Label Champagne</h4>
-                              <div className="price_wrap">
-                                <span className="regular_price">
-                                  <span className="curreny">$</span>615.92
-                                </span>
-                                <span className="discount_price">
-                                  <span className="curreny">$</span>615.92
-                                </span>
-                              </div>
+                          </div>
+                        </li>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <li className="prod_list">
+                          <img src={prodimg7} alt="no" />
+                          <div className="prod_info">
+                            <h4>Veuve Clicquot Brut Yellow Label Champagne</h4>
+                            <div className="price_wrap">
+                              <span className="regular_price">
+                                <span className="curreny">$</span>615.92
+                              </span>
+                              <span className="discount_price">
+                                <span className="curreny">$</span>615.92
+                              </span>
                             </div>
-                          </li>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <li className="prod_list">
-                            <img src={prodimg7} alt="no" />
-                            <div className="prod_info">
-                              <h4>Victoria Mexican Lager Beer</h4>
-                              <div className="price_wrap">
-                                <span className="regular_price">
-                                  <span className="curreny">$</span>96.72
-                                </span>
-                                <span className="discount_price">
-                                  <span className="curreny">$</span>96.72
-                                </span>
-                              </div>
+                          </div>
+                        </li>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <li className="prod_list">
+                          <img src={prodimg7} alt="no" />
+                          <div className="prod_info">
+                            <h4>Victoria Mexican Lager Beer</h4>
+                            <div className="price_wrap">
+                              <span className="regular_price">
+                                <span className="curreny">$</span>96.72
+                              </span>
+                              <span className="discount_price">
+                                <span className="curreny">$</span>96.72
+                              </span>
                             </div>
-                          </li>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <li className="prod_list">
-                            <img src={prodimg7} alt="no" />
-                            <div className="prod_info">
-                              <h4>Jinro Chamisul Strawberry Soju</h4>
-                              <div className="price_wrap">
-                                <span className="regular_price">
-                                  <span className="curreny">$</span>52.72
-                                </span>
-                                <span className="discount_price">
-                                  <span className="curreny">$</span>52.72
-                                </span>
-                              </div>
+                          </div>
+                        </li>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <li className="prod_list">
+                          <img src={prodimg7} alt="no" />
+                          <div className="prod_info">
+                            <h4>Jinro Chamisul Strawberry Soju</h4>
+                            <div className="price_wrap">
+                              <span className="regular_price">
+                                <span className="curreny">$</span>52.72
+                              </span>
+                              <span className="discount_price">
+                                <span className="curreny">$</span>52.72
+                              </span>
                             </div>
-                          </li>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <li className="prod_list">
-                            <img src={prodimg7} alt="no" />
-                            <div className="prod_info">
-                              <h4>Jinro Chamisul Strawberry Soju</h4>
-                              <div className="price_wrap">
-                                <span className="regular_price">
-                                  <span className="curreny">$</span>52.72
-                                </span>
-                                <span className="discount_price">
-                                  <span className="curreny">$</span>52.72
-                                </span>
-                              </div>
+                          </div>
+                        </li>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <li className="prod_list">
+                          <img src={prodimg7} alt="no" />
+                          <div className="prod_info">
+                            <h4>Jinro Chamisul Strawberry Soju</h4>
+                            <div className="price_wrap">
+                              <span className="regular_price">
+                                <span className="curreny">$</span>52.72
+                              </span>
+                              <span className="discount_price">
+                                <span className="curreny">$</span>52.72
+                              </span>
                             </div>
-                          </li>
-                        </SwiperSlide>
-                      </Swiper>
+                          </div>
+                        </li>
+                      </SwiperSlide>
+                    </Swiper>
                   </ul>
                 </div>
               </div>
