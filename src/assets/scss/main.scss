@@ -601,40 +601,16 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
             background: #00000012;
             border-radius: 16px;
 
-            li.num_list {
-              padding-right: 15px;
-              margin-right: 15px;
-              position: relative;
+            span.ant-statistic-content-value {
               font-family: "Roboto", sans-serif;
               font-weight: bold;
               font-size: 18px;
-
-              &:after {
-                content: ":";
-                position: absolute;
-                right: 0;
-                top: -2px;
-              }
-
-              &:last-child {
-                padding-right: 0;
-                margin-right: 0;
-
-                &:after {
-                  display: none;
-                }
-              }
-
-              .num_span {
-                font-family: "Roboto", sans-serif;
-                font-weight: bold;
-                font-size: 18px;
-              }
             }
 
             .exp_tym {
               display: inline-block;
               margin-right: 16px;
+              font-size: 16px;
             }
           }
         }
@@ -702,7 +678,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
             border-radius: 16px;
             border: solid 1px #f3ac3b;
 
-            .num_list {
+            span.ant-statistic-content-value {
               color: #f3ac3b;
               padding-right: 15px;
               margin-right: 15px;
@@ -710,35 +686,13 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
               font-family: "Roboto", sans-serif;
               font-weight: bold;
               font-size: 18px;
-
-              &:after {
-                content: ":";
-                position: absolute;
-                right: 0;
-                top: -2px;
-              }
-
-              &:last-child {
-                padding-right: 0;
-                margin-right: 0;
-
-                &:after {
-                  display: none;
-                }
-              }
-
-              .num_span {
-                color: #f3ac3b;
-                font-family: "Roboto", sans-serif;
-                font-weight: bold;
-                font-size: 18px;
-              }
             }
 
             .exp_tym {
               color: #f3ac3b;
               display: inline-block;
               margin-right: 16px;
+              font-size: 16px;
             }
           }
         }
@@ -1282,7 +1236,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
               width: 100%;
               text-align: center;
             }
-            
+
             span {
               font-size: 13px;
               line-height: 18px;

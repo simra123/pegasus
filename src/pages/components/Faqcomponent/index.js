@@ -1,0 +1,1 @@
+export {default as Faqsec1 } from './Faqsec1';

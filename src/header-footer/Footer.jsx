@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="container">
           <div className="footer_top_wrap">
             <div className="col col1">
-              <Link to="https://uatlink.com/vape-site/">
+              <Link to="/">
                 <img src={companyLogo} alt="no" />
               </Link>
               <p>

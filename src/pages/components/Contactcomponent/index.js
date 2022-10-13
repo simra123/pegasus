@@ -1,0 +1,1 @@
+export {default as Contactsec1 } from './Contactsec1';

@@ -1,9 +1,9 @@
 import './assets/scss/main.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './header-footer';
-import { Home, About, Shop, Singleproduct , Faq, Contact } from './pages';
+import { Home, About, Shop, Singleproduct , Faq, Contact } from './pages/js/index';
 import { Loginform, Createnewpass, Forgotpassword, Registerform, Verifyemail, Sellerform } from './forms';
-import ScrollToTop from './pages/ScrollToTop';
+import ScrollToTop from './pages/js/ScrollToTop';
 
 function App() {
   return (
