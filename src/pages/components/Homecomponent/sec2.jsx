@@ -2,6 +2,7 @@ import React from 'react'
 import prodimg from "../../../assets/images/pro-img1.png";
 
 const sec2 = () => {
+
   return (
     <>
         <section className="sec sec2">

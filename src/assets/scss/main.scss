@@ -5,11 +5,22 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 /* HEADER START */
 #main_header {
   padding: 10px 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 11;
+  position: relative;
+  // left: 0;
+  // right: 0;
+  // top: 0;
+  width: 100%;
+  margin-bottom: -196px;
+  z-index: 2;
+
+  @media (max-width: 1024px) {
+    margin-bottom: -258px;
+  }
+
+  @media (max-width: 767px) {
+    margin-bottom: -116px;
+    padding: 15px 0;
+  }
 
   .top_head {
     .inner-wrap {
@@ -28,6 +39,34 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
         @media (max-width: 767px) {
           width: 100%;
+          display: flex;
+          flex-flow: wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .menu_btn {
+          display: none;
+
+          @media (max-width: 767px) {
+            display: block;
+
+            .nav_menu_btn {
+              padding: 6px 12px;
+              color: #fff;
+              background: #f3ac3b;
+              border: none;
+              box-shadow: none;
+              text-shadow: none;
+              font-size: 22px;
+              height: auto;
+              line-height: normal;
+
+              svg {
+                fill: #fff;
+              }
+            }
+          }
         }
       }
 
@@ -224,6 +263,61 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
   }
 }
 
+/* HEADER MENU BTN START */
+
+@media (max-width: 767px) {
+  .ant-scrolling-effect {
+    .main_menu {
+      .ant-drawer-mask {
+        background: transparent;
+      }
+
+      .ant-drawer-content-wrapper {
+        box-shadow: none;
+
+        .ant-drawer-content {
+          position: relative;
+          background-color: #000;
+          background-image: url(#{$imgPath}/sec-smoke.png);
+          background-size: 200%;
+
+          .ant-drawer-wrapper-body {
+            .ant-drawer-header {
+              border: none;
+
+              .ant-drawer-header-title {
+                .ant-drawer-close {
+                  color: #fff;
+                  font-size: 26px;
+                }
+
+                .ant-drawer-title {
+                  color: #f3ac3b;
+                  font-size: 26px;
+                  font-weight: bold;
+                  letter-spacing: 6px;
+                }
+              }
+            }
+
+            .ant-drawer-body {
+              .nav-links {
+                a {
+                  display: block;
+                  color: #fff;
+                  font-size: 32px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* HEADER MENU BTN END */
+
 /* HEADER END */
 
 .content_wrap {
@@ -249,23 +343,13 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      // transform: rotate(80deg);
-      // animation-name: spin;
-      // animation-duration: 200s;
-      // animation-iteration-count: infinite;
-      // animation-timing-function: linear;
       z-index: 0;
+
+      @media (max-width: 767px) {
+        top: -40%;
+        left: -30%;
+      }
     }
-
-    // @keyframes spin {
-    //   from {
-    //     transform: rotate(0deg);
-    //   }
-
-    //   to {
-    //     transform: rotate(360deg);
-    //   }
-    // }
 
     @media (max-width: 1024px) {
       padding: 240px 0 50px;
@@ -546,7 +630,6 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
     }
 
     @media (max-width: 767px) {
-      margin: 0;
       background-size: 400%;
       background-position: 20%;
     }
@@ -1340,6 +1423,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
             margin: 0 5px;
             background: #1C1C1C;
             color: #fff;
+            border: transparent;
             border-radius: 6px;
             font-size: 16px;
             line-height: 45px;
@@ -1358,6 +1442,13 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
               svg {
                 fill: #1c1c1c;
               }
+            }
+
+            a {
+              border: none;
+              background: transparent;
+              color: #fff;
+              border: transparent;
             }
 
             .ant-pagination-item-link {
@@ -1977,7 +2068,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
               .ant-collapse-header-text {
                 font-size: 20px;
-                line-height: 60px;
+                line-height: 38px;
                 color: #fff;
                 display: block;
 

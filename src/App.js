@@ -1,3 +1,5 @@
+// import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import 'antd/dist/antd.min.css';
 import './assets/scss/main.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './header-footer';
@@ -6,6 +8,7 @@ import { Loginform, Createnewpass, Forgotpassword, Registerform, Verifyemail, Se
 import ScrollToTop from './pages/js/ScrollToTop';
 
 function App() {
+  
   return (
     <>
     <ScrollToTop />
