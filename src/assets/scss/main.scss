@@ -2038,12 +2038,16 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
         margin-top: 50px;
 
         .ant-collapse {
+          background-color: transparent;
+          border: none;
+
           .ant-collapse-item {
             cursor: pointer;
             padding: 5px 40px;
             margin-bottom: 23px;
             background: #ffffff1a;
             border-radius: 10px;
+            border: none;
 
             @media (max-width: 1024px) {
               padding: 5px 15px;
