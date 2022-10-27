@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import "antd/dist/antd.min.css";
 import "./assets/scss/main.scss";
 import { Routes, Route } from "react-router-dom";
+import ScrollToTop from "./pages/js/ScrollToTop";
 import { Header, Footer } from "./header-footer";
 import {
 	Home,
@@ -20,7 +21,6 @@ import {
 	Verifyemail,
 	Sellerform,
 } from "./forms";
-import ScrollToTop from "./pages/js/ScrollToTop";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
 function App() {
 	const clientAuthentication = () => {
@@ -58,7 +58,7 @@ function App() {
 					element={<Shop />}
 				/>
 				<Route
-					path='/singleproduct'
+					path='/singleproduct/:id'
 					element={<Singleproduct />}
 				/>
 				<Route

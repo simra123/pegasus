@@ -1,24 +1,72 @@
-import React from "react";
-import {Filterwrap, Productlist} from './components/Shopcomponent';
+import React, { useState, useEffect } from "react";
+import { Filterwrap, Productlist } from "./components/Shopcomponent";
+import CoreHttpHandler from "../http/services/CoreHttpHandler";
 
 const Shop = () => {
-  return (
-    <>
-      <div id="shop_main">
-        <div className="content_wrap">
-          <section className="sec sec2 shop_pg_sec1">
-            {/* <canvas></canvas> */}
-            <div className="container">
-              <div className="inner_wrap">
-                <Filterwrap />
-                <Productlist />
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </>
-  );
+	const [products, setProducts] = useState([]);
+	const [totalItems, setTotalItems] = useState("");
+	const [categories, setCategories] = useState("");
+	const [currentParams, setCurrentParams] = useState({
+		limit: 9,
+		page: 0,
+	});
+	const getProducts = () => {
+		CoreHttpHandler.request(
+			"products",
+			"allProducts",
+			{
+				...currentParams,
+			},
+			(response) => {
+				const res = response.data.data.data;
+				setProducts(res.data);
+				setTotalItems(res.totalItems);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+	};
+	const getCategories = () => {
+		CoreHttpHandler.request(
+			"products",
+			"categories",
+			{},
+			(response) => {
+				const res = response.data.data.data.data;
+				setCategories(res);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+	};
+	useEffect(() => {
+		getProducts();
+		getCategories();
+	}, [currentParams]);
+	return (
+		<>
+			<div id='shop_main'>
+				<div className='content_wrap'>
+					<section className='sec sec2 shop_pg_sec1'>
+						{/* <canvas></canvas> */}
+						<div className='container'>
+							<div className='inner_wrap'>
+								<Filterwrap data={categories} />
+								<Productlist
+									products={products}
+									currentParams={currentParams}
+									setCurrentParams={setCurrentParams}
+									totalItems={totalItems}
+								/>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Shop;

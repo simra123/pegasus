@@ -1,36 +1,29 @@
 class APIS {
-  apis() {
-    return {
-      unapproved: {
-        headers: {
-          "xt-user-token": null,
-        },
-        method: "get",
-        path: "/products/unapproved",
-      },
-      approval: {
-        headers: {
-          "xt-user-token": null,
-        },
-        method: "put",
-        path: "/products/approval/:id",
-      },
-      fetch: {
-        headers: {
-          "xt-user-token": null,
-        },
-        method: "post",
-        path: "/products",
-      },
-      fetchSeller: {
-        headers: {
-          "xt-user-token": null,
-        },
-        method: "get",
-        path: "/products",
-      },
-    };
-  }
+	apis() {
+		return {
+			singleProduct: {
+				headers: {
+					"xt-client-token": null,
+				},
+				method: "get",
+				path: "/web/product/:id",
+			},
+			categories: {
+				headers: {
+					"xt-client-token": null,
+				},
+				method: "get",
+				path: "/web/categories",
+			},
+			allProducts: {
+				headers: {
+					"xt-client-token": null,
+				},
+				method: "post",
+				path: "/web/product/categories",
+			},
+		};
+	}
 }
 
 export default new APIS();
