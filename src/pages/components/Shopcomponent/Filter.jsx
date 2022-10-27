@@ -1,7 +1,9 @@
-import React from "react";
+import { Slider } from "antd";
+import React, { useState } from "react";
 import prodimg from "../../../assets/images/pro-img1.png";
 
 const Filter = () => {
+  const [disabled] = useState(false);
   return (
     <>
       <div className="filter_wrap">
@@ -21,6 +23,8 @@ const Filter = () => {
           </div>
           <div className="price_rng_wrap">
             <h4>Price Filter</h4>
+            <Slider defaultValue={30} disabled={disabled} className="no_need" />
+            <Slider range defaultValue={[20, 50]} className="main" />
           </div>
           <div className="discnt_prod_list">
             <h4>Discounted Products</h4>

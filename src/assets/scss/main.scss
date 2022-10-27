@@ -1121,6 +1121,19 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
                 margin-bottom: 10px;
               }
             }
+
+            .ant-slider.main {
+              .ant-slider-handle {
+                border: 2px solid #f3ac3b;
+              }
+              .ant-slider-track {
+                background-color: #f3ac3b;
+              }
+            }
+
+            .no_need {
+              display: none;
+            }
           }
 
           .discnt_prod_list {
@@ -2059,7 +2072,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
               .ant-collapse-expand-icon {
                 position: absolute;
                 right: 0;
-                top: 20px;
+                top: 10px;
 
                 @media (max-width: 1024px) {
                   top: 15px;
@@ -2210,6 +2223,103 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
             &:hover {
               background-color: #ffffff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* WISHLIST START */
+  .sec2.wishlist_wrap {
+    padding: 220px 0 100px;
+    margin-bottom: 50px;
+    border-bottom: solid 1px #70707052;
+
+    @media (max-width: 1024px) {
+      margin-bottom: 0;
+      padding: 300px 0 30px !important;
+    }
+
+    @media (max-width: 767px) {
+      padding: 130px 0 30px !important;
+    }
+
+    .ant-table-wrapper {
+      .ant-table {
+        color: #fff;
+        background: transparent;
+
+        .ant-table-content {
+          table {
+            border-radius: 0;
+            border-collapse: collapse;
+            border-spacing: 0px;
+
+            thead {
+              th {
+                background: transparent;
+                color: #fff;
+                font-size: 24px;
+                border-radius: 0;
+                border: none;
+              }
+            }
+
+            tbody {
+              tr {
+
+                &:hover td {
+                  background-color: transparent;
+                }
+
+                td {
+                  border: solid 1px #ffffff80;
+                  border-left: none;
+                  border-right: none;
+
+                  a {
+                    color: #f3ac3b;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .ant-pagination {
+        .ant-pagination-item-link {
+          background: #1C1C1C;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+        }
+
+        li.ant-pagination-item-active {
+          a {
+            background: #f3ac3b;
+          }
+        }
+
+        li {
+          height: 45px;
+          width: 48px;
+          text-align: center;
+          margin: 0 5px;
+          border: transparent;
+          font-size: 16px;
+          line-height: 45px;
+          border-radius: 6px;
+          cursor: pointer;
+
+          a {
+            border-radius: 6px;
+            background: #1C1C1C;
+            color: #fff;
+
+            &:hover {
+              background: #f3ac3b;
             }
           }
         }

@@ -1,9 +1,9 @@
 // import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import 'antd/dist/antd.min.css';
+// import 'antd/dist/antd.min.css';
 import './assets/scss/main.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './header-footer';
-import { Home, About, Shop, Singleproduct , Faq, Contact } from './pages/js/index';
+import { Home, About, Shop, Singleproduct , Faq, Contact, Wishlist } from './pages/js/index';
 import { Loginform, Createnewpass, Forgotpassword, Registerform, Verifyemail, Sellerform } from './forms';
 import ScrollToTop from './pages/js/ScrollToTop';
 
@@ -20,6 +20,7 @@ function App() {
         <Route path="/singleproduct" element={<Singleproduct />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Loginform />} />
         <Route path="/createnewpass" element={<Createnewpass />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />

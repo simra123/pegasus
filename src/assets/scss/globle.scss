@@ -2,9 +2,9 @@
     font-family: 'Marcellus SC', sans-serif;
     src: url('../fonts/MarcellusSC-Regular.eot');
     src: url('../fonts/MarcellusSC-Regular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/MarcellusSC-Regular.woff2') format('woff2'),
-    url('../fonts/MarcellusSC-Regular.woff') format('woff'),
-    url('../fonts/MarcellusSC-Regular.ttf') format('truetype');
+        url('../fonts/MarcellusSC-Regular.woff2') format('woff2'),
+        url('../fonts/MarcellusSC-Regular.woff') format('woff'),
+        url('../fonts/MarcellusSC-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,9 +14,9 @@
     font-family: 'Roboto Lt', sans-serif;
     src: url('../fonts/Roboto-Light.eot');
     src: url('../fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Roboto-Light.woff2') format('woff2'),
-    url('../fonts/Roboto-Light.woff') format('woff'),
-    url('../fonts/Roboto-Light.ttf') format('truetype');
+        url('../fonts/Roboto-Light.woff2') format('woff2'),
+        url('../fonts/Roboto-Light.woff') format('woff'),
+        url('../fonts/Roboto-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -26,9 +26,9 @@
     font-family: 'Roboto', sans-serif;
     src: url('../fonts/Roboto-Regular.eot');
     src: url('../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Roboto-Regular.woff2') format('woff2'),
-    url('../fonts/Roboto-Regular.woff') format('woff'),
-    url('../fonts/Roboto-Regular.ttf') format('truetype');
+        url('../fonts/Roboto-Regular.woff2') format('woff2'),
+        url('../fonts/Roboto-Regular.woff') format('woff'),
+        url('../fonts/Roboto-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -42,7 +42,7 @@
     box-sizing: border-box;
     font-family: 'Marcellus SC', sans-serif;
     font-weight: normal;
-    transition: all .3s ease;
+    transition: all .3s ease-in-out;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -62,9 +62,10 @@ input[type=submit] {
 }
 
 html {
-    overflow-x: hidden;
-        background-color: #000000;
-        body {
+    // overflow-y: scroll;
+    background-color: #000000;
+
+    body {
         overflow-x: hidden;
         background-color: #000000;
     }
@@ -167,7 +168,7 @@ canvas {
             left: 20px;
             top: 20px;
         }
-        
+
         .prod_img {
             height: 220px;
             width: 100%;
