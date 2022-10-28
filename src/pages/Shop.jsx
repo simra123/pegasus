@@ -5,12 +5,14 @@ import CoreHttpHandler from "../http/services/CoreHttpHandler";
 const Shop = () => {
 	const [products, setProducts] = useState([]);
 	const [totalItems, setTotalItems] = useState("");
+	const [loading, setLoading] = useState(true);
 	const [categories, setCategories] = useState([]);
 	const [currentParams, setCurrentParams] = useState({
 		limit: 9,
 		page: 0,
 	});
 	const getProducts = () => {
+		setLoading(true);
 		CoreHttpHandler.request(
 			"products",
 			"allProducts",
@@ -18,11 +20,13 @@ const Shop = () => {
 				...currentParams,
 			},
 			(response) => {
+				setLoading(false);
 				const res = response.data.data.data;
 				setProducts(res.data);
 				setTotalItems(res.totalItems);
 			},
 			(err) => {
+				setLoading(false);
 				console.log(err);
 			}
 		);
@@ -55,6 +59,7 @@ const Shop = () => {
 							<div className='inner_wrap'>
 								<Filterwrap data={categories} />
 								<Productlist
+									loading={loading}
 									products={products}
 									currentParams={currentParams}
 									setCurrentParams={setCurrentParams}

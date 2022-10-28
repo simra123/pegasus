@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
-
-const sec5 = ({ data, recent }) => {
+import { Loader } from "../../../reauseble";
+const sec5 = ({ data, recent, loading }) => {
 	return (
 		<>
 			<section className='sec sec5'>
@@ -14,17 +14,20 @@ const sec5 = ({ data, recent }) => {
 						<h2>Featured Brands</h2>
 						<div className='prod_wrap'>
 							<ul className='client_list'>
-								{data.map((val, index) => {
-									return (
-										<li key={index}>
-											<img
-												src={val.image}
-												className='prod_img'
-												alt='no'
-											/>
-										</li>
-									);
-								})}
+								{!loading && data
+									? data.map((val, index) => {
+											return (
+												<li key={index}>
+													<img
+														src={val.image}
+														className='prod_img'
+														alt='no'
+													/>
+												</li>
+											);
+									  })
+									: null}
+								<Loader loading={loading} />
 							</ul>
 						</div>
 					</div>
@@ -53,35 +56,38 @@ const sec5 = ({ data, recent }) => {
 											},
 										}}
 										navigation>
-										{recent.map((val) => {
-											const image = val.attachment.filter(
-												(att) => att.type == 0
-											);
-											return (
-												<SwiperSlide>
-													<Link to={`/singleproduct/${val.id}`}>
-														<li className='prod_list'>
-															<img
-																src={image[0]?.url}
-																alt='no'
-															/>
-															<div className='prod_info'>
-																<h4>{val.name}</h4>
-																<div className='price_wrap'>
-																	<span className='regular_price'>
-																		<span className='curreny'>$</span>193.52
-																	</span>
-																	<span className='discount_price'>
-																		<span className='curreny'>$</span>
-																		{val.price}
-																	</span>
-																</div>
-															</div>
-														</li>
-													</Link>
-												</SwiperSlide>
-											);
-										})}
+										{!loading && recent
+											? recent.map((val) => {
+													const image = val.attachment.filter(
+														(att) => att.type == 0
+													);
+													return (
+														<SwiperSlide>
+															<Link to={`/singleproduct/${val.id}`}>
+																<li className='prod_list'>
+																	<img
+																		src={image[0]?.url}
+																		alt='no'
+																	/>
+																	<div className='prod_info'>
+																		<h4>{val.name}</h4>
+																		<div className='price_wrap'>
+																			<span className='regular_price'>
+																				<span className='curreny'>$</span>193.52
+																			</span>
+																			<span className='discount_price'>
+																				<span className='curreny'>$</span>
+																				{val.price}
+																			</span>
+																		</div>
+																	</div>
+																</li>
+															</Link>
+														</SwiperSlide>
+													);
+											  })
+											: null}
+										<Loader loading={loading} />
 									</Swiper>
 								</ul>
 							</div>

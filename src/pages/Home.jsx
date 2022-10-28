@@ -6,6 +6,7 @@ const Home = () => {
 	const [store, setStore] = useState([]);
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 	const [recentlyViewed, setRecentlyViewed] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const getAllData = () => {
 		CoreHttpHandler.request(
@@ -16,6 +17,7 @@ const Home = () => {
 				page: 0,
 			},
 			(response) => {
+				setLoading(false);
 				const res = response.data.data.data;
 				setFeaturedProducts(res.data);
 				setStore(res.store);
@@ -23,6 +25,7 @@ const Home = () => {
 			},
 			(err) => {
 				console.log(err);
+				setLoading(false);
 			}
 		);
 	};
@@ -34,12 +37,16 @@ const Home = () => {
 			<div id='home_main'>
 				<div className='content_wrap'>
 					<Sec1 />
-					<Sec2 data={featuredProducts} />
+					<Sec2
+						data={featuredProducts}
+						loading={loading}
+					/>
 					{/* <Sec3 /> */}
 					{/* <Sec4 /> */}
 					<Sec5
 						data={store}
 						recent={recentlyViewed}
+						loading={loading}
 					/>
 				</div>
 			</div>

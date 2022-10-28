@@ -1,8 +1,8 @@
 import React from "react";
 import prodimg from "../../../assets/images/pro-img1.png";
 import { Pagination } from "antd";
-
-const Productlist = ({ products, setCurrentParams, totalItems }) => {
+import { Loader } from "../../../reauseble";
+const Productlist = ({ products, setCurrentParams, totalItems, loading }) => {
 	console.log(totalItems);
 	return (
 		<>
@@ -24,23 +24,26 @@ const Productlist = ({ products, setCurrentParams, totalItems }) => {
 					</div>
 				</div>
 				<ul className='prod_list'>
-					{products.map((val) => {
-						const image = val.attachment.filter((att) => att.type == 0);
-						return (
-							<li key={val.id}>
-								<img
-									src={image[0].url}
-									className='prod_img'
-									alt='no'
-								/>
-								<h3 className='prod_title'>{val.name}</h3>
-								<span className='prod_price'>
-									<span className='curreny'>$</span>
-									{val.price}
-								</span>
-							</li>
-						);
-					})}
+					{!loading && products
+						? products.map((val) => {
+								const image = val.attachment.filter((att) => att.type == 0);
+								return (
+									<li key={val.id}>
+										<img
+											src={image[0].url}
+											className='prod_img'
+											alt='no'
+										/>
+										<h3 className='prod_title'>{val.name}</h3>
+										<span className='prod_price'>
+											<span className='curreny'>$</span>
+											{val.price}
+										</span>
+									</li>
+								);
+						  })
+						: null}
+					<Loader loading={loading} />
 				</ul>
 				<Pagination
 					defaultCurrent={1}
