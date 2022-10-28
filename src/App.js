@@ -1,9 +1,7 @@
 // import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { useEffect } from "react";
-import "antd/dist/antd.min.css";
 import "./assets/scss/main.scss";
 import { Routes, Route } from "react-router-dom";
-import ScrollToTop from "./pages/js/ScrollToTop";
 import { Header, Footer } from "./header-footer";
 import {
 	Home,
@@ -12,6 +10,7 @@ import {
 	Singleproduct,
 	Faq,
 	Contact,
+	Wishlist,
 } from "./pages/js/index";
 import {
 	Loginform,
@@ -21,6 +20,7 @@ import {
 	Verifyemail,
 	Sellerform,
 } from "./forms";
+import ScrollToTop from "./pages/js/ScrollToTop";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
 function App() {
 	const clientAuthentication = () => {
@@ -58,7 +58,7 @@ function App() {
 					element={<Shop />}
 				/>
 				<Route
-					path='/singleproduct/:id'
+					path='/singleproduct'
 					element={<Singleproduct />}
 				/>
 				<Route
@@ -68,6 +68,10 @@ function App() {
 				<Route
 					path='/contact'
 					element={<Contact />}
+				/>
+				<Route
+					path='/wishlist'
+					element={<Wishlist />}
 				/>
 				<Route
 					path='/login'

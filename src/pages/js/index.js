@@ -4,3 +4,4 @@ export {default as Shop } from '../Shop';
 export {default as Singleproduct } from '../Singleproduct';
 export {default as Faq } from '../Faq';
 export {default as Contact } from '../Contact';
+export {default as Wishlist } from '../Wishlist';

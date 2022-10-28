@@ -1,8 +1,8 @@
-import React from "react";
+import { Slider } from "antd";
+import React, { useState } from "react";
 import prodimg from "../../../assets/images/pro-img1.png";
 
 const Filter = ({ data }) => {
-	console.log(data);
 	return (
 		<>
 			<div className='filter_wrap'>
@@ -24,9 +24,13 @@ const Filter = ({ data }) => {
 					<div className='cat_wrap'>
 						<h4>Categories</h4>
 						<ul className='cat_list'>
-							{data.map((val) => {
+							{data?.map((val) => {
 								return (
-									<li style={{ textTransform: "capitalize" }}>{val.name}</li>
+									<li
+										key={val.id}
+										style={{ textTransform: "capitalize" }}>
+										{val.name}
+									</li>
 								);
 							})}
 						</ul>

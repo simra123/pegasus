@@ -27,7 +27,7 @@ const Productlist = ({ products, setCurrentParams, totalItems }) => {
 					{products.map((val) => {
 						const image = val.attachment.filter((att) => att.type == 0);
 						return (
-							<li>
+							<li key={val.id}>
 								<img
 									src={image[0].url}
 									className='prod_img'

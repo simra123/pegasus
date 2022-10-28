@@ -1121,6 +1121,19 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
                 margin-bottom: 10px;
               }
             }
+
+            .ant-slider.main {
+              .ant-slider-handle {
+                border: 2px solid #f3ac3b;
+              }
+              .ant-slider-track {
+                background-color: #f3ac3b;
+              }
+            }
+
+            .no_need {
+              display: none;
+            }
           }
 
           .discnt_prod_list {
@@ -2059,7 +2072,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
               .ant-collapse-expand-icon {
                 position: absolute;
                 right: 0;
-                top: 20px;
+                top: 10px;
 
                 @media (max-width: 1024px) {
                   top: 15px;

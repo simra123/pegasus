@@ -5,7 +5,7 @@ import CoreHttpHandler from "../http/services/CoreHttpHandler";
 const Shop = () => {
 	const [products, setProducts] = useState([]);
 	const [totalItems, setTotalItems] = useState("");
-	const [categories, setCategories] = useState("");
+	const [categories, setCategories] = useState([]);
 	const [currentParams, setCurrentParams] = useState({
 		limit: 9,
 		page: 0,
