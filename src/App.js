@@ -58,7 +58,7 @@ function App() {
 					element={<Shop />}
 				/>
 				<Route
-					path='/singleproduct'
+					path='/singleproduct/:id'
 					element={<Singleproduct />}
 				/>
 				<Route
