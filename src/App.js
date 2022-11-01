@@ -29,11 +29,12 @@ function App() {
 			"auth",
 			{},
 			(response) => {
+				console.log(response , "auth success")
 				const token = response.data.data.token;
 				localStorage.setItem("client_token", token);
 			},
 			(err) => {
-				console.log(err);
+				console.log(err , "auth error ");
 			}
 		);
 	};
