@@ -4,7 +4,6 @@ import homebanner from "../../../assets/images/banner-img.png";
 import pckthree from "../../../assets/images/packthree.png";
 
 const sec1 = () => {
-
   return (
     <>
       <section className="sec sec1">
