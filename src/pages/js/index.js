@@ -5,3 +5,5 @@ export {default as Singleproduct } from '../Singleproduct';
 export {default as Faq } from '../Faq';
 export {default as Contact } from '../Contact';
 export {default as Wishlist } from '../Wishlist';
+export {default as Checkout } from '../Checkout';
+export {default as Cart } from '../Cart';
