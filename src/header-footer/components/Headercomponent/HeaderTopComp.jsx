@@ -77,7 +77,7 @@ const HeaderTopComp = () => {
                   <img src={userimg} alt="no" />
                 </div>
                 <div className="info_wrap">
-                  <h4>account</h4>
+                  <h4>Account</h4>
                   <Link to="/login"> Sign In </Link>
                 </div>
               </div>
@@ -87,7 +87,7 @@ const HeaderTopComp = () => {
                   <span className="prod_list">0</span>
                 </div>
                 <div className="info_wrap">
-                  <h4>cart</h4>
+                  <h4>Cart</h4>
                   <Link to="#0">
                     <span className="curreny">$</span>0.00
                   </Link>

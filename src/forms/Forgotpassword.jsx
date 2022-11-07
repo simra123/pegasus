@@ -11,7 +11,7 @@ const Forgotpassword = () => {
                     <div className="form_wrap">
                         <form>
                             <div className="field_wrap full_div">
-                                <input type="text" name="" placeholder="Enter Your Email" required />
+                                <input type="email" name="" placeholder="Enter Your Email" required />
                             </div>
                             <div className="btn_wrap">
                                 <input type="submit" name="" />
