@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
-
+import {
+	ToastAlertSuccess,
+	ToastAlertError,
+	LoadingButton,
+} from "../reauseble";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 const Login = () => {
+	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = (e) => {
+		setLoading(true);
 		e.preventDefault();
 		CoreHttpHandler.request(
 			"customers",
@@ -16,19 +25,32 @@ const Login = () => {
 				password: password,
 			},
 			(response) => {
+				setLoading(false);
 				const token = response.data.data.token;
 				localStorage.setItem("user_token", token);
+
+				ToastAlertSuccess("you have Login Successfully");
+
+				setTimeout(() => {
+					navigate("/");
+					window.location.reload(false);
+				}, 2000);
 			},
 			(err) => {
-				console.log(err);
+				setLoading(false);
+
+				ToastAlertError(
+					err?.response?.data?.message
+						? err?.response.data.message
+						: "something went wrong"
+				);
 			}
 		);
 	};
 
-	const token = localStorage.getItem("user_token");
-	console.log(token);
 	return (
 		<>
+			<ToastContainer />
 			<section className='main_form'>
 				{/* <canvas></canvas> */}
 				<div className='container'>
@@ -64,13 +86,10 @@ const Login = () => {
 								<div className='field_wrap hlf_div'>
 									<Link to='/forgotpassword'> Forget Password </Link>
 								</div>
-								<div className='btn_wrap'>
-									<input
-										type='submit'
-										name=''
-										onClick={(e) => handleSubmit(e)}
-									/>
-								</div>
+								<LoadingButton
+									loading={loading}
+									onClick={handleSubmit}
+								/>
 							</form>
 						</div>
 						<div className='bottom_wrap'>

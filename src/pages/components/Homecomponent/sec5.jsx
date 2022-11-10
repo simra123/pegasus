@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
-import { Loader } from "../../../reauseble";
+import { Loader, ProductImage } from "../../../reauseble";
 const sec5 = ({ data, recent, loading }) => {
 	return (
 		<>
@@ -58,15 +58,16 @@ const sec5 = ({ data, recent, loading }) => {
 										navigation>
 										{!loading && recent
 											? recent.map((val) => {
-													const image = val.attachment.filter(
-														(att) => att.type == 0
-													);
 													return (
 														<SwiperSlide>
 															<Link to={`/singleproduct/${val.id}`}>
 																<li className='prod_list'>
 																	<img
-																		src={image[0]?.url}
+																		src={
+																			val.featured_image
+																				? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
+																				: ProductImage
+																		}
 																		alt='no'
 																	/>
 																	<div className='prod_info'>

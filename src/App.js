@@ -1,30 +1,32 @@
 // import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import "./assets/scss/main.scss";
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./header-footer";
-import { Home, About, Shop,	Singleproduct, Faq,	Contact, Wishlist, Checkout, Cart } from "./pages/js/index";
-import { Loginform,	Createnewpass, Forgotpassword, Registerform, Verifyemail, Sellerform, } from "./forms";
+import {
+	Home,
+	About,
+	Shop,
+	Singleproduct,
+	Faq,
+	Contact,
+	Wishlist,
+	Checkout,
+	Cart,
+} from "./pages/js/index";
+import {
+	Loginform,
+	Createnewpass,
+	Forgotpassword,
+	Registerform,
+	Verifyemail,
+	Sellerform,
+} from "./forms";
 import ScrollToTop from "./pages/js/ScrollToTop";
-import CoreHttpHandler from "./http/services/CoreHttpHandler";
+import { ClientAuthentication } from "./reauseble";
 function App() {
-	const clientAuthentication = () => {
-		CoreHttpHandler.request(
-			"client",
-			"auth",
-			{},
-			(response) => {
-				console.log(response , "auth success")
-				const token = response.data.data.token;
-				localStorage.setItem("client_token", token);
-			},
-			(err) => {
-				console.log(err , "auth error ");
-			}
-		);
-	};
 	useEffect(() => {
-		clientAuthentication();
+		ClientAuthentication();
 	}, []);
 	return (
 		<>

@@ -1,48 +1,49 @@
 @font-face {
-    font-family: 'Marcellus SC', sans-serif;
-    src: url('../fonts/MarcellusSC-Regular.eot');
-    src: url('../fonts/MarcellusSC-Regular.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/MarcellusSC-Regular.woff2') format('woff2'),
-        url('../fonts/MarcellusSC-Regular.woff') format('woff'),
-        url('../fonts/MarcellusSC-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Marcellus SC", sans-serif;
+	src: url("../fonts/MarcellusSC-Regular.eot");
+	src: url("../fonts/MarcellusSC-Regular.eot?#iefix")
+			format("embedded-opentype"),
+		url("../fonts/MarcellusSC-Regular.woff2") format("woff2"),
+		url("../fonts/MarcellusSC-Regular.woff") format("woff"),
+		url("../fonts/MarcellusSC-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto Lt', sans-serif;
-    src: url('../fonts/Roboto-Light.eot');
-    src: url('../fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Roboto-Light.woff2') format('woff2'),
-        url('../fonts/Roboto-Light.woff') format('woff'),
-        url('../fonts/Roboto-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Roboto Lt", sans-serif;
+	src: url("../fonts/Roboto-Light.eot");
+	src: url("../fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"),
+		url("../fonts/Roboto-Light.woff2") format("woff2"),
+		url("../fonts/Roboto-Light.woff") format("woff"),
+		url("../fonts/Roboto-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('../fonts/Roboto-Regular.eot');
-    src: url('../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Roboto-Regular.woff2') format('woff2'),
-        url('../fonts/Roboto-Regular.woff') format('woff'),
-        url('../fonts/Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Roboto", sans-serif;
+	src: url("../fonts/Roboto-Regular.eot");
+	src: url("../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"),
+		url("../fonts/Roboto-Regular.woff2") format("woff2"),
+		url("../fonts/Roboto-Regular.woff") format("woff"),
+		url("../fonts/Roboto-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 /*==================  GLOBLE CSS START  ==================*/
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Marcellus SC', sans-serif;
-    font-weight: normal;
-    transition: all .3s ease-in-out;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Marcellus SC", sans-serif;
+	font-weight: normal;
+	transition: all 0.3s ease-in-out;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -57,145 +58,145 @@
 //   -moz-appearance: textfield;
 // }
 
-input[type=submit] {
-    cursor: pointer;
+input[type="submit"] {
+	cursor: pointer;
 }
 
 html {
-    overflow-x: hidden;
-    background-color: #000000;
+	overflow-x: hidden;
+	background-color: #000000;
 
-    body {
-        overflow-x: hidden;
-        background-color: #000000;
-    }
+	body {
+		overflow-x: hidden;
+		background-color: #000000;
+	}
 }
 
 canvas {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    filter: grayscale(1);
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	filter: grayscale(1);
 
-    @media (max-width: 1024px) {
-        display: none;
-    }
+	@media (max-width: 1024px) {
+		display: none;
+	}
 }
 
 .sec {
-    position: relative;
-    overflow: hidden;
+	position: relative;
+	overflow: hidden;
 }
 
 .container {
-    width: 1160px;
-    margin: 0 auto;
-    padding: 0 15px;
-    position: relative;
-    z-index: 2;
+	width: 1160px;
+	margin: 0 auto;
+	padding: 0 15px;
+	position: relative;
+	z-index: 2;
 
-    @media (min-width: 1140px) and (max-width: 1600px) {
-        zoom: 85%;
-    }
+	@media (min-width: 1140px) and (max-width: 1600px) {
+		zoom: 85%;
+	}
 
-    .container {
-        @media (min-width: 1140px) and (max-width: 1700px) {
-            zoom: unset;
-        }
-    }
+	.container {
+		@media (min-width: 1140px) and (max-width: 1700px) {
+			zoom: unset;
+		}
+	}
 
-    @media (max-width: 1024px) {
-        width: 100%;
-    }
+	@media (max-width: 1024px) {
+		width: 100%;
+	}
 }
 
 .prod_list {
-    display: flex;
-    flex-flow: wrap;
-    align-items: stretch;
-    justify-content: space-between;
-    list-style: none;
+	display: flex;
+	flex-flow: wrap;
+	align-items: stretch;
+	justify-content: space-between;
+	list-style: none;
 
-    @media (max-width: 1024px) {
-        justify-content: start;
-    }
+	@media (max-width: 1024px) {
+		justify-content: start;
+	}
 
-    @media (max-width: 767px) {
-        justify-content: center;
-    }
+	@media (max-width: 767px) {
+		justify-content: center;
+	}
 
-    li {
-        position: relative;
-        padding: 60px 20px 30px;
-        width: 23.8%;
-        margin-bottom: 20px;
-        background-image: linear-gradient(#39393980, #00000080);
-        border-radius: 30px;
-        text-align: center;
+	li {
+		position: relative;
+		padding: 60px 20px 30px;
+		width: 23.8%;
+		margin-bottom: 20px;
+		background-image: linear-gradient(#39393980, #00000080);
+		border-radius: 30px;
+		text-align: center;
 
-        @media (max-width: 1024px) {
-            width: 31.52%;
-            margin-right: 20px;
+		@media (max-width: 1024px) {
+			width: 31.52%;
+			margin-right: 20px;
 
-            &:nth-child(3n) {
-                margin-right: 0;
+			&:nth-child(3n) {
+				margin-right: 0;
 
-                @media (max-width: 767px) {
-                    margin-right: 20px;
-                }
-            }
-        }
+				@media (max-width: 767px) {
+					margin-right: 20px;
+				}
+			}
+		}
 
-        @media (max-width: 767px) {
-            width: 100%;
-            margin: 0 0 10px;
-            padding: 65px 15px 15px;
+		@media (max-width: 767px) {
+			width: 100%;
+			margin: 0 0 10px;
+			padding: 65px 15px 15px;
 
-            &:nth-child(2n) {
-                margin-right: 0;
-            }
-        }
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+		}
 
-        .sale_label {
-            background: #f3ac3b;
-            border-radius: 5px;
-            padding: 5px 10px;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-        }
+		.sale_label {
+			background: #f3ac3b;
+			border-radius: 5px;
+			padding: 5px 10px;
+			position: absolute;
+			left: 20px;
+			top: 20px;
+		}
 
-        .prod_img {
-            height: 220px;
-            width: 100%;
-            margin-bottom: 15px;
-            object-fit: cover;
-            border-radius: 30px 30px 0;
+		.prod_img {
+			height: 220px;
+			width: 100%;
+			margin-bottom: 15px;
+			object-fit: cover;
+			border-radius: 30px 30px 0;
 
-            @media (max-width: 767px) {
-                height: 100px;
-            }
-        }
+			@media (max-width: 767px) {
+				height: 100px;
+			}
+		}
 
-        .prod_title {
-            color: #fff;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
+		.prod_title {
+			color: #fff;
+			font-size: 16px;
+			margin-bottom: 10px;
+		}
 
-        .prod_price {
-            color: #fff;
-            font-size: 14px;
+		.prod_price {
+			color: #fff;
+			font-size: 14px;
 
-            .curreny {
-                margin-right: 5px;
-            }
-        }
-    }
+			.curreny {
+				margin-right: 5px;
+			}
+		}
+	}
 }
 
 /*==================  GLOBLE CSS END  ==================*/

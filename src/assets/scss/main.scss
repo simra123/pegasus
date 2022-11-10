@@ -322,7 +322,6 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 /* HEADER END */
 
 .content_wrap {
-
 	/* SEC1 START */
 	.sec1 {
 		padding: 140px 0 50px;
@@ -2435,8 +2434,6 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 			}
 		}
 	}
-
-
 }
 
 /* MAIN FORM START */
@@ -2531,7 +2528,6 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 				flex-flow: wrap;
 
 				.field_wrap {
-
 					input[type="text"],
 					input[type="email"],
 					input[type="number"],
@@ -2596,10 +2592,10 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 					width: 100%;
 					margin-top: 30px;
 
-					input[type="submit"] {
+					button {
 						width: 100%;
 						background: #f3ac3b;
-						font-size: 22px;
+						font-size: 18px;
 						border-radius: 6px;
 						padding: 10px;
 						outline: none;
@@ -2607,6 +2603,12 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
 						&:hover {
 							background-color: #fff;
+						}
+						&:disabled {
+							// -webkit-filter: grayscale(30%);
+							// filter: grayscale(30%);
+							opacity: 0.6;
+							pointer-events: none;
 						}
 					}
 				}
@@ -2622,7 +2624,6 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 				}
 			}
 		}
-
 
 		.form_wrap.verifyemailform {
 			form {
