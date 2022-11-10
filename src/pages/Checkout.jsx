@@ -36,7 +36,7 @@ const Checkout = () => {
                 </div>
                 <div className="field_wrap hlf_div full_div">
                   <input
-                    type="email"
+                    type="number"
                     name=""
                     placeholder="Phone No.*"
                     required

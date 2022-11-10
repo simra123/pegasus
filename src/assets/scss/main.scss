@@ -2087,6 +2087,11 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 						border-radius: 10px;
 						border: none;
 
+						.ant-collapse-content {
+							border: none;
+							background-color: transparent;
+						}
+
 						@media (max-width: 1024px) {
 							padding: 5px 15px;
 						}
@@ -2097,7 +2102,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 							.ant-collapse-expand-icon {
 								position: absolute;
 								right: 0;
-								top: 10px;
+								top: 20px;
 
 								@media (max-width: 1024px) {
 									top: 15px;
