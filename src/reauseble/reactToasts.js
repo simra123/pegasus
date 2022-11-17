@@ -8,6 +8,9 @@ import {
 	ToastContainer,
 } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import parse from "html-react-parser";
+import { Link } from "react-router-dom";
+
 const ToastSuccess = (heading, text) => {
 	toast.success(
 		<>
@@ -28,11 +31,45 @@ const ToastSuccess = (heading, text) => {
 		{ hideProgressBar: false }
 	);
 };
+const ToastCart = (text) => {
+	toast.success(
+		<>
+			{/* <div className='toastify-header'>
+				<div className='title-wrapper'>
+					<Avatar
+						size='sm'
+						color='success'
+						icon={<CheckCircle size={12} />}
+					/>
+				</div>
+			</div> */}
+
+			<div className='toastify-body p-0'>
+				<h3
+					className='toast-title font-weight-bold'
+					style={{ margin: "none" }}></h3>
+
+				<span>
+					{" "}
+					Cart Added Successfully,
+					<Link
+						to='/cart'
+						style={{ color: "#f3ac3b" }}>
+						{" "}
+						Visit
+					</Link>{" "}
+				</span>
+			</div>
+		</>,
+		{ hideProgressBar: false }
+	);
+};
+
 const ToastAlertSuccess = (text) => {
 	toast.success(
 		<>
 			<div className='toastify-body p-0'>
-				<span>{text}</span>
+				<span>{text ? parse(text) : text}</span>
 			</div>
 		</>,
 		{
@@ -78,7 +115,13 @@ const ToastError = (heading, text) => {
 		{ hideProgressBar: false }
 	);
 };
-export { ToastSuccess, ToastError, ToastAlertError, ToastAlertSuccess };
+export {
+	//	ToastSuccess,
+	ToastError,
+	ToastAlertError,
+	ToastAlertSuccess,
+	ToastCart,
+};
 // const notifySuccess = () =>
 // 	toast.success(<SuccessToast />, { hideProgressBar: true });
 // const notifyError = () =>

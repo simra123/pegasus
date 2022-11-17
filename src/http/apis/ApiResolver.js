@@ -6,6 +6,9 @@ import Customers from "./customers";
 import Store from "./stores";
 import Home from "./home";
 import Riders from "./riders";
+import Cart from "./cart";
+import Forms from "./forms";
+import Orders from "./orders";
 class ApiResolver {
 	constructor() {
 		this.apis = {
@@ -17,6 +20,9 @@ class ApiResolver {
 			stores: Store.apis(),
 			riders: Riders.apis(),
 			home: Home.apis(),
+			cart: Cart.apis(),
+			forms: Forms.apis(),
+			orders: Orders.apis(),
 		};
 	}
 

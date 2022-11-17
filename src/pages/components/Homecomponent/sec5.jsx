@@ -73,13 +73,24 @@ const sec5 = ({ data, recent, loading }) => {
 																	<div className='prod_info'>
 																		<h4>{val.name}</h4>
 																		<div className='price_wrap'>
-																			<span className='regular_price'>
-																				<span className='curreny'>$</span>193.52
-																			</span>
-																			<span className='discount_price'>
-																				<span className='curreny'>$</span>
-																				{val.price}
-																			</span>
+																			{val.sale_price > 0 ? (
+																				<span className='regular_price'>
+																					<span className='curreny'>$ </span>
+																					{val.price}
+																				</span>
+																			) : (
+																				<span className='discount_price'>
+																					<span className='curreny'>$ </span>
+																					{val.price}
+																				</span>
+																			)}
+
+																			{val?.sale_price > 0 && (
+																				<span className='discount_price'>
+																					<span className='curreny'>$</span>
+																					{val.sale_price}
+																				</span>
+																			)}
 																		</div>
 																	</div>
 																</li>

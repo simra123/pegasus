@@ -1,10 +1,11 @@
 import { BeatLoader } from "react-spinners";
-const LoadingButton = ({ loading, onClick, text }) => {
+const LoadingButton = ({ loading, onClick, text, className }) => {
 	return (
 		<>
 			<div className='btn_wrap'>
 				<button
 					type='submit'
+					className={className}
 					name=''
 					disabled={loading}
 					onClick={onClick}>

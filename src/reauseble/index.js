@@ -1,6 +1,6 @@
 import Loader from "./loader";
 import {
-	ToastSuccess,
+	ToastCart,
 	ToastError,
 	ToastAlertError,
 	ToastAlertSuccess,
@@ -10,11 +10,12 @@ import { ClientAuthentication } from "./clientToken";
 import ProductImage from "./productPlaceholder";
 export {
 	Loader,
-	ToastSuccess,
+	//ToastSuccess,
 	ToastError,
 	ToastAlertError,
 	ToastAlertSuccess,
 	ProductImage,
 	LoadingButton,
 	ClientAuthentication,
+	ToastCart,
 };

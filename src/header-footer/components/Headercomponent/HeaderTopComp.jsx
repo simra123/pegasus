@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Drawer } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
 import bskimg from "../../../assets/images/top-basket.png";
 import phnimg from "../../../assets/images/top-phone.png";
 import userimg from "../../../assets/images/top-user.png";
-import { ClientAuthentication } from "../../../reauseble";
-const HeaderTopComp = () => {
+import { CartCount } from "../../../context-hooks";
+import { RiArrowDownSFill } from "react-icons/ri";
+const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 	const [open, setOpen] = useState(false);
+	const [showDropdowm, setShowDropdowm] = useState(false);
+	const [cartCount] = useContext(CartCount);
+	const navigate = useNavigate();
+
 	const showDrawer = () => {
 		setOpen(true);
 	};
@@ -20,9 +25,11 @@ const HeaderTopComp = () => {
 	const handleLogout = () => {
 		localStorage.removeItem("user_token");
 		window.location.reload(false);
-		// setTimeout(() => {
-		// 	ClientAuthentication();
-		// }, 1000);
+	};
+	const handleSearch = (e) => {
+		e.preventDefault();
+		getProducts();
+		navigate("/shop");
 	};
 
 	return (
@@ -62,19 +69,31 @@ const HeaderTopComp = () => {
 						</div>
 						<div className='col form_wrap'>
 							<form>
-								<select className='form_field select_field'>
+								{/* <select className='form_field select_field'>
 									<option>All Catagories</option>
-								</select>
+								</select> */}
 								<input
 									type='text'
-									name=''
+									value={searchVal}
+									onChange={(e) => setSearchVal(e.target.value)}
 									className='form_field text_field'
 									placeholder="I'm Shopping for..."
 								/>
+								{searchVal && (
+									<input
+										type='submit'
+										className='form_field btn_field_close'
+										onClick={() => {
+											setSearchVal("");
+											getProducts(true);
+										}}
+									/>
+								)}
+
 								<input
 									type='submit'
 									className='form_field btn_field'
-									name=''
+									onClick={handleSearch}
 								/>
 							</form>
 						</div>
@@ -101,24 +120,40 @@ const HeaderTopComp = () => {
 								<div className='info_wrap'>
 									<h4>Account</h4>
 									{token ? (
-										<a onClick={handleLogout}> Logout </a>
+										<div class='dropdown'>
+											<button
+												class='dropbtn'
+												onClick={() => setShowDropdowm(!showDropdowm)}>
+												Profile
+												<RiArrowDownSFill size={15} />
+											</button>
+											{showDropdowm && (
+												<div class='dropdown-content'>
+													<a onClick={handleLogout}>Logout</a>
+													<a href='/orderhistory'>Order History</a>
+												</div>
+											)}
+										</div>
 									) : (
 										<Link to='/login'> Sign In </Link>
 									)}
 								</div>
 							</div>
 							<div className='icon_blk right'>
-								<div className='icon_wrap'>
-									<img
-										src={bskimg}
-										alt='no'
-									/>
-									<span className='prod_list'>0</span>
-								</div>
+								<Link to='/cart'>
+									<div className='icon_wrap'>
+										<img
+											src={bskimg}
+											alt='no'
+										/>
+										<span className='prod_list'>{cartCount.count}</span>
+									</div>
+								</Link>
 								<div className='info_wrap'>
 									<h4>Cart</h4>
 									<Link to='#0'>
-										<span className='curreny'>$</span>0.00
+										<span className='curreny'>$ </span>
+										{cartCount.balance}
 									</Link>
 								</div>
 							</div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Sec1, Sec2, Sec3, Sec4, Sec5 } from "./components/Homecomponent/index";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 

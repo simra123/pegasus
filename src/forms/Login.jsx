@@ -47,6 +47,7 @@ const Login = () => {
 			}
 		);
 	};
+	const token = localStorage.getItem("user_token");
 
 	return (
 		<>
@@ -55,49 +56,59 @@ const Login = () => {
 				{/* <canvas></canvas> */}
 				<div className='container'>
 					<div className='inner_sec'>
-						<h2>Login</h2>
-						<div className='form_wrap'>
-							<form>
-								<div className='field_wrap full_div'>
-									<input
-										type='text'
-										name=''
-										placeholder='User Name*'
-										required
-										onChange={(e) => setUsername(e.target.value)}
-									/>
+						{!token ? (
+							<>
+								<h2>Login</h2>
+								<div className='form_wrap'>
+									<form>
+										<div className='field_wrap full_div'>
+											<input
+												type='text'
+												name=''
+												placeholder='User Name*'
+												required
+												onChange={(e) => setUsername(e.target.value)}
+											/>
+										</div>
+										<div className='field_wrap full_div'>
+											<input
+												type='password'
+												name=''
+												placeholder='Password*'
+												onChange={(e) => setPassword(e.target.value)}
+												required
+											/>
+										</div>
+										<div className='field_wrap hlf_div'>
+											<input
+												type='checkbox'
+												name=''
+											/>{" "}
+											Remember Me
+										</div>
+										<div className='field_wrap hlf_div'>
+											<Link to='/forgotpassword'> Forget Password </Link>
+										</div>
+										<LoadingButton
+											loading={loading}
+											onClick={handleSubmit}
+										/>
+									</form>
 								</div>
-								<div className='field_wrap full_div'>
-									<input
-										type='password'
-										name=''
-										placeholder='Password*'
-										onChange={(e) => setPassword(e.target.value)}
-										required
-									/>
+								<div className='bottom_wrap'>
+									<p>
+										Don't have an account?{" "}
+										<Link to='/registerform'> Register Now </Link>
+									</p>
 								</div>
-								<div className='field_wrap hlf_div'>
-									<input
-										type='checkbox'
-										name=''
-									/>{" "}
-									Remember Me
+							</>
+						) : (
+							<>
+								<div className='container error-page'>
+									<h2> Not Authorized to Access this route</h2>
 								</div>
-								<div className='field_wrap hlf_div'>
-									<Link to='/forgotpassword'> Forget Password </Link>
-								</div>
-								<LoadingButton
-									loading={loading}
-									onClick={handleSubmit}
-								/>
-							</form>
-						</div>
-						<div className='bottom_wrap'>
-							<p>
-								Don't have an account?{" "}
-								<Link to='/registerform'> Register Now </Link>
-							</p>
-						</div>
+							</>
+						)}
 					</div>
 				</div>
 			</section>

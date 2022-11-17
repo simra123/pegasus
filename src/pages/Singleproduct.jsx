@@ -1,7 +1,7 @@
 import React from "react";
 import { Productdecs, Recentviewed } from "./components/Shopsinglecomponent";
 
-const Singleproduct = () => {
+const Singleproduct = ({ allCarts, fetchCarts }) => {
 	return (
 		<>
 			<div id='single_prod_main'>
@@ -9,7 +9,10 @@ const Singleproduct = () => {
 					<section className='sec sec2 shop_single_pg'>
 						<div className='container'>
 							<div className='inner_wrap'>
-								<Productdecs />
+								<Productdecs
+									allCarts={allCarts}
+									fetchCarts={fetchCarts}
+								/>
 							</div>
 						</div>
 					</section>

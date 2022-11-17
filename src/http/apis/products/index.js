@@ -22,6 +22,13 @@ class APIS {
 				method: "post",
 				path: "/web/product/categories",
 			},
+			search: {
+				headers: {
+					"xt-client-token": null,
+				},
+				method: "get",
+				path: "/web/search/product?name=nameVal&limit=9&page=pageVal",
+			},
 		};
 	}
 }
