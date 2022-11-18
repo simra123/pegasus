@@ -218,7 +218,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/orderdetail'
+						path='/orderdetail/:id'
 						element={<Orderdetail />}
 					/>
 					<Route

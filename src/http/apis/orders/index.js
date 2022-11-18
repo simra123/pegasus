@@ -20,7 +20,7 @@ class APIS {
 					"xt-user-token": null,
 				},
 				method: "post",
-				path: "/app/customer/orders",
+				path: "/web/customer/orders",
 			},
 			coupon: {
 				headers: {
