@@ -41,8 +41,8 @@ const Home = () => {
 						data={featuredProducts}
 						loading={loading}
 					/>
-					{/* <Sec3 /> */}
-					{/* <Sec4 /> */}
+					<Sec3 />
+					<Sec4 />
 					<Sec5
 						data={store}
 						recent={recentlyViewed}

@@ -45,7 +45,7 @@ const Recentviewed = ({ data }) => {
 																		? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
 																		: ProductImage
 																}
-																alt='no'
+																alt='featured image'
 															/>
 															<div className='prod_info'>
 																<h4>{val?.name}</h4>

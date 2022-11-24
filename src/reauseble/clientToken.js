@@ -1,7 +1,6 @@
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 
 export const ClientAuthentication = () => {
-	console.log("henlo");
 	CoreHttpHandler.request(
 		"client",
 		"auth",
@@ -11,7 +10,6 @@ export const ClientAuthentication = () => {
 			const ifExist = localStorage.getItem("client_token");
 			if (!ifExist) {
 				localStorage.setItem("client_token", token);
-				console.log("henlo 2");
 			}
 		},
 		(err) => {

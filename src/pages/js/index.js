@@ -2,6 +2,7 @@ export { default as Home } from "../Home";
 export { default as About } from "../About";
 export { default as Shop } from "../Shop";
 export { default as Singleproduct } from "../Singleproduct";
+export { default as SingleDeal } from "../SingleDeal";
 export { default as Faq } from "../Faq";
 export { default as Contact } from "../Contact";
 export { default as Wishlist } from "../Wishlist";

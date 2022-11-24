@@ -17,6 +17,7 @@ import {
 	Orderdetail,
 	Error,
 	Orderhistory,
+	SingleDeal,
 } from "./pages/js";
 import {
 	Loginform,
@@ -34,6 +35,7 @@ function App() {
 		balance: 0,
 		count: 0,
 		productIds: [],
+		dealsIds: [],
 	});
 	const [allCarts, setAllCarts] = useState([]);
 	const [searchPro, setSearchPro] = useState([]);
@@ -49,7 +51,9 @@ function App() {
 				"fetch",
 				{},
 				(response) => {
-					setAllCarts(response.data.data.settings);
+					if (response.data.data.settings) {
+						setAllCarts(response.data.data.settings);
+					}
 				},
 				(err) => {
 					console.log(err);
@@ -76,19 +80,29 @@ function App() {
 		);
 
 		fetchCarts();
-		ClientAuthentication();
+
 		window.scrollTo(0, 10);
 	}, [location.pathname]);
 
 	useEffect(() => {
-		if (allCarts?.length) {
+		if (allCarts) {
 			let allItems = 0;
 			let allPrice = 0;
 			let products = [];
+			let deals = [];
 			allCarts.map((val) => {
 				allItems += val.qty;
-				allPrice += val.price * val.qty;
-				products.push(val.id);
+				if (val.price) {
+					allPrice += val.price * val.qty;
+				} else {
+					allPrice += val.deal_price * val.qty;
+				}
+				console.log(allPrice);
+				if (val.id) {
+					products.push(val.id);
+				} else {
+					deals.push(val.hot_deal_id);
+				}
 			});
 			setTotalItems(allItems);
 			setTotalPrice(allPrice.toString().substring(0, 8));
@@ -96,9 +110,28 @@ function App() {
 				count: allCarts.length,
 				balance: allPrice.toString().substring(0, 8),
 				productIds: products,
+				dealsIds: deals,
 			});
 		}
 	}, [allCarts]);
+
+	CoreHttpHandler.request(
+		"client",
+		"auth",
+		{},
+		(response) => {
+			const token = response.data.data.token;
+			const ifExist = localStorage.getItem("client_token");
+
+			console.log(response, "res");
+			if (!ifExist) {
+				localStorage.setItem("client_token", token);
+			}
+		},
+		(err) => {
+			console.log(err, "auth error ");
+		}
+	);
 	const searchProducts = (clear, page) => {
 		let params = {
 			key: "nameVal",
@@ -205,7 +238,7 @@ function App() {
 					/>
 					<Route
 						path='/checkout'
-						element={<Checkout />}
+						element={<Checkout fetchCarts={fetchCarts} />}
 					/>
 					<Route
 						path='/cart'
@@ -214,6 +247,15 @@ function App() {
 								allCarts={allCarts}
 								totalItems={totalItems}
 								totalPrice={totalPrice}
+							/>
+						}
+					/>
+					<Route
+						path='/singledeal/:id'
+						element={
+							<SingleDeal
+								allCarts={allCarts}
+								fetchCarts={fetchCarts}
 							/>
 						}
 					/>

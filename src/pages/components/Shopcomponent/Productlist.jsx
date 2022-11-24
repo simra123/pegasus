@@ -60,7 +60,7 @@ const Productlist = ({
 														: ProductImage
 												}
 												className='prod_img'
-												alt='no'
+												alt='featured image'
 											/>
 											<h3 className='prod_title'>{val.name}</h3>
 											<span className='prod_price'>

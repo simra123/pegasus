@@ -15,44 +15,57 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import ProductCountdown from "../../js/Prodountdown";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import parse from "html-react-parser";
 import { BeatLoader } from "react-spinners";
 import { Pagination } from "swiper";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
-import Recentviewed from "./Recentviewed";
-import { RelatedProducts } from "../../../context-hooks";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { CartCount } from "../../../context-hooks";
 const Productdecs = ({ allCarts, fetchCarts }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const [relatedProducts, setRelatedProducts] = useContext(RelatedProducts);
-	const [similarPro, setSimilarPro] = useState([]);
-	const { id } = useParams();
-	const [product, setProduct] = useState({});
+	const [attachment, setAttachment] = useState([]);
+	const [deal, setDeal] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [loadingCart, setLoadingCart] = useState(false);
 	const [proQuantity, setProQuantity] = useState(1);
 	const navigate = useNavigate();
+	const [isExpire, setIsExpire] = useState(false);
+
 	const MySwal = withReactContent(Swal);
 	const [cartCount] = useContext(CartCount);
+	const { id } = useParams();
 
-	const getProduct = () => {
+	useEffect(() => {
+		if (proQuantity < 1) {
+			ToastAlertError("Quality can not be in Negative");
+			setProQuantity(0);
+		}
+		if (deal?.stock) {
+			if (proQuantity > deal?.stock) {
+				ToastAlertError("exceeded the current stock limit");
+				setProQuantity(deal?.stock);
+			}
+		}
+	}, [proQuantity]);
+	const getDeal = () => {
 		setLoading(true);
 
 		CoreHttpHandler.request(
 			"products",
-			"singleProduct",
+			"hotDealsById",
 			{
 				key: ":id",
 				value: id,
 			},
 			(response) => {
-				const res = response.data.data.data[0];
-				setProduct(res);
+				const res = response.data.data.data.hotDeals[0];
+				//	setDeal(res);
 				setLoading(false);
+				setDeal(res);
 			},
 			(err) => {
 				console.log(err);
@@ -61,37 +74,28 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 		);
 	};
 	useEffect(() => {
-		getProduct();
+		getDeal();
 	}, []);
 
 	useEffect(() => {
-		if (product) {
-			const filter = relatedProducts?.filter(
-				(val) => val.product_category == product.product_category
-			);
-			setSimilarPro(filter);
+		let allImage = [];
+		if (deal?.products) {
+			deal?.products.map((e) => {
+				e.attachment.map((val) => {
+					allImage.push(val);
+				});
+			});
 		}
-	}, [product]);
-	useEffect(() => {
-		if (proQuantity < 1) {
-			ToastAlertError("Quality can not be in Negative");
-			setProQuantity(0);
-		}
-		if (product?.stock) {
-			if (proQuantity > product?.stock) {
-				ToastAlertError("exceeded the current stock limit");
-				setProQuantity(product?.stock);
-			}
-		}
-	}, [proQuantity]);
+		setAttachment(allImage);
+	}, [loading]);
 
 	const addCart = () => {
 		CoreHttpHandler.request(
 			"cart",
 			"create",
 			{
-				qty: proQuantity,
-				id: product.id,
+				hot_deal_qty: proQuantity,
+				hot_deal_id: deal.hot_deals_id,
 			},
 			(response) => {
 				setLoadingCart(false);
@@ -110,19 +114,19 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 		);
 	};
 
+	console.log(deal, "deal");
 	const handleCart = (e) => {
 		e.preventDefault();
 		setLoadingCart(true);
 
 		if (localStorage.getItem("user_token")) {
 			let storeExist = true;
-
 			if (allCarts.length) {
-				if (allCarts[0]?.hot_deal_id) {
+				if (allCarts[0].hot_deal_id) {
 					storeExist =
-						allCarts[0]?.products[0].store_name == product.store_name;
+						allCarts[0]?.products[0].store_name == deal.products[0].store_name;
 				} else {
-					storeExist = allCarts[0].store_name == product.store_name;
+					storeExist = allCarts[0].store_name == deal.products[0].store_name;
 				}
 			}
 			if (storeExist) {
@@ -183,21 +187,13 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						//	pagination={pagination}
 						modules={[FreeMode, Navigation, Thumbs, Pagination]}
 						className='mySwiper2'>
-						{product?.featured_image && (
-							<SwiperSlide>
-								<img
-									alt='featured image'
-									src={`https://upload.its.com.pk/${product?.featured_image}`}
-								/>
-							</SwiperSlide>
-						)}
-						{product?.attachment
-							? product?.attachment.map((val) => {
+						{attachment
+							? attachment.map((val) => {
 									return (
 										<SwiperSlide>
 											<img
 												alt='featured image'
-												src={`https://upload.its.com.pk/${val.url}`}
+												src={`${val.url}`}
 											/>
 										</SwiperSlide>
 									);
@@ -214,21 +210,13 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						watchSlidesProgress={true}
 						modules={[FreeMode, Navigation, Thumbs]}
 						className='mySwiper'>
-						{product?.featured_image && (
-							<SwiperSlide>
-								<img
-									alt='featured image'
-									src={`https://upload.its.com.pk/${product?.featured_image}`}
-								/>
-							</SwiperSlide>
-						)}
-						{product?.attachment?.length > 1
-							? product?.attachment.map((val) => {
+						{attachment?.length > 1
+							? attachment.map((val) => {
 									return (
 										<SwiperSlide>
 											<img
 												alt='featured image'
-												src={`https://upload.its.com.pk/${val.url}`}
+												src={`${val.url}`}
 											/>
 										</SwiperSlide>
 									);
@@ -236,36 +224,43 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							: null}
 					</Swiper>
 				</div>
-				{product && !loading ? (
+				{deal.products && !loading ? (
 					<div className='col'>
 						<div className='prod_detial'>
+							<ProductCountdown
+								start={deal?.start_date}
+								end={deal?.end_date}
+								isExpire={isExpire}
+								setIsExpire={setIsExpire}
+							/>
+
 							<div className='prod_title'>
-								<h3>{product.name}</h3>
-								<span> {product?.size} </span>
+								<h3>{deal.name}</h3>
+								<span> {deal?.size} </span>
 							</div>
 							<div className='price_wrap'>
-								{product?.sale_price > 0 ? (
+								{deal?.deal_price > 0 ? (
 									<span className='regular_price'>
 										<span className='curreny'>$ </span>
-										{product.price}
+										{deal.regular_price}
 									</span>
 								) : (
 									<span className='discount_price'>
 										<span className='curreny'>$ </span>
-										{product.price}
+										{deal.regular_price}
 									</span>
 								)}
 
-								{product?.sale_price > 0 && (
+								{deal?.deal_price > 0 && (
 									<span className='discount_price'>
 										<span className='curreny'>$</span>
-										{product?.sale_price}
+										{deal?.deal_price}
 									</span>
 								)}
 							</div>
 							<p>
-								{product.description
-									? parse(product.description)
+								{deal.description
+									? parse(deal.description)
 									: "Nullam vitae imperdiet metus, eget convallis nibh. Integer ac eros necaugue consectetur tristique. Pellentesque quis dapibus ante, etporttitor urna. Aliquam id nulla ut urna luctus aliquet. Nunc mollisbibendum orci, eget tempus purus semper vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit gravida"}
 							</p>
 							<form action=''>
@@ -293,7 +288,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 								<button
 									type='submit'
 									onClick={handleCart}
-									disabled={loadingCart}>
+									disabled={loadingCart || isExpire}>
 									{!loadingCart && "Add to Cart"}
 									<BeatLoader
 										color={"white"}
@@ -308,33 +303,34 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 								<ul>
 									<li>
 										<span className='info_name'>StoreName</span> :
-										<span className='info_value'>{product?.store_name}</span>
-									</li>
-									<li>
-										<span className='info_name'>Category</span> :
 										<span className='info_value'>
-											{product?.product_category}
+											{deal?.products[0]?.store_name}
 										</span>
 									</li>
+									{/* <li>
+										<span className='info_name'>Category</span> :
+										<span className='info_value'>
+											{deal?.product_category}
+										</span>
+									</li> */}
 								</ul>
 							</div>
 						</div>
 					</div>
 				) : null}
 			</div>
-			{product && !loading ? (
+			{deal && !loading ? (
 				<div className='prod_desc'>
 					<h4>Description</h4>
 					<p>
-						{product.description
-							? parse(product.description)
+						{deal.description
+							? parse(deal.description)
 							: "Nullam vitae imperdiet metus, eget convallis nibh. Integer ac eros necaugue consectetur tristique. Pellentesque quis dapibus ante, etporttitor urna. Aliquam id nulla ut urna luctus aliquet. Nunc mollisbibendum orci, eget tempus purus semper vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit gravida"}
 					</p>
 				</div>
 			) : (
 				<Loader loading={loading} />
 			)}
-			<Recentviewed data={similarPro ? similarPro : relatedProducts} />
 		</>
 	);
 };

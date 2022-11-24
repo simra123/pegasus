@@ -2,51 +2,65 @@ import { useState, useEffect, useContext } from "react";
 import { Table } from "antd";
 import "antd/dist/antd.min.css";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 import { ToastAlertError, ToastAlertSuccess } from "../reauseble";
 import { ToastContainer } from "react-toastify";
 import { configConsumerProps } from "antd/lib/config-provider";
-const columns = [
-	{
-		title: "Product Name",
-		dataIndex: "name",
-		key: "name",
-		render: (text, i) => <Link to={`/singleproduct/${i.id}`}>{text}</Link>,
-	},
-	{
-		title: "Store",
-		key: "store_name",
-		dataIndex: "store_name",
-		render: (text) => <span>{text}</span>,
-	},
-	{
-		title: "Category",
-		key: "product_category",
-		dataIndex: "product_category",
-		render: (text) => <span>{text}</span>,
-	},
-	{
-		title: "Price",
-		dataIndex: "price",
-		key: "price",
-		render: (text) => <span>{text}</span>,
-	},
-	{
-		title: "Quantity",
-		dataIndex: "qty",
-		key: "qty",
-		render: (text) => <span>{text}</span>,
-	},
-];
 
 const Cart = ({ allCarts, totalItems, totalPrice }) => {
 	const token = localStorage.getItem("user_token");
 	const navigate = useNavigate();
+
+	const columns = [
+		{
+			title: "Name",
+			dataIndex: "name",
+			key: "name",
+			render: (text, i) => (
+				<a
+					onClick={() => {
+						i?.id
+							? navigate(`/singleproduct/${i.id}`)
+							: navigate(`/singledeal/${i.hot_deal_id}`);
+					}}>
+					{i.name ? i.name : i.hot_deal_name}
+				</a>
+			),
+		},
+		{
+			title: "Store",
+			key: "store_name",
+			dataIndex: "store_name",
+			render: (text, i) => (
+				<span>{text ? text : i.products[0].store_name}</span>
+			),
+		},
+
+		{
+			title: "Price",
+			dataIndex: "price",
+			key: "price",
+			render: (text, i) => <span>{text ? text : i.deal_price}</span>,
+		},
+		{
+			title: "Quantity",
+			dataIndex: "qty",
+			key: "qty",
+			render: (text) => <span>{text}</span>,
+		},
+	];
+
 	const [productsArray, setProductsArray] = useState([]);
+	const [dealsArray, setDealsArray] = useState([]);
 	const [productQuantity, setProductQuantity] = useState([]);
+	const [dealQuantity, setDealQuantity] = useState([]);
 	const [discountedPrice, setDiscountedPrice] = useState("");
 	const [coupon, setCoupon] = useState("");
+	const [percent, setPercent] = useState({
+		number: "0",
+		id: "",
+	});
 	useEffect(() => {
 		if (!token) {
 			setTimeout(() => {
@@ -56,12 +70,21 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 		if (allCarts?.length) {
 			let quantities = [];
 			let products = [];
+			let deals = [];
+			let dealQty = [];
 			allCarts.map((val) => {
-				quantities.push(val.qty);
-				products.push(val.id);
+				if (val.id) {
+					quantities.push(val.qty);
+					products.push(val.id);
+				} else {
+					deals.push(val.hot_deal_id);
+					dealQty.push(val.qty);
+				}
 			});
 			setProductsArray(products);
 			setProductQuantity(quantities);
+			setDealQuantity(dealQty);
+			setDealsArray(deals);
 		}
 	}, [allCarts]);
 	const handleDetails = (e) => {
@@ -69,8 +92,14 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 			state: {
 				products: productsArray,
 				quantity: productQuantity,
-				orderLocation: allCarts[0]?.location,
+				deals: dealsArray,
+				store_id: allCarts[0].store_id,
+				dealsQty: dealQuantity,
+				orderLocation: allCarts[0].hot_deal_id
+					? allCarts[0].products[0].location
+					: allCarts[0].location,
 				total: discountedPrice ? discountedPrice : totalPrice,
+				coupon_id: percent.id,
 			},
 		});
 	};
@@ -83,15 +112,20 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 				coupon: coupon,
 			},
 			(res) => {
-				const discount = res.data.data.data.percent;
-				const parse = discount.replace("%", "");
+				const discount = res.data.data.data;
+				setPercent({
+					number: discount.percent,
+					id: discount.coupon_id,
+				});
+				const parse = discount.percent.replace("%", "");
 				const subractVal = (totalPrice * parse) / 100;
 				const finalPrice = totalPrice - subractVal;
 				setDiscountedPrice(finalPrice);
-				ToastAlertSuccess(`Successfully added ${discount} OFF`);
+				ToastAlertSuccess(`Successfully added ${discount.percent} OFF`);
 				setCoupon("");
 			},
 			(err) => {
+				console.log(err);
 				ToastAlertError(
 					err?.response?.data?.message
 						? err?.response.data.message
@@ -125,8 +159,8 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 													<h4>Order Summery</h4>
 													<span className='title_label'>Items Total</span>
 													<span className='value_label'>{totalItems}</span>
-													{/* <span className='title_label'>Delivery Fee</span>
-													<span className='value_label'>$ 0</span> */}
+													<span className='title_label'>Coupon Discount</span>
+													<span className='value_label'>{percent.number}</span>
 													<span className='title_label'>Total Payments</span>
 													<span className='value_label'>
 														$ {discountedPrice ? discountedPrice : totalPrice}

@@ -89,7 +89,7 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 																? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
 																: ProductImage
 														}
-														alt='no'
+														alt='featured image'
 													/>
 												</div>
 												<div className='price_wrap'>

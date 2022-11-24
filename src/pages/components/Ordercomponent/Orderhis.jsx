@@ -26,9 +26,15 @@ const Orderhis = () => {
 			render: (text) => <span>{text}</span>,
 		},
 		{
-			title: "Items",
+			title: "Products",
 			key: "products",
 			dataIndex: "products",
+			render: (text, i) => <span>{text.length}</span>,
+		},
+		{
+			title: "Deals",
+			key: "hot_deals",
+			dataIndex: "hot_deals",
 			render: (text, i) => <span>{text.length}</span>,
 		},
 		{
@@ -69,11 +75,12 @@ const Orderhis = () => {
 			{
 				page: 0,
 				limit: 15,
+				sortBy: "desc",
+
 				//status: "order_placed",
 			},
 			(response) => {
 				const res = response.data.data.orders.orders;
-				console.log(res);
 				setOngoingOrders(response.data.data.orders.orders);
 			},
 			(err) => {
@@ -87,6 +94,7 @@ const Orderhis = () => {
 				page: 0,
 				limit: 15,
 				status: "delieverd",
+				sortBy: "desc",
 			},
 			(response) => {
 				const res = response.data.data.orders.orders;

@@ -1,201 +1,105 @@
-import React from "react";
-import Prodountdown from '../../js/Prodountdown';
-import { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useEffect, useState } from "react";
+import { Loader, ProductImage } from "../../../reauseble";
+import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
 import "swiper/css";
 import "swiper/css/navigation";
-import prodimg from "../../../assets/images/pro-img1.png";
+import { Pagination } from "antd";
+import { useNavigate } from "react-router-dom";
 
-const sec4 = () => {
-  return (
-    <>
-      <section className="sec sec4">
-        <div className="container">
-          <div className="inner_wrap">
-            <div className="head_wrap">
-              <h2>Hot Deals</h2>
-              <div id="countdowntwo">
-                <ul>
-                  <li>
-                    <span className="exp_tym">expire in:</span>
-                  </li>
-                  <Prodountdown />
-                </ul>
-              </div>
-            </div>
-            <div className="prod_wrap">
-              <div className="carousel">
-                <Swiper
-                  modules={[Navigation]}
-                  spaceBetween={50}
-                  slidesPerView={1}
-                  navigation
-                >
-                  <SwiperSlide>
-                    <ul className="prod_list">
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Rich & Rare Reserve Canadian Whisky
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>277.06
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Rich & Rare Reserve Canadian Whisky
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>142.87
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Rico Bay White Rum</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>165.48
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Rain Organic Vodka</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>263.88
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Independence Brewing Native Texan Pilsner
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>115.90
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Jinro Green Grape Soju</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>59.31
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Western Son Original Vodka
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>217.71
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Oyster Bay New Zealand Sauvignon Blanc White Wine
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>138.51
-                        </span>
-                      </li>
-                    </ul>
-                  </SwiperSlide>
+const HotDeals = () => {
+	const [loading, setLoading] = useState(false);
+	const [totalPages, setTotalPages] = useState(0);
+	const [hotDeals, setHotDeals] = useState([]);
+	const navigate = useNavigate();
+	const getHotDeals = (page) => {
+		setLoading(true);
+		let params = {
+			key: "pageVal",
+			value: page ? page : 0,
+		};
+		CoreHttpHandler.request(
+			"products",
+			"hotDeals",
+			{
+				params,
+			},
+			(response) => {
+				setLoading(false);
+				const res = response.data.data.data;
+				setTotalPages(res.totalItems);
+				setHotDeals(res.hotDeals);
+			},
+			(err) => {
+				setLoading(false);
+				console.log(err);
+			}
+		);
+	};
+	useEffect(() => {
+		getHotDeals();
+	}, []);
+	const handleDeals = (deal) => {
+		navigate(`/singledeal/${deal?.hot_deals_id}`);
+	};
+	return (
+		<>
+			<section className='sec sec4'>
+				<div className='container'>
+					<div className='inner_wrap'>
+						<div className='head_wrap'>
+							<h2>Hot Deals</h2>
+						</div>
+						<div className='prod_wrap'>
+							<div className='carousel'>
+								<ul className='prod_list'>
+									{!loading && hotDeals
+										? hotDeals?.map((val) => {
+												return (
+													<li onClick={() => handleDeals(val)}>
+														<span className='sale_label'>20% OFF</span>
+														<img
+															src={
+																val.featured_image
+																	? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
+																	: ProductImage
+															}
+															className='prod_img'
+															alt='featured image'
+														/>
+														<h3 className='prod_title'>{val.name}</h3>
+														<div className='price_wrap'>
+															<span className='regular_price'>
+																<span className='curreny'>$</span>
+																{val.regular_price}
+															</span>
+															<span className='discount_price'>
+																<span className='curreny'>$</span>
+																{val.deal_price}
+															</span>
+														</div>
+													</li>
+												);
+										  })
+										: null}
 
-                  <SwiperSlide>
-                    <ul className="prod_list">
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Rich & Rare Reserve Canadian Whisky
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>277.06
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Rich & Rare Reserve Canadian Whisky
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>142.87
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Rico Bay White Rum</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>165.48
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Rain Organic Vodka</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>263.88
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Independence Brewing Native Texan Pilsner
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>115.90
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">Jinro Green Grape Soju</h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>59.31
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Western Son Original Vodka
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>217.71
-                        </span>
-                      </li>
-                      <li>
-                        <span className="sale_label">20% OFF</span>
-                        <img src={prodimg} className="prod_img" alt="no" />
-                        <h3 className="prod_title">
-                          Oyster Bay New Zealand Sauvignon Blanc White Wine
-                        </h3>
-                        <span className="prod_price">
-                          <span className="curreny">$</span>138.51
-                        </span>
-                      </li>
-                    </ul>
-                  </SwiperSlide>
-                </Swiper>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+									<Loader loading={loading} />
+								</ul>
+							</div>
+						</div>
+					</div>
+					{!loading && totalPages > 8 ? (
+						<Pagination
+							className='active-pagin'
+							total={totalPages}
+							onChange={(e) => {
+								getHotDeals(e - 1);
+							}}
+						/>
+					) : null}
+				</div>
+			</section>
+		</>
+	);
 };
 
-export default sec4;
+export default HotDeals;

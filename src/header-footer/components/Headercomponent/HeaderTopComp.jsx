@@ -41,7 +41,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 							<Link to='/'>
 								<img
 									src={companyLogo}
-									alt='no'
+									alt='image'
 								/>
 							</Link>
 							<div className='menu_btn'>
@@ -81,7 +81,6 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								/>
 								{searchVal && (
 									<input
-										type='submit'
 										className='form_field btn_field_close'
 										onClick={() => {
 											setSearchVal("");
@@ -102,7 +101,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								<div className='icon_wrap'>
 									<img
 										src={phnimg}
-										alt='no'
+										alt='image'
 									/>
 								</div>
 								<div className='info_wrap'>
@@ -114,7 +113,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								<div className='icon_wrap'>
 									<img
 										src={userimg}
-										alt='no'
+										alt='image'
 									/>
 								</div>
 								<div className='info_wrap'>
@@ -130,7 +129,11 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 											{showDropdowm && (
 												<div class='dropdown-content'>
 													<a onClick={handleLogout}>Logout</a>
-													<a href='/orderhistory'>Order History</a>
+													<a
+														style={{ cursor: "pointer" }}
+														onClick={() => navigate("/orderhistory")}>
+														Order History
+													</a>
 												</div>
 											)}
 										</div>
@@ -144,14 +147,14 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 									<div className='icon_wrap'>
 										<img
 											src={bskimg}
-											alt='no'
+											alt='image'
 										/>
 										<span className='prod_list'>{cartCount.count}</span>
 									</div>
 								</Link>
 								<div className='info_wrap'>
 									<h4>Cart</h4>
-									<Link to='#0'>
+									<Link to='/cart'>
 										<span className='curreny'>$ </span>
 										{cartCount.balance}
 									</Link>

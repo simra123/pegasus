@@ -12,7 +12,6 @@ const Orderdetails = () => {
 			navigate("/orderhis");
 		}
 	}, []);
-	console.log(state);
 	return (
 		<div className='content_wrap'>
 			<section className='order_details'>
@@ -56,6 +55,38 @@ const Orderdetails = () => {
 									<span style={{ padding: "30px" }}>qty : {val.quantity}</span>
 									<Link
 										to={`/singleproduct/${val.id}`}
+										style={{ padding: "30px" }}>
+										view
+									</Link>
+								</div>
+							);
+						})}
+						{state?.hot_deals?.map((val) => {
+							return (
+								<div className='card'>
+									<img
+										src={
+											val.hot_deal_featured_image
+												? `https://upload.its.com.pk/v1/fetch/file/${val.hot_deal_featured_image}`
+												: ProductImage
+										}
+										alt='featured image'
+										height={100}
+										width={100}
+										className='p-3'
+									/>
+									<div
+										className='pro_name'
+										style={{ paddingLeft: "50px", width: "500px" }}>
+										<h3>{val.hot_deal_name}</h3>
+										<p>{val.products[0].store_name}</p>
+									</div>
+									<span style={{ padding: "30px" }}>
+										price : {val.deal_price}
+									</span>
+									<span style={{ padding: "30px" }}>qty : {val.quantity}</span>
+									<Link
+										to={`/singledeal/${val.hot_deal_id}`}
 										style={{ padding: "30px" }}>
 										view
 									</Link>

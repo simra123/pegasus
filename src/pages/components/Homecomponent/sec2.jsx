@@ -10,32 +10,32 @@ const sec2 = ({ data, loading }) => {
 				<div className='banner before smokeani'>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img1'
 					/>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img2'
 					/>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img3'
 					/>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img4'
 					/>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img5'
 					/>
 					<img
 						src={smokeimg}
-						alt='no'
+						alt='banner'
 						className='smoky_img6'
 					/>
 				</div>
@@ -59,7 +59,7 @@ const sec2 = ({ data, loading }) => {
 																	: ProductImage
 															}
 															className='prod_img'
-															alt='no'
+															alt='featured image'
 														/>
 													</Link>
 													<h3 className='prod_title'>{val.name}</h3>

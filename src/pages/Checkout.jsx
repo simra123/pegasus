@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
-const Checkout = () => {
+const Checkout = ({ fetchCarts }) => {
 	const [showSummery, setShowSummery] = useState(false);
 	const [allCities, setAllCities] = useState([]);
 	const [charges, setCharges] = useState("");
@@ -22,7 +22,6 @@ const Checkout = () => {
 	});
 	const { state } = useLocation();
 	const navigate = useNavigate();
-	console.log(state, "location");
 	useEffect(() => {
 		if (!state?.products) {
 			navigate("/");
@@ -56,25 +55,30 @@ const Checkout = () => {
 			{
 				...checkoutDetails,
 				product_ids: state.products,
+				hot_deal_ids: state?.deals,
 				quantity: state.quantity,
-				order_location: state.location,
+				store_id: state?.store_id,
+				hot_deal_quantity: state?.dealsQty,
+				order_location: state?.location,
 				user_location: "24.961, 67.099",
+				coupon_id: state?.coupon_id,
 			},
 			(response) => {
-				//console.log(response.data, "order res");
-
 				CoreHttpHandler.request(
 					"cart",
 					"remove",
 					{
-						product_ids: state.products,
+						product_ids: state?.products,
+						hot_deal_ids: state?.deals,
 					},
 					(res) => {
 						setLoading(false);
 						ToastAlertSuccess("Order Placed Successfully");
+						//window.location.reload(false);
+						fetchCarts();
+
 						setTimeout(() => {
-							window.location.reload(false);
-							navigate("/login");
+							navigate("/orderhistory");
 						}, 2000);
 					},
 					(err) => {
@@ -180,7 +184,16 @@ const Checkout = () => {
 										/>
 									</div>
 
-									<LoadingButton onClick={() => setShowSummery(true)} />
+									<LoadingButton
+										disabled={
+											!(
+												checkoutDetails.firstname &&
+												checkoutDetails.city &&
+												checkoutDetails.address
+											)
+										}
+										onClick={() => setShowSummery(true)}
+									/>
 								</form>
 							</div>
 						</div>
@@ -205,7 +218,7 @@ const Checkout = () => {
 									<LoadingButton
 										loading={loading}
 										onClick={handleOrder}
-										text={`Pay Now $${state?.total + charges}`}
+										text={`Pay Now $${Number(state?.total) + charges}`}
 									/>
 								</form>
 							</div>

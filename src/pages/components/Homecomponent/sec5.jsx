@@ -21,7 +21,7 @@ const sec5 = ({ data, recent, loading }) => {
 													<img
 														src={val.image}
 														className='prod_img'
-														alt='no'
+														alt='brand image'
 													/>
 												</li>
 											);
@@ -68,7 +68,7 @@ const sec5 = ({ data, recent, loading }) => {
 																				? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
 																				: ProductImage
 																		}
-																		alt='no'
+																		alt='featured image'
 																	/>
 																	<div className='prod_info'>
 																		<h4>{val.name}</h4>

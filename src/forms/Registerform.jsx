@@ -28,7 +28,6 @@ const Registerform = () => {
 				signinCred,
 				(response) => {
 					setLoading(false);
-					console.log(response.data);
 					ToastAlertSuccess("You have Registered Successfully");
 					setSigninCred({
 						username: "",
