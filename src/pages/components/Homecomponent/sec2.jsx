@@ -50,7 +50,7 @@ const sec2 = ({ data, loading }) => {
 												(att) => att.type == 0
 											);
 											return (
-												<li>
+												<li key={val.id}>
 													<Link to={`/singleproduct/${val.id}`}>
 														<img
 															src={

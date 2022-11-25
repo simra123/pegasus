@@ -59,7 +59,7 @@ const sec5 = ({ data, recent, loading }) => {
 										{!loading && recent
 											? recent.map((val) => {
 													return (
-														<SwiperSlide>
+														<SwiperSlide key={val.id}>
 															<Link to={`/singleproduct/${val.id}`}>
 																<li className='prod_list'>
 																	<img

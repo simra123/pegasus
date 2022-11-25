@@ -2926,14 +2926,27 @@ button {
 						color: #fff;
 						border-radius: 6px;
 						height: 150px;
+						font-family: "Roboto Lt", sans-serif;
 						width: 100%;
 						padding: 10px;
 						resize: none;
 						border: none;
 						outline: none;
+						text-transform: lowercase;
 					}
 				}
 
+				.col {
+					width: 50%;
+
+					@media (max-width: 1024px) {
+						width: 45%;
+					}
+
+					@media (max-width: 767px) {
+						width: 100%;
+					}
+				}
 				.field_wrap.resnt_wrap {
 					text-align: center;
 					width: 100%;

@@ -36,7 +36,7 @@ const Recentviewed = ({ data }) => {
 									{data?.length ? (
 										data.map((val) => {
 											return (
-												<SwiperSlide>
+												<SwiperSlide key={val.id}>
 													<Link to={`/singleproduct/${val.id}`}>
 														<li className='prod_list'>
 															<img

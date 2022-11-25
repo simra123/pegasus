@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const HotDeals = () => {
+const HotDeals = ({ show }) => {
 	const [loading, setLoading] = useState(false);
 	const [totalPages, setTotalPages] = useState(0);
 	const [hotDeals, setHotDeals] = useState([]);
@@ -36,8 +36,10 @@ const HotDeals = () => {
 		);
 	};
 	useEffect(() => {
-		getHotDeals();
-	}, []);
+		if (!show) {
+			getHotDeals();
+		}
+	}, [show]);
 	const handleDeals = (deal) => {
 		navigate(`/singledeal/${deal?.hot_deals_id}`);
 	};
@@ -55,7 +57,9 @@ const HotDeals = () => {
 									{!loading && hotDeals
 										? hotDeals?.map((val) => {
 												return (
-													<li onClick={() => handleDeals(val)}>
+													<li
+														key={val.hot_deals_id}
+														onClick={() => handleDeals(val)}>
 														<span className='sale_label'>20% OFF</span>
 														<img
 															src={

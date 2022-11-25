@@ -114,7 +114,6 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 		);
 	};
 
-	console.log(deal, "deal");
 	const handleCart = (e) => {
 		e.preventDefault();
 		setLoadingCart(true);

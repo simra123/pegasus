@@ -1,39 +1,48 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Sec1, Sec2, Sec3, Sec4, Sec5 } from "./components/Homecomponent/index";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
-
-const Home = () => {
+import { BlockUi } from "../reauseble";
+const Home = ({ show, setShow }) => {
 	const [store, setStore] = useState([]);
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 	const [recentlyViewed, setRecentlyViewed] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const getAllData = () => {
-		CoreHttpHandler.request(
-			"home",
-			"main",
-			{
-				limit: 8,
-				page: 0,
-			},
-			(response) => {
-				setLoading(false);
-				const res = response.data.data.data;
-				setFeaturedProducts(res.data);
-				setStore(res.store);
-				setRecentlyViewed(res.recentlyViewed);
-			},
-			(err) => {
-				console.log(err);
-				setLoading(false);
-			}
-		);
+		if (!show) {
+			CoreHttpHandler.request(
+				"home",
+				"main",
+				{
+					limit: 8,
+					page: 0,
+				},
+				(response) => {
+					setLoading(false);
+					const res = response.data.data.data;
+					setFeaturedProducts(res.data);
+					setStore(res.store);
+					setRecentlyViewed(res.recentlyViewed);
+				},
+				(err) => {
+					console.log(err);
+					setLoading(false);
+				}
+			);
+		}
 	};
 	useEffect(() => {
 		getAllData();
+	}, [show]);
+	useEffect(() => {
+		setShow(true);
+		setTimeout(() => {
+			setShow(false);
+		}, 1000);
 	}, []);
 	return (
 		<>
+			<BlockUi show={show} />
 			<div id='home_main'>
 				<div className='content_wrap'>
 					<Sec1 />
@@ -42,7 +51,7 @@ const Home = () => {
 						loading={loading}
 					/>
 					<Sec3 />
-					<Sec4 />
+					<Sec4 show={show} />
 					<Sec5
 						data={store}
 						recent={recentlyViewed}

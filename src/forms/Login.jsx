@@ -100,7 +100,12 @@ const Login = () => {
 										Don't have an account?{" "}
 										<Link to='/registerform'> Register Now </Link>
 									</p>
-									<Link to='/seller'> Become a Seller </Link>
+									<Link
+										style={{ color: "#f3ac3b" }}
+										to='/sellerform'>
+										{" "}
+										Become a Seller{" "}
+									</Link>
 								</div>
 							</>
 						) : (

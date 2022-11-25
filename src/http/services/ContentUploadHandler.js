@@ -3,14 +3,10 @@ import ApiResolver from "../apis/ApiResolver";
 
 class CoreHttpHandler {
 	constructor() {
-		this.apiEndpoint =
-			"https://arifmustafa.smartfile.com/api/2/path/data/whatsapp";
+		this.apiEndpoint = "https://upload.its.com.pk/v1/upload";
 
 		this.config = {
-			auth: {
-				username: "oaLWSTVdga8Ko6yLzT64WCNtgVMWjw",
-				password: "Kg7fCE3zdqlrXiwbQAQBdAiGXm35qy",
-			},
+			"xt-api-key": "cc6ab176-e84c-4684-85a6-dffe952715e3",
 		};
 	}
 
@@ -42,7 +38,9 @@ class CoreHttpHandler {
 
 		//if (apiCall.method === 'post') this.config.headers['Content-Type'] = 'text/plain';
 
-		const _config = { ...this.config };
+		const _config = {
+			headers: { "xt-api-key": "cc6ab176-e84c-4684-85a6-dffe952715e3" },
+		};
 
 		const args = [apiPath];
 

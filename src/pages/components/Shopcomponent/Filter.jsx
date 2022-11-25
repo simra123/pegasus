@@ -81,7 +81,7 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 							{!loading && discountedProducts
 								? discountedProducts.map((val) => {
 										return (
-											<li>
+											<li key={val.id}>
 												<div className='img_wrap'>
 													<img
 														src={

@@ -8,6 +8,7 @@ import Home from "./home";
 import Riders from "./riders";
 import Cart from "./cart";
 import Forms from "./forms";
+import Content from "../content";
 import Orders from "./orders";
 class ApiResolver {
 	constructor() {
@@ -23,6 +24,7 @@ class ApiResolver {
 			cart: Cart.apis(),
 			forms: Forms.apis(),
 			orders: Orders.apis(),
+			content: Content.apis(),
 		};
 	}
 

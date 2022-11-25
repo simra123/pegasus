@@ -8,6 +8,7 @@ import {
 import LoadingButton from "./loadingButton";
 import { ClientAuthentication } from "./clientToken";
 import ProductImage from "./productPlaceholder";
+import BlockUi from "./blockLoading";
 export {
 	Loader,
 	//ToastSuccess,
@@ -18,4 +19,5 @@ export {
 	LoadingButton,
 	ClientAuthentication,
 	ToastCart,
+	BlockUi,
 };

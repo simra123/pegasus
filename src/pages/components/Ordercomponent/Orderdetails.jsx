@@ -33,7 +33,9 @@ const Orderdetails = () => {
 
 						{state?.products?.map((val) => {
 							return (
-								<div className='card'>
+								<div
+									className='card'
+									key={val.id}>
 									<img
 										src={
 											val.featured_image
@@ -63,7 +65,9 @@ const Orderdetails = () => {
 						})}
 						{state?.hot_deals?.map((val) => {
 							return (
-								<div className='card'>
+								<div
+									className='card'
+									key={val.hot_deal_id}>
 									<img
 										src={
 											val.hot_deal_featured_image

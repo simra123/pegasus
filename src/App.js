@@ -27,7 +27,6 @@ import {
 	Verifyemail,
 	Sellerform,
 } from "./forms";
-import { ClientAuthentication } from "./reauseble";
 import { CartCount, RelatedProducts } from "./context-hooks";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
 function App() {
@@ -38,6 +37,7 @@ function App() {
 		dealsIds: [],
 	});
 	const [allCarts, setAllCarts] = useState([]);
+	const [show, setShow] = useState(true);
 	const [searchPro, setSearchPro] = useState([]);
 	const [searchVal, setSearchVal] = useState("");
 	const [loading, setLoading] = useState(true);
@@ -62,26 +62,45 @@ function App() {
 		}
 	};
 	useEffect(() => {
-		CoreHttpHandler.request(
-			"products",
-			"allProducts",
+		if (!show) {
+			CoreHttpHandler.request(
+				"products",
+				"allProducts",
 
-			{
-				limit: 50,
-				page: 0,
-			},
-			(response) => {
-				const res = response.data.data.data;
-				setRelatedProducts(res.data);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
-
+				{
+					limit: 50,
+					page: 0,
+				},
+				(response) => {
+					const res = response.data.data.data;
+					setRelatedProducts(res.data);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);
+		}
 		fetchCarts();
-
-		window.scrollTo(0, 10);
+		const ifExist = localStorage.getItem("client_token");
+		if (!ifExist) {
+			setShow(true);
+			CoreHttpHandler.request(
+				"client",
+				"auth",
+				{},
+				(response) => {
+					const token = response.data.data.token;
+					setShow(false);
+					//console.log(response, "res");
+					if (!ifExist) {
+						localStorage.setItem("client_token", token);
+					}
+				},
+				(err) => {
+					console.log(err, "auth error ");
+				}
+			);
+		}
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -97,7 +116,6 @@ function App() {
 				} else {
 					allPrice += val.deal_price * val.qty;
 				}
-				console.log(allPrice);
 				if (val.id) {
 					products.push(val.id);
 				} else {
@@ -115,23 +133,6 @@ function App() {
 		}
 	}, [allCarts]);
 
-	CoreHttpHandler.request(
-		"client",
-		"auth",
-		{},
-		(response) => {
-			const token = response.data.data.token;
-			const ifExist = localStorage.getItem("client_token");
-
-			console.log(response, "res");
-			if (!ifExist) {
-				localStorage.setItem("client_token", token);
-			}
-		},
-		(err) => {
-			console.log(err, "auth error ");
-		}
-	);
 	const searchProducts = (clear, page) => {
 		let params = {
 			key: "nameVal",
@@ -173,7 +174,12 @@ function App() {
 				<Routes>
 					<Route
 						path='/'
-						element={<Home />}
+						element={
+							<Home
+								show={show}
+								setShow={setShow}
+							/>
+						}
 					/>
 					<Route
 						path='/about'

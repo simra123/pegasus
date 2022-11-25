@@ -225,7 +225,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						{product?.attachment?.length > 1
 							? product?.attachment.map((val) => {
 									return (
-										<SwiperSlide>
+										<SwiperSlide key={val.id}>
 											<img
 												alt='featured image'
 												src={`https://upload.its.com.pk/${val.url}`}
