@@ -34,12 +34,7 @@ const Home = ({ show, setShow }) => {
 	useEffect(() => {
 		getAllData();
 	}, [show]);
-	useEffect(() => {
-		setShow(true);
-		setTimeout(() => {
-			setShow(false);
-		}, 1000);
-	}, []);
+
 	return (
 		<>
 			<BlockUi show={show} />

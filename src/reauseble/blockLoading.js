@@ -19,8 +19,8 @@ const BlockUi = ({ show }) => {
 						}}>
 						<img
 							src={loader}
-							height={480}
-							width={270}
+							height={420}
+							width={240}
 						/>
 					</div>
 				</div>

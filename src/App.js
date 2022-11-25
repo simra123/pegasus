@@ -62,6 +62,8 @@ function App() {
 		}
 	};
 	useEffect(() => {
+		setShow(true);
+
 		if (!show) {
 			CoreHttpHandler.request(
 				"products",
@@ -82,25 +84,23 @@ function App() {
 		}
 		fetchCarts();
 		const ifExist = localStorage.getItem("client_token");
-		if (!ifExist) {
-			setShow(true);
-			CoreHttpHandler.request(
-				"client",
-				"auth",
-				{},
-				(response) => {
-					const token = response.data.data.token;
-					setShow(false);
-					//console.log(response, "res");
-					if (!ifExist) {
-						localStorage.setItem("client_token", token);
-					}
-				},
-				(err) => {
-					console.log(err, "auth error ");
+
+		CoreHttpHandler.request(
+			"client",
+			"auth",
+			{},
+			(response) => {
+				const token = response.data.data.token;
+				setShow(false);
+				//console.log(response, "res");
+				if (!ifExist) {
+					localStorage.setItem("client_token", token);
 				}
-			);
-		}
+			},
+			(err) => {
+				console.log(err, "auth error ");
+			}
+		);
 	}, [location.pathname]);
 
 	useEffect(() => {
