@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
-const FooterTopComp = () => {
+const FooterTopComp = ({ show }) => {
 	const [categories, setCategories] = useState([]);
 
 	const getCategories = () => {
@@ -21,8 +21,10 @@ const FooterTopComp = () => {
 	};
 
 	useEffect(() => {
-		getCategories();
-	}, []);
+		if (!show) {
+			getCategories();
+		}
+	}, [show]);
 	return (
 		<>
 			<div className='footer_top_wrap'>

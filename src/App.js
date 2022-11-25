@@ -279,7 +279,7 @@ function App() {
 						element={<Error />}
 					/>
 				</Routes>
-				<Footer />
+				<Footer show={show} />
 			</RelatedProducts.Provider>
 		</CartCount.Provider>
 	);
