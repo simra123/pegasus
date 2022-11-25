@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
+import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
+const FooterTopComp = () => {
+	const [categories, setCategories] = useState([]);
 
-const FooterTopComp = ({ categories }) => {
+	const getCategories = () => {
+		CoreHttpHandler.request(
+			"products",
+			"categories",
+			{},
+			(response) => {
+				const res = response.data.data.data.data;
+				setCategories(res);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+	};
+
+	useEffect(() => {
+		getCategories();
+	}, []);
 	return (
 		<>
 			<div className='footer_top_wrap'>

@@ -41,7 +41,6 @@ function App() {
 	const [searchPro, setSearchPro] = useState([]);
 	const [searchVal, setSearchVal] = useState("");
 	const [loading, setLoading] = useState(true);
-	const [categories, setCategories] = useState([]);
 
 	const [relatedProducts, setRelatedProducts] = useState([]);
 	const location = useLocation();
@@ -62,19 +61,6 @@ function App() {
 				}
 			);
 		}
-
-		CoreHttpHandler.request(
-			"products",
-			"categories",
-			{},
-			(response) => {
-				const res = response.data.data.data.data;
-				setCategories(res);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
 	};
 	useEffect(() => {
 		setShow(true);
@@ -208,7 +194,6 @@ function App() {
 								getSearchProducts={searchProducts}
 								loading={loading}
 								setLoading={setLoading}
-								categories={categories}
 							/>
 						}
 					/>
@@ -294,7 +279,7 @@ function App() {
 						element={<Error />}
 					/>
 				</Routes>
-				<Footer categories={categories} />
+				<Footer />
 			</RelatedProducts.Provider>
 		</CartCount.Provider>
 	);
