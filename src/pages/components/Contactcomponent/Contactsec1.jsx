@@ -53,15 +53,17 @@ const Contactsec1 = () => {
 							<h3>Contact Info</h3>
 							<label>
 								Phone
-								<a href='tel:888-888-8888'>888-888-8888</a>
+								<a href='tel:469347-4908'>(469) 347-4908</a>
 							</label>
 							<label>
 								Email
-								<a href='mailto:admin@gmail.com'>admin@gmail.com</a>
+								<a href='mailto:support@pegasusdeliveryllc.com'>
+									support@pegasusdeliveryllc.com
+								</a>
 							</label>
 							<label>
 								Address
-								<a href='#0'>Ny 1011 Street 13 Newyork</a>
+								<a href='#0'>4108 HONEYSUCKLE DR, MCKINNEY, TX 75070</a>
 							</label>
 						</div>
 						<div className='col form_col'>

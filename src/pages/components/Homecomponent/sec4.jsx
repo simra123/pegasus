@@ -94,6 +94,7 @@ const HotDeals = ({ show }) => {
 					{!loading && totalPages > 8 ? (
 						<Pagination
 							className='active-pagin'
+							pageSize={9}
 							total={totalPages}
 							onChange={(e) => {
 								getHotDeals(e - 1);

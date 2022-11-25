@@ -34,6 +34,7 @@ const Home = ({ show, setShow }) => {
 	useEffect(() => {
 		getAllData();
 	}, [show]);
+	console.log(show);
 
 	return (
 		<>

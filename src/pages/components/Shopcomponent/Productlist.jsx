@@ -76,6 +76,7 @@ const Productlist = ({
 				</ul>
 				<Pagination
 					className='active-pagin'
+					pageSize={9}
 					total={resultProducts ? resultProducts.totalItems : totalItems}
 					onChange={(e) => {
 						resultProducts

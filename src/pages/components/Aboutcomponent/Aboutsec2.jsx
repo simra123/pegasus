@@ -31,18 +31,12 @@ const Sec2 = () => {
 					</div>
 					<div className='inner_wrap inner_wrap2'>
 						<div className='col content_wrap'>
-							<h2>Sed ut dui in nisl</h2>
+							<h2>Fine Collection Of Vapes</h2>
 							<p>
-								Nullam vitae imperdiet metus, eget convallis nibh. Integer ac
-								eros nec augue consectetur tristique. Pellentesque quis dapibus
-								ante, et porttitor urna. Aliquam id nulla ut urna luctus
-								aliquet. Nunc mollis bibendum orci, eget tempus purus semper
-								vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit
-								gravida. Proin luctus varius nulla nec porttitor. Pellentesque
-								sodales viverra nunc, eget lobortis dolor porttitor eu.
-								Vestibulum vel quam nunc. Nam non semper orci. Curabitur nec
-								neque sit amet sem lacinia tincidunt. In a blandit nibh. Duis et
-								porttitor dui.
+								Pegasus Delivery LLC brings you a fine collection of vapes and a
+								wide range of flavors through its trusted vendors. We aim to add
+								more in our inventory with time ultimately making it a one stop
+								shop of vapes and pods for you.
 							</p>
 						</div>
 						<div className='col img_wrap'>

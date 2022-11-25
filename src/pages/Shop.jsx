@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Filterwrap, Productlist } from "./components/Shopcomponent";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 
-const Shop = ({ data, getSearchProducts, loading, setLoading }) => {
+const Shop = ({ data, getSearchProducts, loading, setLoading, categories }) => {
 	const [products, setProducts] = useState([]);
 	const [totalItems, setTotalItems] = useState("");
 	const [sortBy, setSortBy] = useState("desc");
-	const [categories, setCategories] = useState([]);
 	const [currentParams, setCurrentParams] = useState({
 		limit: 9,
 		page: 0,
@@ -34,23 +33,9 @@ const Shop = ({ data, getSearchProducts, loading, setLoading }) => {
 			}
 		);
 	};
-	const getCategories = () => {
-		CoreHttpHandler.request(
-			"products",
-			"categories",
-			{},
-			(response) => {
-				const res = response.data.data.data.data;
-				setCategories(res);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
-	};
+
 	useEffect(() => {
 		getProducts();
-		getCategories();
 	}, [currentParams, sortBy]);
 	return (
 		<>

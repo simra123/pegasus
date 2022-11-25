@@ -100,7 +100,7 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 														<span className='curreny'>$</span>
 														{val?.price}
 													</span>
-													-
+
 													<span className='discount_price'>
 														<span className='curreny'>$</span>
 														{val?.sale_price}
