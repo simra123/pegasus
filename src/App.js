@@ -254,6 +254,7 @@ function App() {
 								allCarts={allCarts}
 								totalItems={totalItems}
 								totalPrice={totalPrice}
+								fetchCarts={fetchCarts}
 							/>
 						}
 					/>

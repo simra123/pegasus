@@ -7,8 +7,8 @@ import CoreHttpHandler from "../http/services/CoreHttpHandler";
 import { ToastAlertError, ToastAlertSuccess } from "../reauseble";
 import { ToastContainer } from "react-toastify";
 import { configConsumerProps } from "antd/lib/config-provider";
-
-const Cart = ({ allCarts, totalItems, totalPrice }) => {
+import { GrFormClose } from "react-icons/gr";
+const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 	const token = localStorage.getItem("user_token");
 	const navigate = useNavigate();
 
@@ -49,6 +49,18 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 			key: "qty",
 			render: (text) => <span>{text}</span>,
 		},
+		{
+			title: "Remove",
+			dataIndex: "qty",
+			key: "qty",
+			render: (text, i) => (
+				<span
+					onClick={() => removeCart(i)}
+					style={{ cursor: "pointer" }}>
+					X {/* <GrFormClose /> */}
+				</span>
+			),
+		},
 	];
 
 	const [productsArray, setProductsArray] = useState([]);
@@ -61,6 +73,28 @@ const Cart = ({ allCarts, totalItems, totalPrice }) => {
 		number: "0",
 		id: "",
 	});
+
+	const removeCart = (cart) => {
+		CoreHttpHandler.request(
+			"cart",
+			"remove",
+			{
+				product_ids: cart.id ? [cart.id] : [],
+				hot_deal_ids: cart.hot_deal_id ? [cart.hot_deal_id] : [],
+			},
+			(res) => {
+				ToastAlertSuccess("Item removed Successfully");
+				fetchCarts();
+			},
+			(err) => {
+				ToastAlertError(
+					err?.response?.data?.message
+						? err?.response.data.message
+						: "something went wrong"
+				);
+			}
+		);
+	};
 	useEffect(() => {
 		if (!token) {
 			setTimeout(() => {

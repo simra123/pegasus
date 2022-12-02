@@ -106,7 +106,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								</div>
 								<div className='info_wrap'>
 									<h4>24/7 Support</h4>
-									<a href='tel:469347-4908'>(469) 347-4908</a>
+									<a href='tel:4696349501'>4696349501</a>
 								</div>
 							</div>
 							<div className='icon_blk center'>

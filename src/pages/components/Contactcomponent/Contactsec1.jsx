@@ -53,7 +53,7 @@ const Contactsec1 = () => {
 							<h3>Contact Info</h3>
 							<label>
 								Phone
-								<a href='tel:469347-4908'>(469) 347-4908</a>
+								<a href='tel:4696349501'>4696349501</a>
 							</label>
 							<label>
 								Email

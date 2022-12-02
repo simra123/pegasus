@@ -11,10 +11,12 @@ import { ToastContainer } from "react-toastify";
 // Import Swiper styles
 import { MdAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
-import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
+
 import ProductCountdown from "../../js/Prodountdown";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import parse from "html-react-parser";

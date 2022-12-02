@@ -81,7 +81,7 @@ const FooterTopComp = ({ show }) => {
 					<div className='info'>
 						<span>
 							Phone
-							<a href='tel:469347-4908'>(469) 347-4908</a>
+							<a href='tel:4696349501'>4696349501</a>
 						</span>
 					</div>
 					<div className='info'>
