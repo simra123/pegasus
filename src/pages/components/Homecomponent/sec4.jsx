@@ -58,6 +58,7 @@ const HotDeals = ({ show }) => {
 										? hotDeals?.map((val) => {
 												return (
 													<li
+														style={{ cursor: "pointer" }}
 														key={val.hot_deals_id}
 														onClick={() => handleDeals(val)}>
 														<span className='sale_label'>20% OFF</span>

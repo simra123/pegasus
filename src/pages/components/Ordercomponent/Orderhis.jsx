@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Table } from "antd";
 import moment from "moment/moment";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
+import { Pagination } from "antd";
 
 const Orderhis = () => {
 	const columns = [
@@ -41,7 +42,7 @@ const Orderhis = () => {
 			title: "Delivery fee",
 			dataIndex: "delivery_fees",
 			key: "price",
-			render: (text) => <span>{text}</span>,
+			render: (text) => <span>{text ? text : 0}</span>,
 		},
 
 		{
@@ -59,6 +60,16 @@ const Orderhis = () => {
 	];
 	const [pastOrders, setPastOrders] = useState([]);
 	const [ongoingOrders, setOngoingOrders] = useState([]);
+	const [currentParams, setCurrentParams] = useState({
+		page: 0,
+		limit: 5,
+	});
+	const [currentParams2, setCurrentParams2] = useState({
+		page: 0,
+		limit: 5,
+	});
+	const [totalPagesNow, setTotalPagesNow] = useState(0);
+	const [totalPagesPast, setTotalPagesPast] = useState(0);
 	const navigate = useNavigate();
 
 	const handleSingleOrder = (data) => {
@@ -73,42 +84,44 @@ const Orderhis = () => {
 			"orders",
 			"history",
 			{
-				page: 0,
-				limit: 15,
+				...currentParams,
 				sortBy: "desc",
-
-				//status: "order_placed",
 			},
 			(response) => {
-				const res = response.data.data.orders.orders;
-				setOngoingOrders(response.data.data.orders.orders);
+				const res = response.data.data.orders;
+				setOngoingOrders(res.orders);
+				setTotalPagesNow(res.totalItems);
 			},
 			(err) => {
 				console.log(err);
 			}
 		);
+	}, [currentParams]);
+	useEffect(() => {
 		CoreHttpHandler.request(
 			"orders",
 			"history",
 			{
-				page: 0,
-				limit: 15,
+				...currentParams2,
 				status: "delieverd",
 				sortBy: "desc",
 			},
 			(response) => {
-				const res = response.data.data.orders.orders;
-				//console.log(res);
-				setPastOrders(response.data.data.orders.orders);
+				const res = response.data.data.orders;
+				setPastOrders(res.orders);
+				setTotalPagesPast(res.totalItems);
 			},
 			(err) => {
 				console.log(err);
 			}
 		);
-	}, []);
+	}, [currentParams2]);
+
 	return (
 		<>
-			<section className='sec sec2 orderhis_sec'>
+			<section
+				className='sec sec2 orderhis_sec '
+				style={{ marginTop: "70px" }}>
 				<div className='container'>
 					<div className='inner_wrap'>
 						<h2>
@@ -120,19 +133,54 @@ const Orderhis = () => {
 								columns={columns}
 								dataSource={ongoingOrders}
 								pagination={false}
+								scroll={{
+									x: 280,
+								}}
 							/>
 						</div>
+						{totalPagesNow > 5 && (
+							<Pagination
+								className='active-pagin'
+								pageSize={5}
+								style={{ float: "right" }}
+								total={totalPagesNow}
+								onChange={(e) => {
+									setCurrentParams({
+										limit: 5,
+										page: e - 1,
+									});
+								}}
+							/>
+						)}
+
 						<br />
-						<h2>
+						<h2 style={{ marginTop: "50px" }}>
 							Past Orders <span>{pastOrders.length}</span>
 						</h2>
 						<div className='order_list'>
 							<Table
 								columns={columns}
 								dataSource={pastOrders}
+								scroll={{
+									x: 280,
+								}}
 								pagination={false}
 							/>
 						</div>
+						{totalPagesPast > 5 && (
+							<Pagination
+								className='active-pagin'
+								pageSize={5}
+								style={{ float: "right" }}
+								total={totalPagesPast}
+								onChange={(e) => {
+									setCurrentParams2({
+										limit: 5,
+										page: e - 1,
+									});
+								}}
+							/>
+						)}
 					</div>
 				</div>
 			</section>

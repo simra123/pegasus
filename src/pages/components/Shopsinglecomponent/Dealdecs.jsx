@@ -181,49 +181,84 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							"--swiper-navigation-color": "#fff",
 							"--swiper-pagination-color": "#fff",
 						}}
-						loop={true}
+						loop={false}
 						spaceBetween={10}
 						navigation={true}
 						thumbs={{ swiper: thumbsSwiper }}
-						//	pagination={pagination}
 						modules={[FreeMode, Navigation, Thumbs, Pagination]}
 						className='mySwiper2'>
-						{attachment
+						{deal?.featured_image && (
+							<SwiperSlide>
+								<img
+									style={{ height: "540px" }}
+									alt='featured image'
+									src={`https://upload.its.com.pk/${deal?.featured_image}`}
+								/>
+							</SwiperSlide>
+						)}
+						{attachment?.length > 0
 							? attachment.map((val) => {
 									return (
 										<SwiperSlide>
 											<img
+												style={{ height: "540px" }}
 												alt='featured image'
-												src={`${val.url}`}
+												src={`https://upload.its.com.pk/${val.url}`}
 											/>
 										</SwiperSlide>
 									);
 							  })
 							: null}
 					</Swiper>
-					<Swiper
-						onSwiper={setThumbsSwiper}
-						loop={true}
-						spaceBetween={10}
-						slidesPerView={4}
-						freeMode={true}
-						style={{ marginTop: "10px" }}
-						watchSlidesProgress={true}
-						modules={[FreeMode, Navigation, Thumbs]}
-						className='mySwiper'>
-						{attachment?.length > 1
-							? attachment.map((val) => {
-									return (
+					{attachment?.length > 0
+						? attachment[0].url && (
+								<Swiper
+									onSwiper={setThumbsSwiper}
+									loop={false}
+									spaceBetween={1}
+									slidesPerView={4}
+									freeMode={true}
+									style={{ marginTop: "10px" }}
+									watchSlidesProgress={true}
+									modules={[FreeMode, Navigation, Thumbs]}
+									className='mySwiper'>
+									{deal?.featured_image && (
 										<SwiperSlide>
 											<img
+												style={{
+													height: "135px",
+													width: "135px",
+													cursor: "pointer",
+												}}
 												alt='featured image'
-												src={`${val.url}`}
+												src={`https://upload.its.com.pk/${deal?.featured_image}`}
 											/>
 										</SwiperSlide>
-									);
-							  })
-							: null}
-					</Swiper>
+									)}
+									{attachment?.length
+										? attachment.map((val) => {
+												return (
+													<>
+														{val.url && (
+															<SwiperSlide key={val.id}>
+																<img
+																	style={{
+																		height: "135px",
+																		width: "135px",
+																		cursor: "pointer",
+																	}}
+																	alt='featured image'
+																	src={`https://upload.its.com.pk/${val.url}`}
+																/>
+															</SwiperSlide>
+														)}
+													</>
+												);
+										  })
+										: null}
+								</Swiper>
+						  )
+						: null}
 				</div>
 				{deal.products && !loading ? (
 					<div className='col'>
@@ -259,12 +294,28 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									</span>
 								)}
 							</div>
-							<p>
-								{deal.description
-									? parse(deal.description)
-									: "Nullam vitae imperdiet metus, eget convallis nibh. Integer ac eros necaugue consectetur tristique. Pellentesque quis dapibus ante, etporttitor urna. Aliquam id nulla ut urna luctus aliquet. Nunc mollisbibendum orci, eget tempus purus semper vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit gravida"}
-							</p>
-							<form action=''>
+							<h4 style={{ color: "white" }}>Description</h4>
+							<div
+								style={{
+									fontFamily: "Marcellus SC, sans-serif",
+									color: "rgba(255, 255, 255, 0.5019607843)",
+									fontSize: "20px",
+									letterSpacing: "0.5px",
+									marginBottom: 0,
+								}}>
+								{deal?.products.map((val) => {
+									return <p style={{ margin: 0 }}>1 x {val?.name}</p>;
+								})}
+								<p style={{ margin: 0 }}>
+									{deal.description
+										? parse(deal.description)
+										: "Nullam vitae imperdiet metus, eget convallis nibh. Integer ac eros necaugue consectetur tristique. Pellentesque quis dapibus ante, etporttitor urna. Aliquam id nulla ut urna luctus aliquet. Nunc mollisbibendum orci, eget tempus purus semper vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit gravida"}
+								</p>
+							</div>
+
+							<form
+								action=''
+								style={{ marginTop: "30px" }}>
 								<AiOutlineMinus
 									color='white'
 									size='30'
@@ -303,7 +354,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							<div className='prod_info'>
 								<ul>
 									<li>
-										<span className='info_name'>StoreName</span> :
+										<span className='info_name'>Store</span> :
 										<span className='info_value'>
 											{deal?.products[0]?.store_name}
 										</span>

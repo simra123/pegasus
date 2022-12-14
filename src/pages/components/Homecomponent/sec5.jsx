@@ -40,7 +40,7 @@ const sec5 = ({ data, recent, loading }) => {
 								<ul className='prod_list_wrap'>
 									<Swiper
 										modules={[Navigation]}
-										spaceBetween={20}
+										spaceBetween={25}
 										slidesPerView={3}
 										breakpoints={{
 											// when window width is >= 640px

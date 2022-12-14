@@ -41,7 +41,15 @@ const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 			title: "Price",
 			dataIndex: "price",
 			key: "price",
-			render: (text, i) => <span>{text ? text : i.deal_price}</span>,
+			render: (text, i) => (
+				<span>
+					{i.hot_deal_id
+						? i.deal_price
+						: i.sale_price > 0
+						? i.sale_price
+						: i.price}
+				</span>
+			),
 		},
 		{
 			title: "Quantity",
@@ -68,7 +76,7 @@ const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 	const [productQuantity, setProductQuantity] = useState([]);
 	const [dealQuantity, setDealQuantity] = useState([]);
 	const [discountedPrice, setDiscountedPrice] = useState("");
-	const [coupon, setCoupon] = useState("");
+	const [coupon, setCoupon] = useState();
 	const [percent, setPercent] = useState({
 		number: "0",
 		id: "",

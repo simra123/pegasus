@@ -4,9 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
-import { ProductImage, Loader } from "../../../reauseble";
+import { ProductImage, Loader, DataNotFound } from "../../../reauseble";
 
-const Recentviewed = ({ data }) => {
+const Recentviewed = ({ data, loading }) => {
 	return (
 		<>
 			<div className='recent_prod'>
@@ -33,7 +33,7 @@ const Recentviewed = ({ data }) => {
 										},
 									}}
 									navigation>
-									{data?.length ? (
+									{data?.length && !loading ? (
 										data.map((val) => {
 											return (
 												<SwiperSlide key={val.id}>
@@ -50,10 +50,34 @@ const Recentviewed = ({ data }) => {
 															<div className='prod_info'>
 																<h4>{val?.name}</h4>
 																<div className='price_wrap'>
-																	<span className='regular_price'>
-																		<span className='curreny'>$</span>
-																		{val?.price}
-																	</span>
+																	{val?.sale_price > 0 ? (
+																		<span
+																			className='regular_price'
+																			style={{
+																				textDecoration: "line-through",
+																			}}>
+																			<span className='curreny'>$ </span>
+																			{val.price}
+																		</span>
+																	) : (
+																		<span
+																			className='discount_price'
+																			style={{
+																				textDecoratione: "line-through",
+																			}}>
+																			<span className='curreny'>$ </span>
+																			{val.price}
+																		</span>
+																	)}
+
+																	{val?.sale_price > 0 && (
+																		<span
+																			className='discount_price'
+																			style={{ marginLeft: "0px" }}>
+																			<span className='curreny'>$</span>
+																			{val?.sale_price}
+																		</span>
+																	)}
 																</div>
 															</div>
 														</li>
@@ -62,12 +86,13 @@ const Recentviewed = ({ data }) => {
 											);
 										})
 									) : (
-										<Loader loading={true} />
+										<DataNotFound />
 									)}
 								</Swiper>
 							</ul>
 						</div>
 					</div>
+					<Loader loading={loading} />
 				</div>
 			</div>
 		</>

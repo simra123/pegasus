@@ -1,13 +1,13 @@
 import React from "react";
 // import prodimg from "../../../assets/images/pro-img1.png";
 import { Pagination } from "antd";
-import { Loader, ProductImage } from "../../../reauseble";
+import { Loader, ProductImage, DataNotFound } from "../../../reauseble";
 import { Link } from "react-router-dom";
+
 // import "../../Cart";
 const Productlist = ({
 	products,
 	setCurrentParams,
-	currentParams,
 	totalItems,
 	loading,
 	resultProducts,
@@ -19,14 +19,6 @@ const Productlist = ({
 	return (
 		<>
 			<div className='prod_wrap'>
-				{/* <div className='prod_added'>
-					<span>vape product 4</span>
-					<Link
-						to='/cart'
-						className='viewcart_btn'>
-						View Cart
-					</Link>
-				</div> */}
 				<div className='top_wrap'>
 					<div className='prod_count'>
 						<span>
@@ -63,30 +55,60 @@ const Productlist = ({
 												alt='featured image'
 											/>
 											<h3 className='prod_title'>{val.name}</h3>
-											<span className='prod_price'>
-												<span className='curreny'>$</span>
+											<div className='prod_price'>
+												{val?.sale_price > 0 ? (
+													<span
+														className='regular_price'
+														style={{
+															textDecoration: "line-through",
+														}}>
+														<span className='curreny'>$ </span>
+														{val.price}
+													</span>
+												) : (
+													<span
+														className='discount_price'
+														style={{ textDecoratione: "line-through" }}>
+														<span className='curreny'>$ </span>
+														{val.price}
+													</span>
+												)}
+
+												{val?.sale_price > 0 && (
+													<span
+														className='discount_price'
+														style={{ marginLeft: "10px" }}>
+														<span className='curreny'>$</span>
+														{val?.sale_price}
+													</span>
+												)}
+											</div>
+											{/* <span className='curreny'>$</span>
 												{val.price}
-											</span>
+											</span> */}
 										</Link>
 									</li>
 								);
 						  })
 						: null}
 					<Loader loading={loading} />
+					{!loading && !allProducts ? <DataNotFound /> : null}
 				</ul>
-				<Pagination
-					className='active-pagin'
-					pageSize={9}
-					total={resultProducts ? resultProducts.totalItems : totalItems}
-					onChange={(e) => {
-						resultProducts
-							? getSearchProducts(false, e - 1)
-							: setCurrentParams({
-									limit: 9,
-									page: e - 1,
-							  });
-					}}
-				/>
+				{allProducts && (
+					<Pagination
+						className='active-pagin'
+						pageSize={9}
+						total={resultProducts ? resultProducts.totalItems : totalItems}
+						onChange={(e) => {
+							resultProducts
+								? getSearchProducts(false, e - 1)
+								: setCurrentParams({
+										limit: 9,
+										page: e - 1,
+								  });
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);

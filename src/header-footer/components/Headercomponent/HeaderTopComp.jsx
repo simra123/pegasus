@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Button, Drawer } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
 import bskimg from "../../../assets/images/top-basket.png";
 import phnimg from "../../../assets/images/top-phone.png";
@@ -14,13 +14,8 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 	const [showDropdowm, setShowDropdowm] = useState(false);
 	const [cartCount] = useContext(CartCount);
 	const navigate = useNavigate();
+	const location = useLocation();
 
-	const showDrawer = () => {
-		setOpen(true);
-	};
-	const onClose = () => {
-		setOpen(false);
-	};
 	const token = localStorage.getItem("user_token");
 	const handleLogout = () => {
 		localStorage.removeItem("user_token");
@@ -31,6 +26,21 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 		getProducts();
 		navigate("/shop");
 	};
+	const dropdown = useRef(null);
+	useEffect(() => {
+		const handleEvent = (e) => {
+			if (dropdown.current && !dropdown.current.contains(e.target)) {
+				setShowDropdowm(false);
+			}
+		};
+		document.addEventListener("mousedown", handleEvent);
+		return () => {
+			document.removeEventListener("mousedown", handleEvent);
+		};
+	}, []);
+	useEffect(() => {
+		setOpen(false);
+	}, [location.pathname]);
 
 	return (
 		<>
@@ -48,7 +58,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								<Button
 									type='primary'
 									className='nav_menu_btn'
-									onClick={showDrawer}>
+									onClick={() => setOpen(true)}>
 									<FontAwesomeIcon icon={faBars} />
 								</Button>
 							</div>
@@ -56,7 +66,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								className='main_menu'
 								title='Pegasus'
 								placement='right'
-								onClose={onClose}
+								onClose={() => setOpen(false)}
 								open={open}>
 								<div className='nav-links'>
 									<Link to='/'>Home</Link>
@@ -64,6 +74,25 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 									<Link to='/about'>About</Link>
 									<Link to='/faq'>FAQ's</Link>
 									<Link to='/contact'>Contact</Link>
+									<Link to='/cart'>Cart</Link>
+									<div className='icon_blk center'>
+										<div
+											className='info_wrap'
+											ref={dropdown}>
+											{token ? (
+												<div className='dropdown-content'>
+													<a onClick={handleLogout}>Logout</a>
+													<a
+														style={{ cursor: "pointer" }}
+														onClick={() => navigate("/orderhistory")}>
+														Order History
+													</a>
+												</div>
+											) : (
+												<Link to='/login'> Sign In </Link>
+											)}
+										</div>
+									</div>
 								</div>
 							</Drawer>
 						</div>
@@ -82,6 +111,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 								{searchVal && (
 									<input
 										className='form_field btn_field_close'
+										style={{ cursor: "pointer" }}
 										onClick={() => {
 											setSearchVal("");
 											getProducts(true);
@@ -116,18 +146,20 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 										alt='image'
 									/>
 								</div>
-								<div className='info_wrap'>
+								<div
+									className='info_wrap'
+									ref={dropdown}>
 									<h4>Account</h4>
 									{token ? (
-										<div class='dropdown'>
+										<div className='dropdown'>
 											<button
-												class='dropbtn'
+												className='dropbtn'
 												onClick={() => setShowDropdowm(!showDropdowm)}>
 												Profile
 												<RiArrowDownSFill size={15} />
 											</button>
 											{showDropdowm && (
-												<div class='dropdown-content'>
+												<div className='dropdown-content'>
 													<a onClick={handleLogout}>Logout</a>
 													<a
 														style={{ cursor: "pointer" }}

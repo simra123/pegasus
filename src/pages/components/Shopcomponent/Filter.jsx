@@ -6,13 +6,13 @@ import {
 	ToastAlertSuccess,
 } from "../../../reauseble";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { BeatLoader } from "react-spinners";
 const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 	const [email, setEmail] = useState("");
 	const [loading1, setLoading1] = useState(false);
-
+	const navigate = useNavigate();
 	const handleNewletter = (e) => {
 		if (email) {
 			setLoading1(true);
@@ -43,7 +43,7 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 			<ToastContainer />
 			<div className='filter_wrap'>
 				<div className='inner_wrap'>
-					<div className='prod_srch_wrap'>
+					{/* <div className='prod_srch_wrap'>
 						<form action=''>
 							<input
 								type='text'
@@ -56,10 +56,15 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 								value={"s"}
 							/>
 						</form>
-					</div>
+					</div> */}
 					<div className='cat_wrap'>
 						<h4>Categories</h4>
 						<ul className='cat_list'>
+							<li
+								onClick={() => getProducts(null, 0)}
+								style={{ textTransform: "capitalize" }}>
+								<a style={{ color: "#f3ac3b" }}> All</a>
+							</li>
 							{data?.map((val) => {
 								return (
 									<li
@@ -81,9 +86,13 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 							{!loading && discountedProducts
 								? discountedProducts.map((val) => {
 										return (
-											<li key={val.id}>
+											<li
+												key={val.id}
+												style={{ cursor: "pointer" }}
+												onClick={() => navigate(`/singleproduct/${val.id}`)}>
 												<div className='img_wrap'>
 													<img
+														style={{ height: "auto", width: "100%" }}
 														src={
 															val.featured_image
 																? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
@@ -92,7 +101,9 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 														alt='featured image'
 													/>
 												</div>
-												<div className='price_wrap'>
+												<div
+													className='price_wrap'
+													style={{ marginTop: 0, paddingTop: 0 }}>
 													<Link to={`/singleproduct/${val.id}`}>
 														<h6>{val?.name}</h6>
 													</Link>

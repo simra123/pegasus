@@ -2,39 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Filterwrap, Productlist } from "./components/Shopcomponent";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 
-const Shop = ({ data, getSearchProducts, loading, setLoading }) => {
-	const [products, setProducts] = useState([]);
-	const [totalItems, setTotalItems] = useState("");
-	const [sortBy, setSortBy] = useState("desc");
+const Shop = ({
+	data,
+	getSearchProducts,
+	loading,
+	products,
+	getProducts,
+	currentParams,
+	setCurrentParams,
+	sortBy,
+	setSortBy,
+	totalItems,
+}) => {
 	const [categories, setCategories] = useState([]);
 
-	const [currentParams, setCurrentParams] = useState({
-		limit: 9,
-		page: 0,
-	});
-	const getProducts = (selectedCate, page) => {
-		setLoading(true);
-		CoreHttpHandler.request(
-			"products",
-			"allProducts",
-			{
-				limit: currentParams.limit,
-				page: page ? page : currentParams.page,
-				id: selectedCate ? selectedCate : "",
-				sortBy: sortBy ? sortBy : "desc",
-			},
-			(response) => {
-				setLoading(false);
-				const res = response.data.data.data;
-				setProducts(res);
-				setTotalItems(res.totalItems);
-			},
-			(err) => {
-				setLoading(false);
-				console.log(err);
-			}
-		);
-	};
 	const getCategories = () => {
 		CoreHttpHandler.request(
 			"products",
@@ -71,7 +52,6 @@ const Shop = ({ data, getSearchProducts, loading, setLoading }) => {
 								<Productlist
 									loading={loading}
 									products={data.data ? data.data.data : products}
-									currentParams={currentParams}
 									resultProducts={data.data ? data.data : null}
 									setCurrentParams={setCurrentParams}
 									totalItems={totalItems}

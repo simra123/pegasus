@@ -62,7 +62,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 	};
 	useEffect(() => {
 		getProduct();
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		if (product) {
@@ -74,8 +74,8 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 	}, [product]);
 	useEffect(() => {
 		if (proQuantity < 1) {
-			ToastAlertError("Quality can not be in Negative");
-			setProQuantity(0);
+			ToastAlertError("Quality can not be less than 1");
+			setProQuantity(1);
 		}
 		if (product?.stock) {
 			if (proQuantity > product?.stock) {
@@ -168,7 +168,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 
 	return (
 		<>
-			<ToastContainer />
+			<ToastContainer limit={1} />
 			<div className='single_prod_info'>
 				<div className='col'>
 					<Swiper
@@ -176,68 +176,92 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							"--swiper-navigation-color": "#fff",
 							"--swiper-pagination-color": "#fff",
 						}}
-						loop={true}
+						loop={false}
 						spaceBetween={10}
 						navigation={true}
 						thumbs={{ swiper: thumbsSwiper }}
-						//	pagination={pagination}
 						modules={[FreeMode, Navigation, Thumbs, Pagination]}
 						className='mySwiper2'>
 						{product?.featured_image && (
 							<SwiperSlide>
 								<img
+									style={{ height: "540px" }}
 									alt='featured image'
 									src={`https://upload.its.com.pk/${product?.featured_image}`}
 								/>
 							</SwiperSlide>
 						)}
-						{product?.attachment
-							? product?.attachment.map((val) => {
+						{product?.attachment?.length
+							? product?.attachment?.map((val) => {
 									return (
+										<>
+											{val.url && (
+												<SwiperSlide key={val.id}>
+													<img
+														style={{ height: "540px" }}
+														alt='featured image'
+														src={`https://upload.its.com.pk/${val.url}`}
+													/>
+												</SwiperSlide>
+											)}
+										</>
+									);
+							  })
+							: null}
+					</Swiper>
+					{product.attachment?.length
+						? product.attachment[0].url && (
+								<Swiper
+									onSwiper={setThumbsSwiper}
+									loop={false}
+									spaceBetween={1}
+									slidesPerView={4}
+									freeMode={true}
+									style={{ marginTop: "10px" }}
+									modules={[FreeMode, Navigation, Thumbs]}
+									className='mySwiper'>
+									{product?.featured_image && (
 										<SwiperSlide>
 											<img
+												style={{
+													height: "135px",
+													width: "135px",
+													cursor: "pointer",
+												}}
 												alt='featured image'
-												src={`https://upload.its.com.pk/${val.url}`}
+												src={`https://upload.its.com.pk/${product?.featured_image}`}
 											/>
 										</SwiperSlide>
-									);
-							  })
-							: null}
-					</Swiper>
-					<Swiper
-						onSwiper={setThumbsSwiper}
-						loop={true}
-						spaceBetween={10}
-						slidesPerView={4}
-						freeMode={true}
-						style={{ marginTop: "10px" }}
-						watchSlidesProgress={true}
-						modules={[FreeMode, Navigation, Thumbs]}
-						className='mySwiper'>
-						{product?.featured_image && (
-							<SwiperSlide>
-								<img
-									alt='featured image'
-									src={`https://upload.its.com.pk/${product?.featured_image}`}
-								/>
-							</SwiperSlide>
-						)}
-						{product?.attachment?.length > 1
-							? product?.attachment.map((val) => {
-									return (
-										<SwiperSlide key={val.id}>
-											<img
-												alt='featured image'
-												src={`https://upload.its.com.pk/${val.url}`}
-											/>
-										</SwiperSlide>
-									);
-							  })
-							: null}
-					</Swiper>
+									)}
+									{product?.attachment
+										? product?.attachment.map((val) => {
+												return (
+													<>
+														{val.url && (
+															<SwiperSlide key={val.id}>
+																<img
+																	style={{
+																		height: "135px",
+																		width: "135px",
+																		cursor: "pointer",
+																	}}
+																	alt='featured image'
+																	src={`https://upload.its.com.pk/${val.url}`}
+																/>
+															</SwiperSlide>
+														)}
+													</>
+												);
+										  })
+										: null}
+								</Swiper>
+						  )
+						: null}
 				</div>
 				{product && !loading ? (
-					<div className='col'>
+					<div
+						className='col'
+						style={{ padding: "20px" }}>
 						<div className='prod_detial'>
 							<div className='prod_title'>
 								<h3>{product.name}</h3>
@@ -334,7 +358,10 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 			) : (
 				<Loader loading={loading} />
 			)}
-			<Recentviewed data={similarPro ? similarPro : relatedProducts} />
+			<Recentviewed
+				loading={loading}
+				data={similarPro ? similarPro : relatedProducts}
+			/>
 		</>
 	);
 };

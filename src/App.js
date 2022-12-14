@@ -1,289 +1,60 @@
-// import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import "./assets/scss/main.scss";
-import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-
-import { Header, Footer } from "./header-footer";
-import {
-	Home,
-	About,
-	Shop,
-	Singleproduct,
-	Faq,
-	Contact,
-	Wishlist,
-	Checkout,
-	Cart,
-	Orderdetail,
-	Error,
-	Orderhistory,
-	SingleDeal,
-} from "./pages/js";
-import {
-	Loginform,
-	Createnewpass,
-	Forgotpassword,
-	Registerform,
-	Verifyemail,
-	Sellerform,
-} from "./forms";
-import { CartCount, RelatedProducts } from "./context-hooks";
+import { useState, useEffect } from "react";
+import Routes from "./Routes";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
-function App() {
-	const [cartCount, setCartCount] = useState({
-		balance: 0,
-		count: 0,
-		productIds: [],
-		dealsIds: [],
-	});
-	const [allCarts, setAllCarts] = useState([]);
-	const [show, setShow] = useState(true);
-	const [searchPro, setSearchPro] = useState([]);
-	const [searchVal, setSearchVal] = useState("");
+
+const App = () => {
+	const [products, setProducts] = useState([]);
+	const [totalItems, setTotalItems] = useState(0);
 	const [loading, setLoading] = useState(true);
-
-	const [relatedProducts, setRelatedProducts] = useState([]);
-	const location = useLocation();
-	const token = localStorage.getItem("user_token");
-	const fetchCarts = () => {
-		if (token) {
-			CoreHttpHandler.request(
-				"cart",
-				"fetch",
-				{},
-				(response) => {
-					if (response.data.data.settings) {
-						setAllCarts(response.data.data.settings);
-					}
-				},
-				(err) => {
-					console.log(err);
-				}
-			);
+	const [sortBy, setSortBy] = useState("desc");
+	const [searchPro, setSearchPro] = useState([]);
+	const [currentParams, setCurrentParams] = useState({
+		limit: 9,
+		page: 0,
+	});
+	const getProducts = (selectedCate, page) => {
+		setLoading(true);
+		if (selectedCate) {
+			setSearchPro([]);
 		}
-	};
-	useEffect(() => {
-		setShow(true);
-
-		if (!show) {
-			CoreHttpHandler.request(
-				"products",
-				"allProducts",
-
-				{
-					limit: 50,
-					page: 0,
-				},
-				(response) => {
-					const res = response.data.data.data;
-					setRelatedProducts(res.data);
-				},
-				(err) => {
-					console.log(err);
-				}
-			);
-		}
-		fetchCarts();
-		const ifExist = localStorage.getItem("client_token");
-
 		CoreHttpHandler.request(
-			"client",
-			"auth",
-			{},
+			"products",
+			"allProducts",
+			{
+				limit: currentParams.limit,
+				page: page ? page : currentParams.page,
+				id: selectedCate ? selectedCate : "",
+				sortBy: sortBy ? sortBy : "desc",
+			},
 			(response) => {
-				const token = response.data.data.token;
-				setShow(false);
-
-				if (!ifExist) {
-					localStorage.setItem("client_token", token);
-				}
+				setLoading(false);
+				const res = response.data.data.data;
+				setProducts(res);
+				setTotalItems(res.totalItems);
 			},
 			(err) => {
-				console.log(err, "auth error ");
+				setLoading(false);
+				console.log(err);
 			}
 		);
-	}, [location.pathname]);
-
-	useEffect(() => {
-		if (allCarts) {
-			let allItems = 0;
-			let allPrice = 0;
-			let products = [];
-			let deals = [];
-			allCarts.map((val) => {
-				allItems += val.qty;
-				if (val.price) {
-					allPrice += val.price * val.qty;
-				} else {
-					allPrice += val.deal_price * val.qty;
-				}
-				if (val.id) {
-					products.push(val.id);
-				} else {
-					deals.push(val.hot_deal_id);
-				}
-			});
-			setTotalItems(allItems);
-			setTotalPrice(allPrice.toString().substring(0, 8));
-			setCartCount({
-				count: allCarts.length,
-				balance: allPrice.toString().substring(0, 8),
-				productIds: products,
-				dealsIds: deals,
-			});
-		}
-	}, [allCarts]);
-
-	const searchProducts = (clear, page) => {
-		let params = {
-			key: "nameVal",
-			value: searchVal,
-			key2: "pageVal",
-			value2: page ? page : 0,
-		};
-		if (clear) {
-			setSearchPro([]);
-		} else {
-			setLoading(true);
-
-			CoreHttpHandler.request(
-				"products",
-				"search",
-				params,
-				(response) => {
-					const res = response.data.data;
-					setSearchPro(res);
-					setLoading(false);
-				},
-				(err) => {
-					console.log(err);
-					setLoading(false);
-				}
-			);
-		}
 	};
-	const [totalItems, setTotalItems] = useState(0);
-	const [totalPrice, setTotalPrice] = useState(0);
-	return (
-		<CartCount.Provider value={[cartCount, setCartCount]}>
-			<RelatedProducts.Provider value={[relatedProducts, setRelatedProducts]}>
-				<Header
-					getProducts={searchProducts}
-					setSearchVal={setSearchVal}
-					searchVal={searchVal}
-				/>
-				<Routes>
-					<Route
-						path='/'
-						element={
-							<Home
-								show={show}
-								setShow={setShow}
-							/>
-						}
-					/>
-					<Route
-						path='/about'
-						element={<About />}
-					/>
-					<Route
-						path='/shop'
-						element={
-							<Shop
-								data={searchPro}
-								getSearchProducts={searchProducts}
-								loading={loading}
-								setLoading={setLoading}
-							/>
-						}
-					/>
-					<Route
-						path='/singleproduct/:id'
-						element={
-							<Singleproduct
-								allCarts={allCarts}
-								fetchCarts={fetchCarts}
-							/>
-						}
-					/>
 
-					<Route
-						path='/faq'
-						element={<Faq />}
-					/>
-					<Route
-						path='/contact'
-						element={<Contact />}
-					/>
-					<Route
-						path='/wishlist'
-						element={<Wishlist />}
-					/>
-					<Route
-						path='/login'
-						element={<Loginform />}
-					/>
-					<Route
-						path='/createnewpass'
-						element={<Createnewpass />}
-					/>
-					<Route
-						path='/forgotpassword'
-						element={<Forgotpassword />}
-					/>
-					<Route
-						path='/registerform'
-						element={<Registerform />}
-					/>
-					<Route
-						path='/verifyemail'
-						element={<Verifyemail />}
-					/>
-					<Route
-						path='/sellerform'
-						element={<Sellerform />}
-					/>
-					<Route
-						path='/checkout'
-						element={<Checkout fetchCarts={fetchCarts} />}
-					/>
-					<Route
-						path='/cart'
-						element={
-							<Cart
-								allCarts={allCarts}
-								totalItems={totalItems}
-								totalPrice={totalPrice}
-								fetchCarts={fetchCarts}
-							/>
-						}
-					/>
-					<Route
-						path='/singledeal/:id'
-						element={
-							<SingleDeal
-								allCarts={allCarts}
-								fetchCarts={fetchCarts}
-							/>
-						}
-					/>
-					<Route
-						path='/orderdetail/:id'
-						element={<Orderdetail />}
-					/>
-					<Route
-						path='/orderhistory'
-						element={<Orderhistory />}
-					/>
-					<Route
-						path='*'
-						element={<Error />}
-					/>
-				</Routes>
-				<Footer show={show} />
-			</RelatedProducts.Provider>
-		</CartCount.Provider>
+	return (
+		<Routes
+			getProducts={getProducts}
+			loading={loading}
+			setLoading={setLoading}
+			products={products}
+			searchPro={searchPro}
+			setSearchPro={setSearchPro}
+			setProducts={setProducts}
+			totalpages={totalItems}
+			setCurrentParams={setCurrentParams}
+			sortBy={sortBy}
+			currentParams={currentParams}
+			setSortBy={setSortBy}
+		/>
 	);
-}
+};
 
 export default App;

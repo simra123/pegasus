@@ -9,6 +9,7 @@ import LoadingButton from "./loadingButton";
 import { ClientAuthentication } from "./clientToken";
 import ProductImage from "./productPlaceholder";
 import BlockUi from "./blockLoading";
+import DataNotFound from "./dataNotFound";
 export {
 	Loader,
 	//ToastSuccess,
@@ -20,4 +21,5 @@ export {
 	ClientAuthentication,
 	ToastCart,
 	BlockUi,
+	DataNotFound,
 };

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
-const FooterTopComp = ({ show }) => {
+const FooterTopComp = ({ show, getProducts }) => {
 	const [categories, setCategories] = useState([]);
-
+	const navigate = useNavigate();
 	const getCategories = () => {
 		CoreHttpHandler.request(
 			"products",
@@ -25,6 +25,10 @@ const FooterTopComp = ({ show }) => {
 			getCategories();
 		}
 	}, [show]);
+	const handleFilter = (cate) => {
+		navigate("/shop");
+		getProducts(cate.id, 0);
+	};
 	return (
 		<>
 			<div className='footer_top_wrap'>
@@ -67,10 +71,14 @@ const FooterTopComp = ({ show }) => {
 					<ul className='menu_wrap'>
 						{categories?.map((val) => {
 							return (
-								<li
-									key={val.id}
-									style={{ textTransform: "capitalize" }}>
-									<Link to='/shop'>{val?.name}</Link>
+								<li>
+									<a
+										onClick={() => handleFilter(val)}
+										key={val.id}
+										style={{ textTransform: "capitalize" }}>
+										{" "}
+										{val?.name}
+									</a>
 								</li>
 							);
 						})}
@@ -78,10 +86,19 @@ const FooterTopComp = ({ show }) => {
 				</div>
 				<div className='col col4'>
 					<h4>Contact Info</h4>
-					<div className='info'>
-						<span>
-							Phone
+					<ul className='menu_wrap'>
+						<li>
 							<a href='tel:4696349501'>4696349501</a>
+						</li>
+						<li>
+							<a href='mailto:support@pegasusdeliveryllc.com'>
+								support@pegasusdeliveryllc.com
+							</a>
+						</li>
+					</ul>
+					{/* <div className='info'>
+						<span>
+							Phone<a href='tel:4696349501'>4696349501</a>
 						</span>
 					</div>
 					<div className='info'>
@@ -91,7 +108,7 @@ const FooterTopComp = ({ show }) => {
 								support@pegasusdeliveryllc.com
 							</a>
 						</span>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</>

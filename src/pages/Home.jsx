@@ -2,7 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Sec1, Sec2, Sec3, Sec4, Sec5 } from "./components/Homecomponent/index";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
 import { BlockUi } from "../reauseble";
-const Home = ({ show, setShow }) => {
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
+const Home = ({ show, ageModal, setAgeModal }) => {
 	const [store, setStore] = useState([]);
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 	const [recentlyViewed, setRecentlyViewed] = useState([]);
@@ -33,7 +36,13 @@ const Home = ({ show, setShow }) => {
 	};
 	useEffect(() => {
 		getAllData();
+		//	ageValidations();
 	}, [show]);
+	// useEffect(() => {
+	// 	if (!ageModal) {
+	// 		ageValidations();
+	// 	}
+	// }, []);
 
 	return (
 		<>

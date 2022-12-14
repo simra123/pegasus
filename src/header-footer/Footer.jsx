@@ -1,12 +1,17 @@
 import React from "react";
 import { FooterTopComp, FooterBottomComp } from "./components/index";
 
-const Footer = ({ show }) => {
+const Footer = ({ show, getProducts }) => {
 	return (
 		<>
-			<footer id='main_footer'>
+			<footer
+				id='main_footer'
+				style={{ padding: "20px" }}>
 				<div className='container'>
-					<FooterTopComp show={show} />
+					<FooterTopComp
+						getProducts={getProducts}
+						show={show}
+					/>
 					<FooterBottomComp />
 				</div>
 			</footer>
