@@ -64,8 +64,32 @@ const sec2 = ({ data, loading }) => {
 													</Link>
 													<h3 className='prod_title'>{val.name}</h3>
 													<span className='prod_price'>
-														<span className='curreny'>$</span>
-														{val.price}
+														{val?.sale_price > 0 ? (
+															<span
+																className='regular_price'
+																style={{
+																	textDecoration: "line-through",
+																}}>
+																<span className='curreny'>$ </span>
+																{val.price}
+															</span>
+														) : (
+															<span
+																className='discount_price'
+																style={{ textDecoratione: "line-through" }}>
+																<span className='curreny'>$ </span>
+																{val.price}
+															</span>
+														)}
+
+														{val?.sale_price > 0 && (
+															<span
+																className='discount_price'
+																style={{ marginLeft: "10px" }}>
+																<span className='curreny'>$</span>
+																{val?.sale_price}
+															</span>
+														)}
 													</span>
 												</li>
 											);

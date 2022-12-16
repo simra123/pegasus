@@ -187,20 +187,22 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						thumbs={{ swiper: thumbsSwiper }}
 						modules={[FreeMode, Navigation, Thumbs, Pagination]}
 						className='mySwiper2'>
-						{deal?.featured_image && (
+						{deal?.featured_image && !loading ? (
 							<SwiperSlide>
 								<img
+									loading='lazy'
 									className='prod-main'
 									alt='featured image'
 									src={`https://upload.its.com.pk/${deal?.featured_image}`}
 								/>
 							</SwiperSlide>
-						)}
-						{attachment?.length > 0
+						) : null}
+						{attachment?.length > 0 && !loading
 							? attachment.map((val) => {
 									return (
 										<SwiperSlide>
 											<img
+												loading='lazy'
 												className='prod-main'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${val.url}`}
@@ -210,7 +212,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							  })
 							: null}
 					</Swiper>
-					{attachment?.length > 0
+					{attachment?.length > 0 && !loading
 						? attachment[0].url && (
 								<Swiper
 									onSwiper={setThumbsSwiper}
@@ -225,19 +227,21 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									{deal?.featured_image && (
 										<SwiperSlide>
 											<img
+												loading='lazy'
 												className='prod-pagi'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${deal?.featured_image}`}
 											/>
 										</SwiperSlide>
 									)}
-									{attachment?.length
+									{attachment?.length && !loading
 										? attachment.map((val) => {
 												return (
 													<>
 														{val.url && (
 															<SwiperSlide key={val.id}>
 																<img
+																	loading='lazy'
 																	className='prod-pagi'
 																	alt='featured image'
 																	src={`https://upload.its.com.pk/${val.url}`}

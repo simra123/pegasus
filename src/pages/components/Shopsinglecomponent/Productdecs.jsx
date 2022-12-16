@@ -165,6 +165,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 			}, 2000);
 		}
 	};
+	//console.log(similarPro, "similar", relatedProducts, "related");
 
 	return (
 		<>
@@ -182,22 +183,24 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						thumbs={{ swiper: thumbsSwiper }}
 						modules={[FreeMode, Navigation, Thumbs, Pagination]}
 						className='mySwiper2'>
-						{product?.featured_image && (
+						{product?.featured_image && !loading ? (
 							<SwiperSlide>
 								<img
+									loading='lazy'
 									className='prod-main'
 									alt='featured image'
 									src={`https://upload.its.com.pk/${product?.featured_image}`}
 								/>
 							</SwiperSlide>
-						)}
-						{product?.attachment?.length
+						) : null}
+						{product?.attachment?.length && !loading
 							? product?.attachment?.map((val) => {
 									return (
 										<>
 											{val.url && (
 												<SwiperSlide key={val.id}>
 													<img
+														loading='lazy'
 														className='prod-main'
 														alt='featured image'
 														src={`https://upload.its.com.pk/${val.url}`}
@@ -209,7 +212,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 							  })
 							: null}
 					</Swiper>
-					{product.attachment?.length
+					{product.attachment?.length && !loading
 						? product.attachment[0].url && (
 								<Swiper
 									onSwiper={setThumbsSwiper}
@@ -223,19 +226,21 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									{product?.featured_image && (
 										<SwiperSlide>
 											<img
+												loading='lazy'
 												className='prod-pagi'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${product?.featured_image}`}
 											/>
 										</SwiperSlide>
 									)}
-									{product?.attachment
+									{product?.attachment && !loading
 										? product?.attachment.map((val) => {
 												return (
 													<>
 														{val.url && (
 															<SwiperSlide key={val.id}>
 																<img
+																	loading='lazy'
 																	className='prod-pagi'
 																	alt='featured image'
 																	src={`https://upload.its.com.pk/${val.url}`}
@@ -250,6 +255,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						  )
 						: null}
 				</div>
+
 				{product && !loading ? (
 					<div className='col'>
 						<div className='prod_detial'>
