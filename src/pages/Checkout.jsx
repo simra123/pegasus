@@ -148,11 +148,17 @@ const Checkout = ({ fetchCarts }) => {
 											}>
 											<option value=''>Select City </option>;
 											{allCities?.map((val) => {
-												return <option value={val.city}>{val.city}</option>;
+												return (
+													<option
+														key={val.id}
+														value={val.city}>
+														{val.city}
+													</option>
+												);
 											})}
 										</select>
 									</div>
-									<div className='field_wrap hlf_div full_div'>
+									<div className='field_wrap  full_div'>
 										<input
 											type='number'
 											name=''

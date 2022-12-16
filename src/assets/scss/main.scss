@@ -3095,11 +3095,14 @@ button {
 					padding: 17px 15px;
 					background: rgba(255, 255, 255, 0.3019607843);
 					color: #dcdcdc;
-					width: 220px;
+					width: 450px;
 					height: 50px;
 					font-size: 13px;
 					line-height: 18px;
 					font-family: "Roboto", sans-serif;
+					@media (max-width: "670px") {
+						width: 323px;
+					}
 					option {
 						font-family: "Roboto", sans-serif;
 						background-color: #4d4d4d;
