@@ -11,8 +11,8 @@ const sec3 = () => {
 						<div className='col'>
 							<h2>HOT DEALS OF THE WEEK</h2>
 							<p>
-								ElectroMaecenas eget libero sit amet erat iaculis malesuada
-								maecenas tempor ultricies nulla et tempus.
+								Get your favorite drinks and E-cigarette options at the touch of
+								a button!
 							</p>
 							{/* <div id='countdown'>
 								<ul>

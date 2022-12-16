@@ -12,7 +12,8 @@ const sec1 = () => {
 						<div className='col'>
 							<h1>Alcohol and Vape delivery in minutes!</h1>
 							<p>
-							Get your favorite drinks and E-cigarette options at the touch of a button!
+								Get your favorite drinks and E-cigarette options at the touch of
+								a button!
 							</p>
 							<Link
 								to='/shop'
@@ -25,6 +26,7 @@ const sec1 = () => {
 								src={homebanner}
 								className='banner_img'
 								alt='no'
+								loading='lazy'
 							/>
 							<div className='sale_wrap'>
 								<div className='content_wrap'>
