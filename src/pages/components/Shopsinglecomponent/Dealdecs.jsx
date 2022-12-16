@@ -190,7 +190,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						{deal?.featured_image && (
 							<SwiperSlide>
 								<img
-									style={{ height: "540px" }}
+									className='prod-main'
 									alt='featured image'
 									src={`https://upload.its.com.pk/${deal?.featured_image}`}
 								/>
@@ -201,7 +201,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									return (
 										<SwiperSlide>
 											<img
-												style={{ height: "540px" }}
+												className='prod-main'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${val.url}`}
 											/>
@@ -225,11 +225,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									{deal?.featured_image && (
 										<SwiperSlide>
 											<img
-												style={{
-													height: "135px",
-													width: "135px",
-													cursor: "pointer",
-												}}
+												className='prod-pagi'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${deal?.featured_image}`}
 											/>
@@ -242,11 +238,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 														{val.url && (
 															<SwiperSlide key={val.id}>
 																<img
-																	style={{
-																		height: "135px",
-																		width: "135px",
-																		cursor: "pointer",
-																	}}
+																	className='prod-pagi'
 																	alt='featured image'
 																	src={`https://upload.its.com.pk/${val.url}`}
 																/>

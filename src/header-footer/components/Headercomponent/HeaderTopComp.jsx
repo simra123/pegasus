@@ -81,12 +81,12 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 											ref={dropdown}>
 											{token ? (
 												<div className='dropdown-content'>
-													<a onClick={handleLogout}>Logout</a>
 													<a
 														style={{ cursor: "pointer" }}
 														onClick={() => navigate("/orderhistory")}>
 														Order History
 													</a>
+													<a onClick={handleLogout}>Logout</a>
 												</div>
 											) : (
 												<Link to='/login'> Sign In </Link>

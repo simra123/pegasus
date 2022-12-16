@@ -92,9 +92,9 @@ const Productlist = ({
 						  })
 						: null}
 					<Loader loading={loading} />
-					{!loading && !allProducts ? <DataNotFound /> : null}
+					{!loading && !allProducts?.length ? <DataNotFound /> : null}
 				</ul>
-				{allProducts && (
+				{allProducts?.length && (
 					<Pagination
 						className='active-pagin'
 						pageSize={9}

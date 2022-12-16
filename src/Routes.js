@@ -42,6 +42,8 @@ function AppRoutes({
 	setSearchPro,
 	setCurrentParams,
 	products,
+	searchVal,
+	setSearchVal,
 	totalpages,
 }) {
 	const [cartCount, setCartCount] = useState({
@@ -53,7 +55,6 @@ function AppRoutes({
 	const [show, setShow] = useState(true);
 
 	const [allCarts, setAllCarts] = useState([]);
-	const [searchVal, setSearchVal] = useState("");
 	const [ageModal, setAgeModal] = useState(true);
 	const [relatedProducts, setRelatedProducts] = useState([]);
 	const [totalItems, setTotalItems] = useState(0);
@@ -217,139 +218,160 @@ function AppRoutes({
 	};
 
 	return (
-		<CartCount.Provider value={[cartCount, setCartCount]}>
-			<RelatedProducts.Provider value={[relatedProducts, setRelatedProducts]}>
-				<Header
-					getProducts={searchProducts}
-					setSearchVal={setSearchVal}
-					searchVal={searchVal}
-				/>
-				<Routes>
-					<Route
-						path='/'
-						element={
-							<Home
-								show={show}
-								ageModal={ageModal}
-								setAgeModal={setAgeModal}
-								setShow={setShow}
-							/>
-						}
+		<div style={{ overflowY: "auto" }}>
+			<CartCount.Provider value={[cartCount, setCartCount]}>
+				<RelatedProducts.Provider value={[relatedProducts, setRelatedProducts]}>
+					<Header
+						getProducts={searchProducts}
+						setSearchVal={setSearchVal}
+						searchVal={searchVal}
 					/>
-					<Route
-						path='/about'
-						element={<About />}
-					/>
-					<Route
-						path='/shop'
-						element={
-							<Shop
-								data={searchPro}
-								getSearchProducts={searchProducts}
-								loading={loading}
-								setLoading={setLoading}
-								getProducts={getProducts}
-								products={products}
-								currentParams={currentParams}
-								setCurrentParams={setCurrentParams}
-								sortBy={sortBy}
-								setSortBy={setSortBy}
-								totalItems={totalpages}
-							/>
-						}
-					/>
-					<Route
-						path='/singleproduct/:id'
-						element={
-							<Singleproduct
-								allCarts={allCarts}
-								fetchCarts={fetchCarts}
-							/>
-						}
-					/>
-
-					<Route
-						path='/faq'
-						element={<Faq />}
-					/>
-					<Route
-						path='/contact'
-						element={<Contact />}
-					/>
-					<Route
-						path='/wishlist'
-						element={<Wishlist />}
-					/>
-					{!token && (
+					<Routes>
 						<Route
-							path='/login'
-							element={<Loginform />}
+							path='/'
+							element={
+								<Home
+									show={show}
+									ageModal={ageModal}
+									setAgeModal={setAgeModal}
+									setShow={setShow}
+								/>
+							}
 						/>
-					)}
+						<Route
+							path='/about'
+							element={<About />}
+						/>
+						<Route
+							path='/shop'
+							element={
+								<Shop
+									data={searchPro}
+									getSearchProducts={searchProducts}
+									loading={loading}
+									setLoading={setLoading}
+									getProducts={getProducts}
+									products={products}
+									currentParams={currentParams}
+									setCurrentParams={setCurrentParams}
+									sortBy={sortBy}
+									setSortBy={setSortBy}
+									totalItems={totalpages}
+								/>
+							}
+						/>
+						<Route
+							path='/singleproduct/:id'
+							element={
+								<Singleproduct
+									allCarts={allCarts}
+									fetchCarts={fetchCarts}
+								/>
+							}
+						/>
 
-					<Route
-						path='/createnewpass'
-						element={<Createnewpass />}
-					/>
-					<Route
-						path='/forgotpassword'
-						element={<Forgotpassword />}
-					/>
-					<Route
-						path='/registerform'
-						element={<Registerform />}
-					/>
-					<Route
-						path='/verifyemail'
-						element={<Verifyemail />}
-					/>
-					<Route
-						path='/sellerform'
-						element={<Sellerform />}
-					/>
-					<Route
-						path='/checkout'
-						element={<Checkout fetchCarts={fetchCarts} />}
-					/>
-					<Route
-						path='/cart'
-						element={
-							<Cart
-								allCarts={allCarts}
-								totalItems={totalItems}
-								totalPrice={totalPrice}
-								fetchCarts={fetchCarts}
+						<Route
+							path='/faq'
+							element={<Faq />}
+						/>
+						<Route
+							path='/contact'
+							element={<Contact />}
+						/>
+						<Route
+							path='/wishlist'
+							element={<Wishlist />}
+						/>
+						{!token && (
+							<Route
+								path='/login'
+								element={<Loginform />}
 							/>
-						}
-					/>
-					<Route
-						path='/singledeal/:id'
-						element={
-							<SingleDeal
-								allCarts={allCarts}
-								fetchCarts={fetchCarts}
+						)}
+						{!token && (
+							<Route
+								path='/createnewpass'
+								element={<Createnewpass />}
 							/>
-						}
+						)}
+						{!token && (
+							<Route
+								path='/forgotpassword'
+								element={<Forgotpassword />}
+							/>
+						)}
+
+						{!token && (
+							<Route
+								path='/registerform'
+								element={<Registerform />}
+							/>
+						)}
+
+						{!token && (
+							<Route
+								path='/verifyemail'
+								element={<Verifyemail />}
+							/>
+						)}
+
+						{!token && (
+							<Route
+								path='/sellerform'
+								element={<Sellerform />}
+							/>
+						)}
+
+						<Route
+							path='/checkout'
+							element={<Checkout fetchCarts={fetchCarts} />}
+						/>
+						<Route
+							path='/cart'
+							element={
+								<Cart
+									allCarts={allCarts}
+									totalItems={totalItems}
+									totalPrice={totalPrice}
+									fetchCarts={fetchCarts}
+								/>
+							}
+						/>
+						<Route
+							path='/singledeal/:id'
+							element={
+								<SingleDeal
+									allCarts={allCarts}
+									fetchCarts={fetchCarts}
+								/>
+							}
+						/>
+						{token && (
+							<Route
+								path='/orderdetail/:id'
+								element={<Orderdetail />}
+							/>
+						)}
+
+						{token && (
+							<Route
+								path='/orderhistory'
+								element={<Orderhistory />}
+							/>
+						)}
+
+						<Route
+							path='*'
+							element={<Error />}
+						/>
+					</Routes>
+					<Footer
+						show={show}
+						getProducts={getProducts}
 					/>
-					<Route
-						path='/orderdetail/:id'
-						element={<Orderdetail />}
-					/>
-					<Route
-						path='/orderhistory'
-						element={<Orderhistory />}
-					/>
-					<Route
-						path='*'
-						element={<Error />}
-					/>
-				</Routes>
-				<Footer
-					show={show}
-					getProducts={getProducts}
-				/>
-			</RelatedProducts.Provider>
-		</CartCount.Provider>
+				</RelatedProducts.Provider>
+			</CartCount.Provider>
+		</div>
 	);
 }
 

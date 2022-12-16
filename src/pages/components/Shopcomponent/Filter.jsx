@@ -61,7 +61,7 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 						<h4>Categories</h4>
 						<ul className='cat_list'>
 							<li
-								onClick={() => getProducts(null, 0)}
+								onClick={() => getProducts(null, 0, true)}
 								style={{ textTransform: "capitalize" }}>
 								<a style={{ color: "#f3ac3b" }}> All</a>
 							</li>

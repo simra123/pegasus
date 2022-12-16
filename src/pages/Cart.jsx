@@ -193,6 +193,9 @@ const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 												columns={columns}
 												dataSource={allCarts}
 												pagination={false}
+												scroll={{
+													x: 400,
+												}}
 											/>
 										</div>
 										<div className='col summery'>

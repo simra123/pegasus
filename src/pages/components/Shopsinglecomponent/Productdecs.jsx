@@ -168,7 +168,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 
 	return (
 		<>
-			<ToastContainer limit={1} />
+			<ToastContainer limit={2} />
 			<div className='single_prod_info'>
 				<div className='col'>
 					<Swiper
@@ -185,7 +185,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						{product?.featured_image && (
 							<SwiperSlide>
 								<img
-									style={{ height: "540px" }}
+									className='prod-main'
 									alt='featured image'
 									src={`https://upload.its.com.pk/${product?.featured_image}`}
 								/>
@@ -198,7 +198,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 											{val.url && (
 												<SwiperSlide key={val.id}>
 													<img
-														style={{ height: "540px" }}
+														className='prod-main'
 														alt='featured image'
 														src={`https://upload.its.com.pk/${val.url}`}
 													/>
@@ -223,11 +223,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 									{product?.featured_image && (
 										<SwiperSlide>
 											<img
-												style={{
-													height: "135px",
-													width: "135px",
-													cursor: "pointer",
-												}}
+												className='prod-pagi'
 												alt='featured image'
 												src={`https://upload.its.com.pk/${product?.featured_image}`}
 											/>
@@ -240,11 +236,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 														{val.url && (
 															<SwiperSlide key={val.id}>
 																<img
-																	style={{
-																		height: "135px",
-																		width: "135px",
-																		cursor: "pointer",
-																	}}
+																	className='prod-pagi'
 																	alt='featured image'
 																	src={`https://upload.its.com.pk/${val.url}`}
 																/>
@@ -259,9 +251,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						: null}
 				</div>
 				{product && !loading ? (
-					<div
-						className='col'
-						style={{ padding: "20px" }}>
+					<div className='col'>
 						<div className='prod_detial'>
 							<div className='prod_title'>
 								<h3>{product.name}</h3>

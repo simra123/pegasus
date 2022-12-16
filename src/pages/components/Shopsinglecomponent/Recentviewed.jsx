@@ -33,61 +33,60 @@ const Recentviewed = ({ data, loading }) => {
 										},
 									}}
 									navigation>
-									{data?.length && !loading ? (
-										data.map((val) => {
-											return (
-												<SwiperSlide key={val.id}>
-													<Link to={`/singleproduct/${val.id}`}>
-														<li className='prod_list'>
-															<img
-																src={
-																	val.featured_image
-																		? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
-																		: ProductImage
-																}
-																alt='featured image'
-															/>
-															<div className='prod_info'>
-																<h4>{val?.name}</h4>
-																<div className='price_wrap'>
-																	{val?.sale_price > 0 ? (
-																		<span
-																			className='regular_price'
-																			style={{
-																				textDecoration: "line-through",
-																			}}>
-																			<span className='curreny'>$ </span>
-																			{val.price}
-																		</span>
-																	) : (
-																		<span
-																			className='discount_price'
-																			style={{
-																				textDecoratione: "line-through",
-																			}}>
-																			<span className='curreny'>$ </span>
-																			{val.price}
-																		</span>
-																	)}
+									{!loading && data?.length
+										? data.map((val) => {
+												return (
+													<SwiperSlide key={val.id}>
+														<Link to={`/singleproduct/${val.id}`}>
+															<li className='prod_list'>
+																<img
+																	src={
+																		val.featured_image
+																			? `https://upload.its.com.pk/v1/fetch/file/${val.featured_image}`
+																			: ProductImage
+																	}
+																	alt='featured image'
+																/>
+																<div className='prod_info'>
+																	<h4>{val?.name}</h4>
+																	<div className='price_wrap'>
+																		{val?.sale_price > 0 ? (
+																			<span
+																				className='regular_price'
+																				style={{
+																					textDecoration: "line-through",
+																				}}>
+																				<span className='curreny'>$ </span>
+																				{val.price}
+																			</span>
+																		) : (
+																			<span
+																				className='discount_price'
+																				style={{
+																					textDecoratione: "line-through",
+																				}}>
+																				<span className='curreny'>$ </span>
+																				{val.price}
+																			</span>
+																		)}
 
-																	{val?.sale_price > 0 && (
-																		<span
-																			className='discount_price'
-																			style={{ marginLeft: "0px" }}>
-																			<span className='curreny'>$</span>
-																			{val?.sale_price}
-																		</span>
-																	)}
+																		{val?.sale_price > 0 && (
+																			<span
+																				className='discount_price'
+																				style={{ marginLeft: "0px" }}>
+																				<span className='curreny'>$</span>
+																				{val?.sale_price}
+																			</span>
+																		)}
+																	</div>
 																</div>
-															</div>
-														</li>
-													</Link>
-												</SwiperSlide>
-											);
-										})
-									) : (
-										<DataNotFound />
-									)}
+															</li>
+														</Link>
+													</SwiperSlide>
+												);
+										  })
+										: null}
+									{!loading && !data?.length && <DataNotFound />}
 								</Swiper>
 							</ul>
 						</div>

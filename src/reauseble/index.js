@@ -5,6 +5,7 @@ import {
 	ToastAlertError,
 	ToastAlertSuccess,
 } from "./reactToasts";
+import { ScrollUp } from "./scrollToTop";
 import LoadingButton from "./loadingButton";
 import { ClientAuthentication } from "./clientToken";
 import ProductImage from "./productPlaceholder";
@@ -20,6 +21,7 @@ export {
 	LoadingButton,
 	ClientAuthentication,
 	ToastCart,
+	ScrollUp,
 	BlockUi,
 	DataNotFound,
 };

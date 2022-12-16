@@ -35,6 +35,7 @@ const Shop = ({
 		getProducts();
 		getCategories();
 	}, [currentParams, sortBy]);
+
 	return (
 		<>
 			<div id='shop_main'>

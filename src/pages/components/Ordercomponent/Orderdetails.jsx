@@ -49,15 +49,16 @@ const Orderdetails = () => {
 									/>
 									<div
 										className='pro_name'
-										style={{ paddingLeft: "50px", width: "500px" }}>
+										//	style={{ paddingLeft: "50px", width: "500px" }}
+									>
 										<h3>{val.name}</h3>
 										<p>{val.store_name}</p>
 									</div>
-									<span style={{ padding: "30px" }}>price : {val.price}</span>
-									<span style={{ padding: "30px" }}>qty : {val.quantity}</span>
+									<span className='small-details'>price : {val.price}</span>
+									<span className='small-details'>qty : {val.quantity}</span>
 									<Link
 										to={`/singleproduct/${val.id}`}
-										style={{ padding: "30px" }}>
+										className='small-details'>
 										view
 									</Link>
 								</div>
@@ -85,13 +86,13 @@ const Orderdetails = () => {
 										<h3>{val.hot_deal_name}</h3>
 										<p>{val.products[0].store_name}</p>
 									</div>
-									<span style={{ padding: "30px" }}>
+									<span className='small-details'>
 										price : {val.deal_price}
 									</span>
-									<span style={{ padding: "30px" }}>qty : {val.quantity}</span>
+									<span className='small-details'>qty : {val.quantity}</span>
 									<Link
 										to={`/singledeal/${val.hot_deal_id}`}
-										style={{ padding: "30px" }}>
+										className='small-details'>
 										view
 									</Link>
 								</div>

@@ -616,7 +616,18 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 			color: white;
 			img {
 				@media (max-width: 670px) {
-					margin: auto;
+					margin: left;
+					margin-top: 20px;
+				}
+				// @media (max-width: 670px) {
+				// 	margin: auto;
+				// }
+			}
+			.small-details {
+				padding-left: 40px;
+				margin: 20px 0px;
+				@media (max-width: 450px) {
+					padding-left: 20px;
 				}
 			}
 		}
@@ -768,7 +779,9 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 			}
 		}
 		.pro_name {
-			margin-top: 20px;
+			margin-top: 10px;
+			width: 50%;
+			padding-left: 20px;
 			h3 {
 				padding: 0px;
 				margin: 0px;
@@ -1843,10 +1856,35 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 						width: 100%;
 					}
 
-					img {
-						height: auto;
+					.prod-main {
+						height: 540px;
 						width: 100%;
-						display: block;
+						cursor: pointer;
+						@media (max-width: 550px) {
+							height: 430px;
+						}
+						@media (max-width: 400px) {
+							height: 380px !important;
+						}
+						@media (max-width: 950px) {
+							height: 480px;
+						}
+					}
+					.prod-pagi {
+						height: 135px;
+						width: 135px;
+						cursor: pointer;
+						@media (max-width: 550px) {
+							height: 120px;
+							width: 100%;
+						}
+						@media (max-width: 400px) {
+							height: 95px !important;
+						}
+						@media (max-width: 950px) {
+							height: 110px;
+							width: 100%;
+						}
 					}
 
 					// .img_glry {
@@ -1955,11 +1993,14 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
 							input {
 								border-radius: 6px;
+								@media (max-width: 400px) {
+									width: 90px !important;
+								}
 							}
 							svg {
 								cursor: pointer;
-								color: #f3ac3b;
 							}
+
 							.add {
 								margin-top: 10px;
 								margin-left: 10px;
@@ -1995,6 +2036,13 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 								line-height: 20px;
 								border-radius: 6px;
 								cursor: pointer;
+								@media (max-width: 950px) {
+									padding: 14.5px 15px;
+								}
+								@media (max-width: 400px) {
+									padding: 0px 10px;
+									font-size: 14px;
+								}
 							}
 						}
 
@@ -2598,6 +2646,9 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 							font-size: 24px;
 							border-radius: 0;
 							border: none;
+							@media (max-width: 450px) {
+								font-size: 15px !important;
+							}
 						}
 					}
 

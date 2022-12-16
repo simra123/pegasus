@@ -88,11 +88,14 @@ input[type="submit"] {
 
 html {
 	overflow-x: hidden;
+	overflow-y: auto;
 	background-color: #000000;
 
 	body {
 		overflow-x: hidden;
 		//padding: 20px;
+		overflow-y: auto;
+
 		background-color: #000000;
 	}
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import companyLogo from "../../../assets/images/logo.png";
+import { ScrollUp } from "../../../reauseble";
 import CoreHttpHandler from "../../../http/services/CoreHttpHandler";
 const FooterTopComp = ({ show, getProducts }) => {
 	const [categories, setCategories] = useState([]);
@@ -27,6 +28,7 @@ const FooterTopComp = ({ show, getProducts }) => {
 	}, [show]);
 	const handleFilter = (cate) => {
 		navigate("/shop");
+		ScrollUp();
 		getProducts(cate.id, 0);
 	};
 	return (
