@@ -10,10 +10,9 @@ const sec1 = () => {
 				<div className='container'>
 					<div className='inner_wrap'>
 						<div className='col'>
-							<h1>E-cigrattes are significantly less harmful than smoking</h1>
+							<h1>Alcohol and Vape delivery in minutes!</h1>
 							<p>
-								ElectroMaecenas eget libero sit amet erat iaculis malesuada
-								maecenas tempor ultricies nulla et tempus.
+							Get your favorite drinks and E-cigarette options at the touch of a button!
 							</p>
 							<Link
 								to='/shop'
