@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Productdecs, Recentviewed } from "./components/Shopsinglecomponent";
 
 const Singleproduct = ({ allCarts, fetchCarts }) => {

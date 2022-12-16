@@ -73,7 +73,7 @@ const FooterTopComp = ({ show, getProducts }) => {
 					<ul className='menu_wrap'>
 						{categories?.map((val) => {
 							return (
-								<li>
+								<li key={val.id}>
 									<a
 										onClick={() => handleFilter(val)}
 										key={val.id}

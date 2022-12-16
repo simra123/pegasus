@@ -165,7 +165,6 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 			}, 2000);
 		}
 	};
-	//console.log(similarPro, "similar", relatedProducts, "related");
 
 	return (
 		<>
@@ -356,7 +355,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 			)}
 			<Recentviewed
 				loading={loading}
-				data={similarPro ? similarPro : relatedProducts}
+				data={similarPro?.length ? similarPro : relatedProducts}
 			/>
 		</>
 	);

@@ -78,6 +78,7 @@ function AppRoutes({
 			);
 		}
 	};
+
 	useEffect(() => {
 		setShow(true);
 		const isUserValid = sessionStorage.getItem("isValid");
