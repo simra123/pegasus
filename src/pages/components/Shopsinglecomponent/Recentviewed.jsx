@@ -48,7 +48,7 @@ const Recentviewed = ({ data, loading }) => {
 																	alt='featured image'
 																/>
 																<div className='prod_info'>
-																	<h4>{val?.name}</h4>
+																	<h4 class='prod_title'>{val?.name}</h4>
 																	<div className='price_wrap'>
 																		{val?.sale_price > 0 ? (
 																			<span

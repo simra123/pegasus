@@ -54,7 +54,9 @@ const Orderdetails = () => {
 										<h3>{val.name}</h3>
 										<p>{val.store_name}</p>
 									</div>
-									<span className='small-details'>price : {val.price}</span>
+									<span className='small-details'>
+										price : {val.sale_price > 0 ? val.sale_price : val.price}
+									</span>
 									<span className='small-details'>qty : {val.quantity}</span>
 									<Link
 										to={`/singleproduct/${val.id}`}

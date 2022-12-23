@@ -201,7 +201,7 @@ const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 										<div className='col summery'>
 											<div className='added_prod_details'>
 												<div className='cartdetails_wrap'>
-													<h4>Order Summery</h4>
+													<h4>Order Summary</h4>
 													<span className='title_label'>Items Total</span>
 													<span className='value_label'>{totalItems}</span>
 													<span className='title_label'>Coupon Discount</span>

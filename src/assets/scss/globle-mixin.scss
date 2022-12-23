@@ -1,78 +1,78 @@
 @mixin input_style {
-  font-family: "Roboto Lt", sans-serif;
-  border-radius: 6px;
-  width: 100%;
-  padding: 17px 15px;
-  background: transparent;
-  color: #DCDCDC;
-  border: none;
-  outline: none;
-  z-index: 1;
-  position: relative;
-  resize: none;
+	font-family: "Roboto Lt", sans-serif;
+	border-radius: 6px;
+	width: 100%;
+	padding: 17px 15px;
+	background: transparent;
+	color: #dcdcdc;
+	border: none;
+	outline: none;
+	z-index: 1;
+	position: relative;
+	resize: none;
 
-  @media (max-width: 1024px) {
-    padding: 15px;
-  }
+	@media (max-width: 1024px) {
+		padding: 15px;
+	}
 }
 
 @mixin btn_style {
-  display: inline-block;
-  color: #000;
-  background-color: #f3ac3b;
-  text-decoration: none;
-  margin-top: 0;
-  padding: 12px 50px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  font-size: 18px;
-  line-height: 28px;
-  transition: all .3s ease-in-out;
+	display: inline-block;
+	color: #000;
+	background-color: #f3ac3b;
+	text-decoration: none;
+	margin-top: 0;
+	padding: 12px 50px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	font-size: 18px;
+	line-height: 28px;
+	transition: all 0.3s ease-in-out;
 
-  @media (max-width: 1024px) {
-    padding: 12px 30px;
-    font-size: 16px;
-    line-height: 16px;
-  }
+	@media (max-width: 1024px) {
+		padding: 12px 30px;
+		font-size: 16px;
+		line-height: 16px;
+	}
 }
 
 @mixin title_style {
-  position: relative;
-  color: #fff;
-  font-size: 56px;
-  line-height: 70px;
-  padding-bottom: 25px;
-  margin-bottom: 40px;
+	position: relative;
+	color: #fff;
+	font-size: 56px;
+	line-height: 70px;
+	padding-bottom: 25px;
+	margin-bottom: 40px;
 
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    line-height: 46px;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-  }
+	@media (max-width: 1024px) {
+		font-size: 36px;
+		line-height: 46px;
+		padding-bottom: 10px;
+		margin-bottom: 30px;
+	}
 
-  @media (max-width: 767px) {
-    font-size: 22px;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-  }
+	@media (max-width: 767px) {
+		font-size: 30px;
+		padding-bottom: 15px;
+		margin-bottom: 30px;
+	}
 }
 
 @mixin title_style_after {
-  height: 4px;
-  width: 220px;
-  background: #f3ac3b;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+	height: 4px;
+	width: 220px;
+	background: #f3ac3b;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 
-  @media (max-width: 1024px) {
-    width: 140px;
-  }
+	@media (max-width: 1024px) {
+		width: 140px;
+	}
 
-  @media (max-width: 767px) {
-    width: 120px;
-  }
+	@media (max-width: 767px) {
+		width: 120px;
+	}
 }

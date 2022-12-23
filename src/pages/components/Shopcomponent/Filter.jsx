@@ -25,7 +25,8 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 				},
 				(response) => {
 					setLoading1(false);
-					ToastAlertSuccess("Successfuly submitted");
+					setEmail("");
+					ToastAlertSuccess("You have subscribed for new updates ");
 				},
 				(err) => {
 					ToastAlertError(

@@ -257,7 +257,7 @@ canvas {
 		.prod_title {
 			color: #fff;
 			font-size: 16px;
-			margin-bottom: 10px;
+			height: 60px;
 		}
 
 		.prod_price {
@@ -270,5 +270,20 @@ canvas {
 		}
 	}
 }
-
+.d-none {
+	display: none !important;
+}
+.d-sm-none {
+	@media (max-width: 767px) {
+		display: none;
+	}
+}
+.d-md-block {
+	@media (min-width: 767px) {
+		display: block;
+	}
+}
+.d-block {
+	display: block;
+}
 /*==================  GLOBLE CSS END  ==================*/

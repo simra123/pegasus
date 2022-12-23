@@ -922,7 +922,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 					}
 
 					@media (max-width: 767px) {
-						font-size: 22px;
+						//	font-size: 22px;
 						line-height: 42px;
 					}
 				}
@@ -1839,9 +1839,9 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 				align-items: center;
 				flex-flow: wrap;
 
-				@media (max-width: 767px) {
-					flex-flow: column-reverse;
-				}
+				// @media (max-width: 767px) {
+				// 	flex-flow: column-reverse;
+				// }
 				.swiper-pagination-bullets {
 					display: flex !important;
 					img {
@@ -1854,6 +1854,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
 					@media (max-width: 767px) {
 						width: 100%;
+						margin: 20px 0px;
 					}
 
 					.prod-main {
@@ -2130,7 +2131,9 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 								.prod_info {
 									h4 {
 										color: #fff;
+										height: 50px;
 										font-size: 18px;
+										margin-bottom: 5px;
 										line-height: 25px;
 									}
 

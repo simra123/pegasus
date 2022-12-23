@@ -20,12 +20,15 @@ const Productlist = ({
 		<>
 			<div className='prod_wrap'>
 				<div className='top_wrap'>
-					<div className='prod_count'>
-						<span>
-							1 To 9 Results Out Of{" "}
-							{resultProducts ? resultProducts.totalItems : totalItems}
-						</span>
-					</div>
+					{allProducts?.length && (
+						<div className='prod_count'>
+							<span>
+								1 To 9 Results Out Of{" "}
+								{resultProducts ? resultProducts.totalItems : totalItems}
+							</span>
+						</div>
+					)}
+
 					<div className='prod_sort_wrap'>
 						<form action=''>
 							<select
@@ -92,7 +95,9 @@ const Productlist = ({
 						  })
 						: null}
 					<Loader loading={loading} />
-					{!loading && !allProducts?.length ? <DataNotFound /> : null}
+					{!loading && !allProducts?.length ? (
+						<DataNotFound lowerText="We're sorry. We cannot find any matches for your search term." />
+					) : null}
 				</ul>
 				{allProducts?.length && (
 					<Pagination
