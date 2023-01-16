@@ -3,6 +3,7 @@ import Routes from "./Routes";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
 import { useLocation } from "react-router-dom";
 import { ScrollUp } from "./reauseble";
+import { ToastContainer } from "react-toastify";
 const App = () => {
 	const [products, setProducts] = useState([]);
 	const [totalItems, setTotalItems] = useState(0);
@@ -46,22 +47,25 @@ const App = () => {
 		ScrollUp();
 	}, [location.pathname]);
 	return (
-		<Routes
-			getProducts={getProducts}
-			loading={loading}
-			setLoading={setLoading}
-			products={products}
-			searchPro={searchPro}
-			setSearchPro={setSearchPro}
-			setProducts={setProducts}
-			searchVal={searchVal}
-			setSearchVal={setSearchVal}
-			totalpages={totalItems}
-			setCurrentParams={setCurrentParams}
-			sortBy={sortBy}
-			currentParams={currentParams}
-			setSortBy={setSortBy}
-		/>
+		<>
+			<ToastContainer />
+			<Routes
+				getProducts={getProducts}
+				loading={loading}
+				setLoading={setLoading}
+				products={products}
+				searchPro={searchPro}
+				setSearchPro={setSearchPro}
+				setProducts={setProducts}
+				searchVal={searchVal}
+				setSearchVal={setSearchVal}
+				totalpages={totalItems}
+				setCurrentParams={setCurrentParams}
+				sortBy={sortBy}
+				currentParams={currentParams}
+				setSortBy={setSortBy}
+			/>
+		</>
 	);
 };
 

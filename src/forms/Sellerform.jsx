@@ -7,7 +7,7 @@ import {
 import { BeatLoader } from "react-spinners";
 import ContentUploadHandler from "../http/services/ContentUploadHandler";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
-
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 const Sellerform = () => {
 	const [loading, setLoading] = useState(false);
 	const [loadingSeller, setLoadingSeller] = useState(false);
@@ -84,7 +84,17 @@ const Sellerform = () => {
 				{/* <canvas></canvas> */}
 				<div className='container'>
 					<div className='inner_sec'>
-						<h2>Become a Seller</h2>
+						<h2>
+							{" "}
+							{showNext && (
+								<BsFillArrowLeftCircleFill
+									style={{ margin: "8px" }}
+									size={25}
+									onClick={() => setShowNext(false)}
+								/>
+							)}
+							Become a Seller
+						</h2>
 						<div className='form_wrap'>
 							{" "}
 							<form>
@@ -268,6 +278,7 @@ const Sellerform = () => {
 													})
 												}></textarea>
 										</div>
+
 										<LoadingButton
 											loading={loadingSeller}
 											onClick={handleSubmit}
