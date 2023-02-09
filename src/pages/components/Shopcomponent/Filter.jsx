@@ -41,7 +41,6 @@ const Filter = ({ data, getProducts, loading, discountedProducts }) => {
 	};
 	return (
 		<>
-			<ToastContainer />
 			<div className='filter_wrap'>
 				<div className='inner_wrap'>
 					{/* <div className='prod_srch_wrap'>

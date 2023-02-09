@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import { FaStar } from "react-icons/fa";
 const HotDeals = ({ show }) => {
 	const [loading, setLoading] = useState(false);
 	const [totalPages, setTotalPages] = useState(0);
@@ -27,6 +27,15 @@ const HotDeals = ({ show }) => {
 				setLoading(false);
 				const res = response.data.data.data;
 				setTotalPages(res.totalItems);
+				// res?.hotDeals.map((p) => {
+				// 	let avg_stars = 0;
+				// 	if (p.ratings[0].stars != null) {
+				// 		p.ratings.map((r) => {
+				// 			avg_stars += r.stars;
+				// 		});
+				// 	}
+				// 	p["avg_rating"] = avg_stars / p.ratings.length;
+				// });
 				setHotDeals(res.hotDeals);
 			},
 			(err) => {
@@ -82,6 +91,22 @@ const HotDeals = ({ show }) => {
 																{val.deal_price}
 															</span>
 														</div>
+														<h3
+															style={{
+																color: "white",
+																fontSize: "14px",
+																margin: "10px 0px",
+															}}>
+															<span>
+																{val?.avg_rating ? val.avg_rating : "0"}
+															</span>
+
+															<FaStar
+																style={{ paddingTop: "4px", marginLeft: "1px" }}
+																size='16'
+																color='yellow'
+															/>
+														</h3>
 													</li>
 												);
 										  })

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import prodimg from "../../../assets/images/pro-img1.png";
 import { Pagination } from "antd";
 import { Loader, ProductImage, DataNotFound } from "../../../reauseble";
 import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 // import "../../Cart";
 const Productlist = ({
@@ -16,6 +17,7 @@ const Productlist = ({
 	setSortBy,
 }) => {
 	const allProducts = resultProducts ? resultProducts.data : products.data;
+
 	return (
 		<>
 			<div className='prod_wrap'>
@@ -58,6 +60,20 @@ const Productlist = ({
 												alt='featured image'
 											/>
 											<h3 className='prod_title'>{val.name}</h3>
+											<h3
+												style={{
+													color: "white",
+													fontSize: "14px",
+													margin: "10px 0px",
+												}}>
+												<span>{val?.avg_rating ? val.avg_rating : "0"}</span>
+
+												<FaStar
+													style={{ paddingTop: "4px", marginLeft: "1px" }}
+													size='16'
+													color='yellow'
+												/>
+											</h3>
 											<div className='prod_price'>
 												{val?.sale_price > 0 ? (
 													<span

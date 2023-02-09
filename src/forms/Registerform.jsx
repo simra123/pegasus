@@ -53,7 +53,6 @@ const Registerform = () => {
 	};
 	return (
 		<>
-			<ToastContainer />
 			<section className='main_form signup'>
 				{/* <canvas></canvas> */}
 				<div className='container'>

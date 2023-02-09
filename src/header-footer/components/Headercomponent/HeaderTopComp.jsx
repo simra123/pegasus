@@ -27,17 +27,7 @@ const HeaderTopComp = ({ getProducts, setSearchVal, searchVal }) => {
 		navigate("/shop");
 	};
 	const dropdown = useRef(null);
-	useEffect(() => {
-		const handleEvent = (e) => {
-			if (dropdown.current && !dropdown.current.contains(e.target)) {
-				setShowDropdowm(false);
-			}
-		};
-		document.addEventListener("mousedown", handleEvent);
-		return () => {
-			document.removeEventListener("mousedown", handleEvent);
-		};
-	}, []);
+
 	useEffect(() => {
 		setOpen(false);
 	}, [location.pathname]);

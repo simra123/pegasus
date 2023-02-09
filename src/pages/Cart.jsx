@@ -178,7 +178,6 @@ const Cart = ({ allCarts, totalItems, totalPrice, fetchCarts }) => {
 	};
 	return (
 		<>
-			<ToastContainer />
 			<div className='content_wrap'>
 				<section className='sec sec2 wishlist_wrap cart_wrap'>
 					<div className='container'>

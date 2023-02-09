@@ -2,6 +2,7 @@ import React from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { FaStar } from "react-icons/fa";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { Loader, ProductImage } from "../../../reauseble";
@@ -92,6 +93,25 @@ const sec5 = ({ data, recent, loading }) => {
 																				</span>
 																			)}
 																		</div>
+																		<h3
+																			style={{
+																				color: "white",
+																				fontSize: "14px",
+																				margin: "10px 0px",
+																			}}>
+																			<span>
+																				{val?.avg_rating ? val.avg_rating : "0"}
+																			</span>
+
+																			<FaStar
+																				style={{
+																					paddingTop: "4px",
+																					marginLeft: "1px",
+																				}}
+																				size='16'
+																				color='yellow'
+																			/>
+																		</h3>
 																	</div>
 																</li>
 															</Link>

@@ -50,7 +50,6 @@ const Login = () => {
 
 	return (
 		<>
-			<ToastContainer />
 			<section className='main_form'>
 				{/* <canvas></canvas> */}
 				<div className='container'>

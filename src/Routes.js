@@ -96,6 +96,15 @@ function AppRoutes({
 				},
 				(response) => {
 					const res = response.data.data.data;
+					res?.data.map((p) => {
+						let avg_stars = 0;
+						if (p.ratings[0].stars != null) {
+							p.ratings.map((r) => {
+								avg_stars += r.stars;
+							});
+						}
+						p["avg_rating"] = avg_stars / p.ratings.length;
+					});
 					setRelatedProducts(res.data);
 				},
 				(err) => {
@@ -176,6 +185,15 @@ function AppRoutes({
 				params,
 				(response) => {
 					const res = response.data.data;
+					res?.data?.data?.map((p) => {
+						let avg_stars = 0;
+						if (p.ratings[0].stars != null) {
+							p.ratings.map((r) => {
+								avg_stars += r.stars;
+							});
+						}
+						p["avg_rating"] = avg_stars / p.ratings.length;
+					});
 					setSearchPro(res);
 					setLoading(false);
 				},
@@ -265,6 +283,7 @@ function AppRoutes({
 						element={
 							<Singleproduct
 								allCarts={allCarts}
+								token={token}
 								fetchCarts={fetchCarts}
 							/>
 						}

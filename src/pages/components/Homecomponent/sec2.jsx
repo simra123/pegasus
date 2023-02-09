@@ -3,6 +3,7 @@ import React from "react";
 import { Loader, ProductImage } from "../../../reauseble";
 import { Link } from "react-router-dom";
 import smokeimg from "../../../assets/images/sec-smoke.png";
+import { FaStar } from "react-icons/fa";
 const sec2 = ({ data, loading }) => {
 	return (
 		<>
@@ -91,6 +92,25 @@ const sec2 = ({ data, loading }) => {
 															</span>
 														)}
 													</span>
+													<h3
+														style={{
+															color: "white",
+															fontSize: "14px",
+															margin: "10px 0px",
+														}}>
+														<span>
+															{val?.avg_rating ? val.avg_rating : "0"}
+														</span>
+
+														<FaStar
+															style={{
+																paddingTop: "4px",
+																marginLeft: "1px",
+															}}
+															size='16'
+															color='yellow'
+														/>
+													</h3>
 												</li>
 											);
 									  })

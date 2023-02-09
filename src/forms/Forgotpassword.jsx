@@ -74,7 +74,6 @@ const Forgotpassword = () => {
 	};
 	return (
 		<>
-			<ToastContainer />
 			{!showFields ? (
 				<section className='main_form forgot_sec'>
 					{/* <canvas></canvas> */}

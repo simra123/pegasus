@@ -22,12 +22,27 @@ class APIS {
 				method: "post",
 				path: "/web/customer/orders",
 			},
+
+			ratings: {
+				headers: {
+					"xt-user-token": null,
+				},
+				method: "post",
+				path: "/create/rating",
+			},
 			coupon: {
 				headers: {
 					"xt-user-token": null,
 				},
 				method: "post",
 				path: "/fetch/coupon",
+			},
+			getAddress: {
+				headers: {
+					"xt-user-token": null,
+				},
+				method: "post",
+				path: "/fetch/delivery/cordinates",
 			},
 		};
 	}

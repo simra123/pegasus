@@ -1830,7 +1830,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 				font-family: "Roboto Lt", sans-serif;
 				line-height: 25px;
 				color: #ffffff80;
-				margin-bottom: 40px;
+				margin-bottom: 20px;
 				text-align: left;
 			}
 
@@ -2087,7 +2087,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 			}
 
 			.prod_desc {
-				margin: 100px 0;
+				margin: 50px 0;
 
 				@media (max-width: 1024px) {
 					margin: 50px 0;
@@ -2095,7 +2095,7 @@ $imgPath: "../images"; // Way to call => #{$imgPath}/
 
 				h4 {
 					color: #ffffff;
-					font-size: 14px;
+					font-size: 16px;
 					padding: 20px 0;
 					margin-bottom: 40px;
 					border: solid 1px #38393a;

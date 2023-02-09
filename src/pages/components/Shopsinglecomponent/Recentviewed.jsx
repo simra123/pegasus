@@ -5,8 +5,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { ProductImage, Loader, DataNotFound } from "../../../reauseble";
-
+import { FaStar } from "react-icons/fa";
 const Recentviewed = ({ data, loading }) => {
+	console.log(data, "similar ");
 	return (
 		<>
 			<div className='recent_prod'>
@@ -49,6 +50,24 @@ const Recentviewed = ({ data, loading }) => {
 																/>
 																<div className='prod_info'>
 																	<h4 class='prod_title'>{val?.name}</h4>
+																	<h3
+																		style={{
+																			color: "white",
+																			fontSize: "16px",
+																			margin: "10px 0px",
+																		}}>
+																		<span>
+																			{val?.avg_rating ? val.avg_rating : "0"}
+																		</span>
+																		<FaStar
+																			style={{
+																				paddingTop: "4px",
+																				marginLeft: "2px",
+																			}}
+																			size='16'
+																			color='yellow'
+																		/>
+																	</h3>
 																	<div className='price_wrap'>
 																		{val?.sale_price > 0 ? (
 																			<span

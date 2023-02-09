@@ -45,7 +45,6 @@ const Contactsec1 = () => {
 	};
 	return (
 		<>
-			<ToastContainer />
 			<section className='sec contact_pg_sec1'>
 				<div className='container'>
 					<div className='inner_wrap'>

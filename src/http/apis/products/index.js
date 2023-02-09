@@ -6,7 +6,7 @@ class APIS {
 					"xt-client-token": null,
 				},
 				method: "get",
-				path: "/web/product/:id",
+				path: "/web/product/:id?usr=USERTOKEN",
 			},
 			categories: {
 				headers: {

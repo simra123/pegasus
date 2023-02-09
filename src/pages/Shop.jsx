@@ -41,7 +41,6 @@ const Shop = ({
 			<div id='shop_main'>
 				<div className='content_wrap'>
 					<section className='sec sec2 shop_pg_sec1'>
-						{/* <canvas></canvas> */}
 						<div className='container'>
 							<div className='inner_wrap'>
 								<Filterwrap
@@ -53,7 +52,7 @@ const Shop = ({
 								<Productlist
 									loading={loading}
 									products={data.data ? data.data.data : products}
-									resultProducts={data.data ? data.data : null}
+									resultProducts={data.data ? datah.data : null}
 									setCurrentParams={setCurrentParams}
 									totalItems={totalItems}
 									getSearchProducts={getSearchProducts}

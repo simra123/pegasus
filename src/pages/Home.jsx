@@ -23,8 +23,26 @@ const Home = ({ show, ageModal, setAgeModal }) => {
 				(response) => {
 					setLoading(false);
 					const res = response.data.data.data;
+					res?.data.map((p) => {
+						let avg_stars = 0;
+						if (p.ratings[0].stars != null) {
+							p.ratings.map((r) => {
+								avg_stars += r.stars;
+							});
+						}
+						p["avg_rating"] = avg_stars / p.ratings.length;
+					});
 					setFeaturedProducts(res.data);
 					setStore(res.store);
+					res?.recentlyViewed.map((p) => {
+						let avg_stars = 0;
+						if (p.ratings[0].stars != null) {
+							p.ratings.map((r) => {
+								avg_stars += r.stars;
+							});
+						}
+						p["avg_rating"] = avg_stars / p.ratings.length;
+					});
 					setRecentlyViewed(res.recentlyViewed);
 				},
 				(err) => {

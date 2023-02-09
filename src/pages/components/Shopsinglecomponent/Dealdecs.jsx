@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 // Import Swiper styles
 import { MdAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -67,6 +68,14 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 				const res = response.data.data.data.hotDeals[0];
 				//	setDeal(res);
 				setLoading(false);
+				let avg_stars = 0;
+				// if (res?.ratings[0]?.stars != null) {
+				// 	res.ratings.map((r) => {
+				// 		avg_stars += r.stars;
+				// 	});
+				// }
+				// res["avg_rating"] = avg_stars / res.ratings.length;
+
 				setDeal(res);
 			},
 			(err) => {
@@ -173,7 +182,6 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 
 	return (
 		<>
-			<ToastContainer />
 			<div className='single_prod_info'>
 				<div className='col'>
 					<Swiper
@@ -289,6 +297,19 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 										{deal?.deal_price}
 									</span>
 								)}
+								<h3
+									style={{
+										color: "rgba(255, 255, 255, 0.5019607843)",
+										fontSize: "18px",
+										margin: "10px 0px",
+									}}>
+									<FaStar
+										style={{ paddingTop: "4px", marginRight: "2px" }}
+										size='20'
+										color='yellow'
+									/>
+									<span>{deal?.avg_rating ? deal.avg_rating : "0"}</span>
+								</h3>
 							</div>
 							<h4 style={{ color: "white" }}>Description</h4>
 							<div

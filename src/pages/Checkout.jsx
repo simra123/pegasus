@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
 	LoadingButton,
 	ToastAlertError,
@@ -8,8 +8,10 @@ import { ToastContainer } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
+import GoogleMap from "../reauseble/googleMap";
 const Checkout = ({ fetchCarts }) => {
 	const [showSummery, setShowSummery] = useState(false);
+	const [showMap, setShowMap] = useState(false);
 	const [allCities, setAllCities] = useState([]);
 	const [charges, setCharges] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -17,8 +19,11 @@ const Checkout = ({ fetchCarts }) => {
 		firstname: "",
 		lastname: "",
 		number: "",
-		city: "",
 		address: "",
+	});
+	const [center, setCenter] = React.useState({
+		lat: 24.86,
+		lng: 67.0,
 	});
 	const { state } = useLocation();
 	const navigate = useNavigate();
@@ -27,79 +32,72 @@ const Checkout = ({ fetchCarts }) => {
 			navigate("/");
 		}
 	}, []);
-	useEffect(() => {
-		CoreHttpHandler.request(
-			"orders",
-			"fetchCity",
-			{},
-			(response) => {
-				setAllCities(response.data.data.data);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
-	}, []);
-	useEffect(() => {
-		if (checkoutDetails.city) {
-			const res = allCities.filter((val) => val.city == checkoutDetails.city);
-			setCharges(res[0].charges);
-		}
-	}, [checkoutDetails.city]);
-	const handleOrder = (e) => {
-		setLoading(true);
-		e.preventDefault();
-		CoreHttpHandler.request(
-			"orders",
-			"create",
-			{
-				...checkoutDetails,
-				product_ids: state.products,
-				hot_deal_ids: state?.deals,
-				quantity: state.quantity,
-				store_id: state?.store_id,
-				hot_deal_quantity: state?.dealsQty,
-				order_location: state?.location,
-				user_location: "24.961, 67.099",
-				coupon_id: state?.coupon_id,
-			},
-			(response) => {
-				CoreHttpHandler.request(
-					"cart",
-					"remove",
-					{
-						product_ids: state?.products,
-						hot_deal_ids: state?.deals,
-					},
-					(res) => {
-						setLoading(false);
-						ToastAlertSuccess("Order Placed Successfully");
-						//window.location.reload(false);
-						fetchCarts();
 
-						setTimeout(() => {
-							navigate("/orderhistory");
-						}, 2000);
-					},
-					(err) => {
-						setLoading(false);
-						ToastAlertError(
-							err?.response?.data?.message
-								? err?.response.data.message
-								: "something went wrong"
-						);
-					}
-				);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
-	};
+	const handleOrder = useCallback(
+		(e) => {
+			setLoading(true);
+			e.preventDefault();
+			CoreHttpHandler.request(
+				"orders",
+				"create",
+				{
+					...checkoutDetails,
+					product_ids: state.products,
+					hot_deal_ids: state?.deals,
+					quantity: state.quantity,
+					store_id: state?.store_id,
+					hot_deal_quantity: state?.dealsQty,
+					order_location: state?.location,
+					user_location: `${Number(center.lat)} , ${Number(center.lng)}`,
+					coupon_id: state?.coupon_id,
+				},
+				(response) => {
+					CoreHttpHandler.request(
+						"cart",
+						"remove",
+						{
+							product_ids: state?.products,
+							hot_deal_ids: state?.deals,
+						},
+						(res) => {
+							setLoading(false);
+							ToastAlertSuccess("Order Placed Successfully");
+							//window.location.reload(false);
+							fetchCarts();
+
+							setTimeout(() => {
+								navigate("/orderhistory");
+							}, 2000);
+						},
+						(err) => {
+							setLoading(false);
+							ToastAlertError(
+								err?.response?.data?.message
+									? err?.response.data.message
+									: "something went wrong"
+							);
+						}
+					);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);
+		},
+		[checkoutDetails, state]
+	);
 
 	return (
 		<>
-			<ToastContainer />
+			<GoogleMap
+				showMap={showMap}
+				setShowMap={setShowMap}
+				setCharges={setCharges}
+				setCheckoutDetails={setcheckoutDetails}
+				store_id={state?.store_id}
+				setCenter={setCenter}
+				center={center}
+			/>
 			<section className='main_form signup chckout_wrap'>
 				<div className='container'>
 					{!showSummery ? (
@@ -138,7 +136,7 @@ const Checkout = ({ fetchCarts }) => {
 										/>
 									</div>
 									<div className='field_wrap '>
-										<select
+										{/* <select
 											value={checkoutDetails.city}
 											onChange={(e) =>
 												setcheckoutDetails({
@@ -156,7 +154,7 @@ const Checkout = ({ fetchCarts }) => {
 													</option>
 												);
 											})}
-										</select>
+										</select> */}
 									</div>
 									<div className='field_wrap  full_div'>
 										<input
@@ -180,6 +178,9 @@ const Checkout = ({ fetchCarts }) => {
 											name=''
 											placeholder='Address*'
 											required
+											autoComplete='false'
+											readOnly
+											onClick={() => setShowMap(true)}
 											value={checkoutDetails.address}
 											onChange={(e) =>
 												setcheckoutDetails({
@@ -192,11 +193,7 @@ const Checkout = ({ fetchCarts }) => {
 
 									<LoadingButton
 										disabled={
-											!(
-												checkoutDetails.firstname &&
-												checkoutDetails.city &&
-												checkoutDetails.address
-											)
+											!(checkoutDetails.firstname && checkoutDetails.address)
 										}
 										onClick={() => setShowSummery(true)}
 									/>
@@ -224,7 +221,7 @@ const Checkout = ({ fetchCarts }) => {
 									<LoadingButton
 										loading={loading}
 										onClick={handleOrder}
-										text={`Pay Now $${Number(state?.total) + charges}`}
+										text={`Pay Now $${Number(state?.total) + Number(charges)}`}
 									/>
 								</form>
 							</div>

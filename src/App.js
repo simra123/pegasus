@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Routes from "./Routes";
 import CoreHttpHandler from "./http/services/CoreHttpHandler";
 import { useLocation } from "react-router-dom";
@@ -16,7 +16,7 @@ const App = () => {
 		page: 0,
 	});
 	const location = useLocation();
-	const getProducts = (selectedCate, page, all) => {
+	const getProducts = useCallback((selectedCate, page, all) => {
 		setLoading(true);
 		if (selectedCate || all) {
 			setSearchPro([]);
@@ -34,6 +34,7 @@ const App = () => {
 			(response) => {
 				setLoading(false);
 				const res = response.data.data.data;
+
 				setProducts(res);
 				setTotalItems(res.totalItems);
 			},
@@ -42,13 +43,14 @@ const App = () => {
 				console.log(err);
 			}
 		);
-	};
+	});
+
 	useEffect(() => {
 		ScrollUp();
 	}, [location.pathname]);
 	return (
 		<>
-			<ToastContainer />
+			<ToastContainer limit={1} />
 			<Routes
 				getProducts={getProducts}
 				loading={loading}

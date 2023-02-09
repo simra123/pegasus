@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
 	Loader,
 	ToastAlertError,
 	ToastAlertSuccess,
+	LoadingButton,
 	ToastCart,
 } from "../../../reauseble";
 import { ToastContainer } from "react-toastify";
 // Import Swiper styles
 import { MdAdd } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 import { AiOutlineMinus } from "react-icons/ai";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -26,7 +28,8 @@ import { RelatedProducts } from "../../../context-hooks";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { CartCount } from "../../../context-hooks";
-const Productdecs = ({ allCarts, fetchCarts }) => {
+import StarRating from "../../components/Ratings";
+const Productdecs = ({ allCarts, fetchCarts, token }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const [relatedProducts, setRelatedProducts] = useContext(RelatedProducts);
 	const [similarPro, setSimilarPro] = useState([]);
@@ -34,12 +37,16 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 	const [product, setProduct] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [loadingCart, setLoadingCart] = useState(false);
+	const [loadingRating, setLoadingRating] = useState(false);
 	const [proQuantity, setProQuantity] = useState(1);
+	const [rating, setRating] = useState(0);
+	const [successRating, setSuccessRating] = useState(null);
+
 	const navigate = useNavigate();
 	const MySwal = withReactContent(Swal);
 	const [cartCount] = useContext(CartCount);
 
-	const getProduct = () => {
+	const getProduct = useCallback(() => {
 		setLoading(true);
 
 		CoreHttpHandler.request(
@@ -48,9 +55,20 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 			{
 				key: ":id",
 				value: id,
+				key2: "USERTOKEN",
+				value2: token,
 			},
 			(response) => {
 				const res = response.data.data.data[0];
+
+				let avg_stars = 0;
+				if (res.ratings[0].stars != null) {
+					res.ratings.map((r) => {
+						avg_stars += r.stars;
+					});
+				}
+				res["avg_rating"] = avg_stars / res.ratings.length;
+
 				setProduct(res);
 				setLoading(false);
 			},
@@ -59,7 +77,8 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 				setLoading(false);
 			}
 		);
-	};
+	}, [id]);
+
 	useEffect(() => {
 		getProduct();
 	}, [id]);
@@ -85,7 +104,7 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 		}
 	}, [proQuantity]);
 
-	const addCart = () => {
+	const addCart = useCallback(() => {
 		CoreHttpHandler.request(
 			"cart",
 			"create",
@@ -108,8 +127,54 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 				);
 			}
 		);
-	};
+	});
 
+	const SendRatings = useCallback((stars) => {
+		setRating(stars);
+		setLoadingRating(true);
+		return MySwal.fire({
+			title: "",
+			text: `Are you sure you want to send ${stars} Ratings?`,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes, i am",
+			customClass: {
+				confirmButton: "btn btn-primary",
+				cancelButton: "btn btn-outline-danger ms-1",
+			},
+			buttonsStyling: false,
+		}).then(function (result) {
+			if (!result.isDismissed) {
+				CoreHttpHandler.request(
+					"orders",
+					"ratings",
+					{
+						stars: stars,
+						store_id: product?.store_id,
+						product_id: product.id,
+					},
+					(response) => {
+						setLoadingRating(false);
+						//console.log(response);
+						setSuccessRating(
+							"Thank you for Reaching and Providing us your valuable Feedback!!"
+						);
+					},
+					(err) => {
+						setLoadingRating(false);
+
+						ToastAlertError(
+							err?.response?.data?.message
+								? err?.response.data.message
+								: "something went wrong"
+						);
+					}
+				);
+			} else {
+				setLoadingRating(false);
+			}
+		});
+	});
 	const handleCart = (e) => {
 		e.preventDefault();
 		setLoadingCart(true);
@@ -281,12 +346,26 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 										{product?.sale_price}
 									</span>
 								)}
+								<h3
+									style={{
+										color: "rgba(255, 255, 255, 0.5019607843)",
+										fontSize: "18px",
+										margin: "10px 0px",
+									}}>
+									<FaStar
+										style={{ paddingTop: "4px", marginRight: "2px" }}
+										size='20'
+										color='yellow'
+									/>
+									<span>{product?.avg_rating ? product.avg_rating : "0"}</span>
+								</h3>
 							</div>
 							<p>
 								{product.description
 									? parse(product.description)
 									: "Nullam vitae imperdiet metus, eget convallis nibh. Integer ac eros necaugue consectetur tristique. Pellentesque quis dapibus ante, etporttitor urna. Aliquam id nulla ut urna luctus aliquet. Nunc mollisbibendum orci, eget tempus purus semper vel. Integer vitae justo orci. Aliquam aliquet dolor et suscipit gravida"}
 							</p>
+
 							<form action=''>
 								<AiOutlineMinus
 									color='white'
@@ -340,7 +419,31 @@ const Productdecs = ({ allCarts, fetchCarts }) => {
 						</div>
 					</div>
 				) : null}
-			</div>
+			</div>{" "}
+			{product?.check_review && !loading ? (
+				<div className='ratings'>
+					<h4>Rate This Product</h4>
+					{!loadingRating ? (
+						successRating === null ? (
+							<StarRating
+								rating={rating}
+								count={5}
+								onClick={(rate) => SendRatings(rate)}
+							/>
+						) : (
+							<h5> {successRating} </h5>
+						)
+					) : (
+						<BeatLoader
+							color={"white"}
+							loading={true}
+							size={15}
+							aria-label='Loading Spinner'
+							data-testid='loader'
+						/>
+					)}
+				</div>
+			) : null}
 			{product && !loading ? (
 				<div className='prod_desc'>
 					<h4>Description</h4>
