@@ -22,8 +22,8 @@ const Checkout = ({ fetchCarts }) => {
 		address: "",
 	});
 	const [center, setCenter] = React.useState({
-		lat: 24.86,
-		lng: 67.0,
+		lat: 22,
+		lng: 22,
 	});
 	const { state } = useLocation();
 	const navigate = useNavigate();
@@ -87,12 +87,14 @@ const Checkout = ({ fetchCarts }) => {
 		[checkoutDetails, state]
 	);
 
+	console.log(checkoutDetails.firstname, checkoutDetails.address, "details");
 	return (
 		<>
 			<GoogleMap
 				showMap={showMap}
 				setShowMap={setShowMap}
 				setCharges={setCharges}
+				checkoutDetails={checkoutDetails}
 				setCheckoutDetails={setcheckoutDetails}
 				store_id={state?.store_id}
 				setCenter={setCenter}
@@ -105,6 +107,18 @@ const Checkout = ({ fetchCarts }) => {
 							<h2>Checkout</h2>
 							<div className='form_wrap chckout_wrap'>
 								<form>
+									<div className='field_wrap full_div'>
+										<input
+											type='text'
+											name=''
+											placeholder='Address*'
+											required
+											autoComplete='false'
+											readOnly
+											onClick={() => setShowMap(true)}
+											value={checkoutDetails.address}
+										/>
+									</div>
 									<div className='field_wrap hlf_div full_div'>
 										<input
 											type='text'
@@ -135,27 +149,7 @@ const Checkout = ({ fetchCarts }) => {
 											}
 										/>
 									</div>
-									<div className='field_wrap '>
-										{/* <select
-											value={checkoutDetails.city}
-											onChange={(e) =>
-												setcheckoutDetails({
-													...checkoutDetails,
-													city: e.target.value,
-												})
-											}>
-											<option value=''>Select City </option>;
-											{allCities?.map((val) => {
-												return (
-													<option
-														key={val.id}
-														value={val.city}>
-														{val.city}
-													</option>
-												);
-											})}
-										</select> */}
-									</div>
+									<div className='field_wrap '></div>
 									<div className='field_wrap  full_div'>
 										<input
 											type='number'
@@ -167,25 +161,6 @@ const Checkout = ({ fetchCarts }) => {
 												setcheckoutDetails({
 													...checkoutDetails,
 													number: e.target.value,
-												})
-											}
-										/>
-									</div>
-
-									<div className='field_wrap full_div'>
-										<input
-											type='text'
-											name=''
-											placeholder='Address*'
-											required
-											autoComplete='false'
-											readOnly
-											onClick={() => setShowMap(true)}
-											value={checkoutDetails.address}
-											onChange={(e) =>
-												setcheckoutDetails({
-													...checkoutDetails,
-													address: e.target.value,
 												})
 											}
 										/>
@@ -221,7 +196,9 @@ const Checkout = ({ fetchCarts }) => {
 									<LoadingButton
 										loading={loading}
 										onClick={handleOrder}
-										text={`Pay Now $${Number(state?.total) + Number(charges)}`}
+										text={`Pay Now $${(
+											Number(state?.total) + Number(charges)
+										).toFixed(2)}`}
 									/>
 								</form>
 							</div>

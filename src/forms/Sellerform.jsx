@@ -4,6 +4,7 @@ import {
 	ToastAlertError,
 	ToastAlertSuccess,
 } from "../reauseble";
+import GoogleMap from "../reauseble/googleMap";
 import { BeatLoader } from "react-spinners";
 import ContentUploadHandler from "../http/services/ContentUploadHandler";
 import CoreHttpHandler from "../http/services/CoreHttpHandler";
@@ -11,6 +12,11 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 const Sellerform = () => {
 	const [loading, setLoading] = useState(false);
 	const [loadingSeller, setLoadingSeller] = useState(false);
+	const [showMap, setShowMap] = useState(false);
+	const [center, setCenter] = React.useState({
+		lat: 24.8607343,
+		lng: 67.0011364,
+	});
 	const [showNext, setShowNext] = useState(false);
 	const [sellerData, setSellerData] = useState({
 		username: "",
@@ -25,6 +31,7 @@ const Sellerform = () => {
 	});
 	const [imageUrl, setImageUrl] = useState("");
 	const handleUpload = (e) => {
+		e.preventDefault();
 		setLoading(true);
 		const _data = new FormData();
 		_data.append(
@@ -58,7 +65,15 @@ const Sellerform = () => {
 			"sellers",
 			"create",
 			{
-				...sellerData,
+				username: "",
+				password: "",
+				number: "",
+				email: "",
+				name: "",
+				type: "",
+				description: "",
+				location: "",
+				city: "",
 				image: imageUrl,
 			},
 			(response) => {
@@ -78,8 +93,18 @@ const Sellerform = () => {
 			}
 		);
 	};
+	console.log(sellerData);
 	return (
 		<>
+			<GoogleMap
+				showMap={showMap}
+				setShowMap={setShowMap}
+				sellerData={sellerData}
+				setSellerData={setSellerData}
+				//store_id={state?.store_id}
+				setCenter={setCenter}
+				center={center}
+			/>
 			<section className='main_form'>
 				{/* <canvas></canvas> */}
 				<div className='container'>
@@ -182,8 +207,7 @@ const Sellerform = () => {
 													sellerData.username &&
 													sellerData.email &&
 													sellerData.password &&
-													sellerData.city &&
-													sellerData.number
+													sellerData.city
 												)
 											}
 										/>
@@ -255,14 +279,16 @@ const Sellerform = () => {
 											<input
 												type='text'
 												name=''
-												onChange={(e) =>
-													setSellerData({
-														...sellerData,
-														location: e.target.value,
-													})
-												}
+												onClick={() => setShowMap(true)}
+												// onChange={(e) =>
+												// 	setSellerData({
+												// 		...sellerData,
+												// 		location: e.target.value,
+												// 	})
+												// }
 												value={sellerData.location}
 												placeholder='Store Location*'
+												readOnly
 												required
 											/>
 										</div>

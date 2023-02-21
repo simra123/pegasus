@@ -44,6 +44,13 @@ class APIS {
 				method: "post",
 				path: "/fetch/delivery/cordinates",
 			},
+			getCordinates: {
+				headers: {
+					"xt-client-token": null,
+				},
+				method: "post",
+				path: "/fetch/cordinates",
+			},
 		};
 	}
 }

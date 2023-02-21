@@ -13,6 +13,7 @@ import CoreHttpHandler from "../http/services/CoreHttpHandler";
 const containerStyle = {
 	width: "400px",
 	height: "400px",
+	//top: " 100px !important",
 };
 
 function MyComponent({
@@ -24,6 +25,8 @@ function MyComponent({
 	checkoutDetails,
 	center,
 	setCenter,
+	setSellerData,
+	sellerData,
 }) {
 	const [marker, setMarkers] = React.useState({
 		lat: "",
@@ -52,46 +55,71 @@ function MyComponent({
 	const onUnmount = React.useCallback(function callback(map) {
 		setMap(null);
 	}, []);
-	// useEffect(() => {
-	// 	const handleEvent = (e) => {
-	// 		if (modal.current && !modal.current.contains(e.target)) {
-	// 			setShowMap(false);
-	// 		}
-	// 	};
-	// 	document.addEventListener("mousedown", handleEvent);
-	// 	return () => {
-	// 		document.removeEventListener("mousedown", handleEvent);
-	// 	};
-	// }, []);
+
 	const handleAddress = (e) => {
 		setLoading(true);
 		e.preventDefault();
-		CoreHttpHandler.request(
-			"orders",
-			"getAddress",
-			{
-				user_location: `${Number(center.lat)} , ${Number(center.lng)}`,
-				store_id: Number(store_id),
-			},
-			(res) => {
-				const response = res.data.data.data;
-				setCharges(response.delivery_fees);
-				setCheckoutDetails({
-					...checkoutDetails,
-					address: response.address[0],
-				});
-				setLoading(false);
-				setShowMap(false);
-			},
-			(err) => {
-				console.log(err);
-				ToastAlertError(
-					err?.response?.data?.message
-						? err?.response.data.message
-						: "something went wrong"
-				);
-			}
-		);
+		if (checkoutDetails) {
+			CoreHttpHandler.request(
+				"orders",
+				"getAddress",
+				{
+					user_location: `${Number(center.lat)} , ${Number(center.lng)}`,
+					store_id: Number(store_id),
+				},
+				(res) => {
+					const response = res.data.data.data;
+
+					setCharges(response.delivery_fees);
+					setCheckoutDetails({
+						...checkoutDetails,
+						address: response.address[0],
+					});
+
+					setLoading(false);
+					setShowMap(false);
+				},
+				(err) => {
+					console.log(err);
+					setLoading(false);
+
+					ToastAlertError(
+						err?.response?.data?.message
+							? err?.response.data.message
+							: "something went wrong"
+					);
+				}
+			);
+		} else {
+			CoreHttpHandler.request(
+				"orders",
+				"getCordinates",
+				{
+					store_location: `${Number(center.lat)} , ${Number(center.lng)}`,
+				},
+				(res) => {
+					const response = res.data.data.data;
+					console.log(response, "else");
+					setSellerData({
+						...sellerData,
+						location: response.address,
+					});
+
+					setLoading(false);
+					setShowMap(false);
+				},
+				(err) => {
+					console.log(err);
+					setLoading(false);
+
+					ToastAlertError(
+						err?.response?.data?.message
+							? err?.response.data.message
+							: "something went wrong"
+					);
+				}
+			);
+		}
 	};
 	return isLoaded && showMap ? (
 		<div style={{ position: "relative" }}>
@@ -138,12 +166,11 @@ function MyComponent({
 						}}
 						mapContainerStyle={containerStyle}
 						center={center}
-						zoom={15}
+						zoom={-12}
 						onLoad={onLoad}
 						onUnmount={onUnmount}
-						//onclick print the lat and lng
 						onClick={(e) => {
-							console.log(e.latLng.lat(), e.latLng.lng());
+							//	console.log(e.latLng.lat(), e.latLng.lng());
 							setMarkers({
 								lat: e.latLng.lat(),
 								lng: e.latLng.lng(),
@@ -152,20 +179,18 @@ function MyComponent({
 						}}>
 						{/* Child components, such as markers, info windows, etc. */}
 						<Autocomplete
-							dark
 							onLoad={(autocomplete) => {
 								setSearch(autocomplete);
 							}}
 							onPlaceChanged={() => {
-								const place = search.getPlace();
-								console.log(
-									place.geometry.location.lat(),
-									place.geometry.location.lng()
-								);
-								setCenter({
-									lat: place.geometry.location.lat(),
-									lng: place.geometry.location.lng(),
-								});
+								if (search !== null) {
+									const place = search?.getPlace();
+
+									setCenter({
+										lat: place.geometry.location.lat(),
+										lng: place.geometry.location.lng(),
+									});
+								}
 							}}>
 							<input
 								type='text'
